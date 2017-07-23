@@ -4,5 +4,6 @@
     {
         string GetString(string configurationKey);
         int GetInt(string configurationKey);
+        bool GetBool(string configurationKey);
     }
 }

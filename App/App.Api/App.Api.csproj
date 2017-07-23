@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,10 +44,49 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="App.Metrics.Concurrency, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\App.Metrics.Concurrency.1.2.0\lib\net45\App.Metrics.Concurrency.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Enexure.MicroBus, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Enexure.MicroBus.3.5.0\lib\net451\Enexure.MicroBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Enexure.MicroBus.Autofac, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Enexure.MicroBus.Autofac.3.5.2\lib\net451\Enexure.MicroBus.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Enexure.MicroBus.InfrastructureContracts, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Enexure.MicroBus.InfrastructureContracts.3.5.0\lib\net451\Enexure.MicroBus.InfrastructureContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Enexure.MicroBus.MessageContracts, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Enexure.MicroBus.MessageContracts.3.1.0\lib\net45\Enexure.MicroBus.MessageContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit.Core, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ProductionStackTrace, Version=1.0.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProductionStackTrace.1.0.16\lib\net45\ProductionStackTrace.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -57,6 +97,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -64,6 +107,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -101,12 +147,78 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-table.css" />
+    <Content Include="Content\bootstrap-table.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\prettify.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\xml.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\editable\bootstrap-table-editable.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\export\bootstrap-table-export.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\filter\bootstrap-table-filter.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\flatJSON\bootstrap-table-flatJSON.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-cs-CZ.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-da-DK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-de-DE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-el-GR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-en-US.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-AR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-CR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-NI.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-BE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-FR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-hu-HU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-it-IT.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ja-JP.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ko-KR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ms-MY.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nb-NO.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nl-NL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pl-PL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-BR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-PT.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ru-RU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sk-SK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sv-SE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-th-TH.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-tr-TR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-uk-UA.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ur-PK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-vi-VN.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-CN.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-TW.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\prettify.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -116,6 +228,16 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Views\Logs\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -125,7 +247,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -133,10 +254,29 @@
       <Project>{3720884e-16af-4c75-b5dc-e08e815d9a63}</Project>
       <Name>App.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\App.Database\App.Database.csproj">
+      <Project>{041D6355-BBF2-4FE9-AE90-3490379D7157}</Project>
+      <Name>App.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Dto\App.Dto.csproj">
+      <Project>{5DB82D4E-AA87-405B-8750-053F2EC057FF}</Project>
+      <Name>App.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Entities\App.Entities.csproj">
+      <Project>{1F43C2E5-4D77-4AEE-A9BB-C706EEAD0240}</Project>
+      <Name>App.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Exceptions\App.Exceptions.csproj">
       <Project>{EC5A085B-0B24-4CE1-A70B-7B2DFB826C82}</Project>
       <Name>App.Exceptions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\App.Infrastructure\App.Infrastructure.csproj">
+      <Project>{55391e93-06a3-491b-a8e3-3beb4990baa9}</Project>
+      <Name>App.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

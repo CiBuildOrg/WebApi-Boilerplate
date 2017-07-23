@@ -6,5 +6,7 @@ namespace App.Core.Contracts
     public interface IDatabaseContext : IDbContext
     {
         IDbSet<Dummy> Dummy { get; }
+
+        IDbSet<LogEntry> LogEntries { get; set; }
     }
 }

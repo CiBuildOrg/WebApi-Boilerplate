@@ -25,5 +25,10 @@ namespace App.Api
         {
             return int.Parse(GetString(configurationKey));
         }
+
+        public bool GetBool(string configurationKey)
+        {
+            return bool.Parse(GetString(configurationKey));
+        }
     }
 }

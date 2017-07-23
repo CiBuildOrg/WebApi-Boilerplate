@@ -43,7 +43,10 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Contracts\IBaseEntity.cs" />
     <Compile Include="Dummy.cs" />
+    <Compile Include="LogEntry.cs" />
+    <Compile Include="LogStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StepType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -22,5 +22,7 @@ namespace App.Database
         }
 
         public IDbSet<Dummy> Dummy { get; set; }
+
+        public IDbSet<LogEntry> LogEntries { get; set; }
     }
 }

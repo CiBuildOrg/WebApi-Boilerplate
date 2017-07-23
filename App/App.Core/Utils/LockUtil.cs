@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace App.Core.Utils
 {
-    internal sealed class LockUtil : IDisposable
+    public sealed class LockUtil : IDisposable
     {
         private readonly object _lockObj;
 

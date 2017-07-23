@@ -1,0 +1,43 @@
+﻿@using App.Dto
+@using App.Infrastructure.Tracing.Dashboard
+@{
+    ViewBag.Title = "Logs HomePage";
+}
+
+@section styles
+{
+    @Styles.Render("~/Content/xmldisplaycss")
+
+    @Styles.Render("~/Content/prettyprint")
+}
+
+<div class="jumbotron">
+    <p class="lead">See the logs</p>
+</div>
+
+@(Html.BootstrapTable<TraceViewModel>(Url.Action("GetTracesPaged"), TablePaginationOption.Server)
+      .Apply(TableOption.ShowLoading, TableOption.ShowRefresh, TableOption.Search, 
+          TableOption.SortOrderDesc, TableOption.Striped, TableOption.ShowToggle, TableOption.CardView, TableOption.AjaxOptions, TableOption.Sortable, 
+          TableOption.ShowHeader, TableOption.ShowPaginationSwitch)
+      .Apply(TableOption.SortName, "Timestamp")
+      .Apply(TableOption.PageSize, 4)
+      .Apply(m => m.Timestamp, ColumnOption.Sortable)
+      .ApplyToColumns(ColumnOption.Formatter)
+      .Apply(TableOption.ButtonsAlign, "left"))
+
+@section scripts
+{   
+    @Scripts.Render("~/bundles/prettyprintjs")
+    <script language="javascript">
+        $(document).ready(function() {
+
+            $('.bootstrap-table').on('load-success.bs.table', function () {
+                PR.prettyPrint();
+            });
+
+            $("button[name='toggle']").click(function () {
+                PR.prettyPrint();
+            });
+        })
+    </script>
+}
