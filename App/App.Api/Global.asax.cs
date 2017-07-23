@@ -5,6 +5,7 @@ using System.Web.Routing;
 using System.Web.Http;
 using System.Web.Optimization;
 using App.Exceptions;
+using App.Infrastructure.Extensions;
 using App.Infrastructure.Tracing;
 using Autofac;
 using Autofac.Integration.WebApi;
@@ -25,6 +26,10 @@ namespace App.Api
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutofacConfig.ConfigureContainer();
             GlobalConfiguration.Configuration.MessageHandlers.Add(GetResolver().Resolve<ApiLogHandler>());
+
+
+            // monitor unhandled exceptions
+            this.EnableMonitoring();
         }
 
         private static ILifetimeScope GetResolver()
