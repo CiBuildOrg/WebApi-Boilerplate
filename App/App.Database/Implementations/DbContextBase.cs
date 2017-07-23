@@ -84,7 +84,7 @@ namespace App.Database.Implementations
             SaveChanges();
         }
 
-        DbEntityEntry<T> EnsureAttachedEf<T>(T entity) where T : class, IBaseEntity
+        private DbEntityEntry<T> EnsureAttachedEf<T>(T entity) where T : class, IBaseEntity
         {
             if (Entry(entity).State == EntityState.Detached)
                 Set<T>().Attach(entity);
@@ -97,7 +97,7 @@ namespace App.Database.Implementations
             foreach (var entry in ChangeTracker.Entries<BaseEntity>()
                 .Where(e => e.State == EntityState.Added))
             {
-                entry.Entity.Id = Guid.NewGuid();
+                entry.Entity.Id = SequentialGuid.NewSequentialGuid();
             }
 
             return SaveUtil.ExecuteDatabaseSave(base.SaveChanges);
