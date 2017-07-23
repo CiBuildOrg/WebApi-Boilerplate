@@ -111,6 +111,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -126,6 +127,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Core\App.Core.csproj">
+      <Project>{3720884e-16af-4c75-b5dc-e08e815d9a63}</Project>
+      <Name>App.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Exceptions\App.Exceptions.csproj">
+      <Project>{EC5A085B-0B24-4CE1-A70B-7B2DFB826C82}</Project>
+      <Name>App.Exceptions</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

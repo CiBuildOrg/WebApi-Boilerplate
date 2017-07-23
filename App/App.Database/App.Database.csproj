@@ -30,7 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +47,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\BaseConfiguration.cs" />
+    <Compile Include="Configurations\DummyConfiguration.cs" />
+    <Compile Include="ContextConfiguration.cs" />
+    <Compile Include="ContextConfigurationModule.cs" />
+    <Compile Include="ContextFactory.cs" />
+    <Compile Include="DatabaseContext.cs" />
+    <Compile Include="Extensions\DbContextExtensions.cs" />
+    <Compile Include="Implementations\DbContextBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tables.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Core\App.Core.csproj">
+      <Project>{3720884e-16af-4c75-b5dc-e08e815d9a63}</Project>
+      <Name>App.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Entities\App.Entities.csproj">
+      <Project>{1f43c2e5-4d77-4aee-a9bb-c706eead0240}</Project>
+      <Name>App.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Exceptions\App.Exceptions.csproj">
+      <Project>{ec5a085b-0b24-4ce1-a70b-7b2dfb826c82}</Project>
+      <Name>App.Exceptions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
