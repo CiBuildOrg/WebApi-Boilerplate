@@ -70,6 +70,7 @@
     <Compile Include="Contracts\ITracer.cs" />
     <Compile Include="Contracts\ITraceStepper.cs" />
     <Compile Include="Contracts\ITraceStepUtil.cs" />
+    <Compile Include="CoreModule.cs" />
     <Compile Include="Implementations\NowImplementation.cs" />
     <Compile Include="Implementations\Resolver.cs" />
     <Compile Include="Implementations\TraceStepUtil.cs" />

@@ -113,13 +113,13 @@
     <Compile Include="Di\AutofacDependencyScope.cs" />
     <Compile Include="Di\AutofacResolver.cs" />
     <Compile Include="Extensions\HttpApplicationExtensions.cs" />
+    <Compile Include="InfrastructureModule.cs" />
     <Compile Include="Logging\Owin\CommonLogFactoryExtensions.cs" />
     <Compile Include="Logging\Owin\CommonLogger.cs" />
     <Compile Include="Logging\Owin\CommonLoggingFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracing\ApiEntryCommand.cs" />
     <Compile Include="Tracing\ApiEntryHandler.cs" />
-    <Compile Include="Tracing\BusDomainModule.cs" />
     <Compile Include="Tracing\Dashboard\BootstrapTableHelpers.cs" />
     <Compile Include="Tracing\Dashboard\ColumnOption.cs" />
     <Compile Include="Tracing\Dashboard\Controls\IColumnApply.cs" />

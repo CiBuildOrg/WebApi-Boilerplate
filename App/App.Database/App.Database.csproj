@@ -58,6 +58,7 @@
     <Compile Include="ContextConfigurationModule.cs" />
     <Compile Include="ContextFactory.cs" />
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="DatabaseModule.cs" />
     <Compile Include="Extensions\DbContextExtensions.cs" />
     <Compile Include="Implementations\DbContextBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

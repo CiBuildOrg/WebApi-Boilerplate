@@ -24,28 +24,9 @@ namespace App.Api
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AutofacConfig.ConfigureContainer();
-            GlobalConfiguration.Configuration.MessageHandlers.Add(GetResolver().Resolve<ApiLogHandler>());
-
-
+            
             // monitor unhandled exceptions
             this.EnableMonitoring();
-        }
-
-        private static ILifetimeScope GetResolver()
-        {
-            // intiialize the container
-            var dependencyComponent = GlobalConfiguration.Configuration.DependencyResolver;
-            if (dependencyComponent == null)
-                throw new NoDependencyInjectionSetupException("Dependency component not found");
-
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            if (!(dependencyComponent is AutofacWebApiDependencyResolver))
-            {   
-                throw new NoAutofacContainerFoundException("Dependency resolver is not Autofac");
-            }
-
-            return ((AutofacWebApiDependencyResolver)dependencyComponent).Container;
         }
     }
 }
