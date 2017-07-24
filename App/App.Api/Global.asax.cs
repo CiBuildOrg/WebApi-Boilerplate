@@ -41,7 +41,7 @@ namespace App.Api
 
             // ReSharper disable once SuspiciousTypeConversion.Global
             if (!(dependencyComponent is AutofacWebApiDependencyResolver))
-            {
+            {   
                 throw new NoAutofacContainerFoundException("Dependency resolver is not Autofac");
             }
 
