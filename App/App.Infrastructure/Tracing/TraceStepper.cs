@@ -303,7 +303,7 @@ namespace App.Infrastructure.Tracing
             {
                 if (item.Value == null) continue;
 
-                var header = item.Value.Aggregate(String.Empty, (current, value) => current + (value + " "));
+                var header = item.Value.Aggregate(string.Empty, (current, value) => current + (value + " "));
                 // Trim the trailing space and add item to the dictionary
                 header = header.TrimEnd(" ".ToCharArray());
                 dict.Add(item.Key, header);

@@ -1,4 +1,5 @@
-﻿using Owin;
+﻿using App.Infrastructure.Logging.Owin;
+using Owin;
 
 namespace App.Api
 {
@@ -6,6 +7,7 @@ namespace App.Api
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCommonLogging();
         }
     }
 }
