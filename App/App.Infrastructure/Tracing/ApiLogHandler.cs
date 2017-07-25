@@ -68,27 +68,37 @@ namespace App.Infrastructure.Tracing
             CancellationToken cancellationToken)
         {
             var scope = request.GetDependencyScope();
-
-            var tracer = (ITraceTerminal)scope.GetService(typeof(ITraceTerminal));
-            var traceStepper = (ITraceProvider)scope.GetService(typeof(ITraceProvider));
             var configurationHelper = (IConfiguration)scope.GetService(typeof(IConfiguration));
-            var logService = (ILogService) scope.GetService(typeof(ILogService));
 
+            ITraceTerminal tracer = null;
+            ITraceProvider traceStepper = null;
+            ILogService logService = null;
             ApiLogEntry apiLogEntry = null;
 
             if (ShouldLog(configurationHelper))
             {
+                tracer = (ITraceTerminal) scope.GetService(typeof(ITraceTerminal));
+                traceStepper = (ITraceProvider) scope.GetService(typeof(ITraceProvider));
+                logService = (ILogService) scope.GetService(typeof(ILogService));
+
                 apiLogEntry = CreateApiLogEntryWithRequestData(request);
             }
 
-            if (request.Content != null)
+            if (ShouldLog(configurationHelper))
             {
-                var requestContent = await request.Content.ReadAsStringAsync();
-                ProcessRequest(requestContent, apiLogEntry, configurationHelper, traceStepper);
+                if (request.Content != null)
+                {
+                    var requestContent = await request.Content.ReadAsStringAsync();
+                    ProcessRequest(requestContent, apiLogEntry, configurationHelper, traceStepper);
+                }
             }
 
             var response = await base.SendAsync(request, cancellationToken);
-            ProcessResponse(response, apiLogEntry, traceStepper, tracer, configurationHelper, logService);
+
+            if (ShouldLog(configurationHelper))
+            {
+                ProcessResponse(response, apiLogEntry, traceStepper, tracer, configurationHelper, logService);
+            }
 
             return response;
         }
