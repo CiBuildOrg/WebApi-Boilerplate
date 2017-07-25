@@ -23,7 +23,7 @@ This will generate a SQL script that you can then run against your database.
 In case you modify the database entities you can always add a migration like so: 
 
 ```
-Add-Migration -Verbose -ConfigurationTypeName ContextConfiguration -ConnectionString "Data Source=.;Initial Catalog=GenericDb;Integrated Security=True;" -ConnectionProviderName "System.Data.SqlClient" UpdateTableIntervals -StartupProjectName App.Api -ProjectName App.Database
+Add-Migration -Verbose -ConfigurationTypeName ContextConfiguration -ConnectionString "Data Source=.;Initial Catalog=GenericDb;Integrated Security=True;" -ConnectionProviderName "System.Data.SqlClient" MigrationNameHere -StartupProjectName App.Api -ProjectName App.Database
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
