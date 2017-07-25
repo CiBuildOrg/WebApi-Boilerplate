@@ -42,12 +42,6 @@
     <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Enexure.MicroBus, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Enexure.MicroBus.3.5.0\lib\net451\Enexure.MicroBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Enexure.MicroBus.Autofac, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Enexure.MicroBus.Autofac.3.5.2\lib\net451\Enexure.MicroBus.Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="Enexure.MicroBus.InfrastructureContracts, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Enexure.MicroBus.InfrastructureContracts.3.5.0\lib\net451\Enexure.MicroBus.InfrastructureContracts.dll</HintPath>
     </Reference>
@@ -118,8 +112,6 @@
     <Compile Include="Logging\Owin\CommonLogger.cs" />
     <Compile Include="Logging\Owin\CommonLoggingFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tracing\ApiEntryCommand.cs" />
-    <Compile Include="Tracing\ApiEntryHandler.cs" />
     <Compile Include="Tracing\ApiLogHandler.cs" />
     <Compile Include="Tracing\Dashboard\BootstrapTableHelpers.cs" />
     <Compile Include="Tracing\Dashboard\ColumnOption.cs" />
@@ -166,6 +158,10 @@
     <ProjectReference Include="..\App.Entities\App.Entities.csproj">
       <Project>{1F43C2E5-4D77-4AEE-A9BB-C706EEAD0240}</Project>
       <Name>App.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Services\App.Services.csproj">
+      <Project>{CFD8E610-9C7D-4C39-B6ED-067522A10440}</Project>
+      <Name>App.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

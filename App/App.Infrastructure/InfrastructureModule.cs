@@ -1,8 +1,6 @@
 ﻿using App.Core.Contracts;
 using App.Infrastructure.Tracing;
 using Autofac;
-using Enexure.MicroBus;
-using Enexure.MicroBus.Autofac;
 
 namespace App.Infrastructure
 {
@@ -13,15 +11,7 @@ namespace App.Infrastructure
             builder.RegisterType<SimpleTraceTerminal>().As<ITraceTerminal>().InstancePerLifetimeScope();
             builder.RegisterType<TraceProvider>().As<ITraceProvider>().InstancePerLifetimeScope();
             builder.RegisterType<ApiLogHandler>().AsSelf().InstancePerLifetimeScope();
-
-            RegisterBus(builder);
         }
 
-        private static void RegisterBus(ContainerBuilder builder)
-        {
-            var busBuilder = new BusBuilder();
-            busBuilder.RegisterCommandHandler<ApiEntryCommand, ApiEntryHandler>();
-            builder.RegisterMicroBus(busBuilder);
-        }
     }
 }

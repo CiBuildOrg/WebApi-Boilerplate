@@ -10,7 +10,7 @@ using System.Web.Http.Routing;
 using App.Core;
 using App.Core.Contracts;
 using App.Dto.Traces;
-using Enexure.MicroBus;
+using App.Services.Contracts;
 using Newtonsoft.Json;
 
 namespace App.Infrastructure.Tracing
@@ -38,7 +38,8 @@ namespace App.Infrastructure.Tracing
             traceProvider.WriteOperation("Web API request", "body request", apiLogEntry.RequestContentBody);
         }
 
-        private static async Task ProcessResponse(HttpResponseMessage response, ApiLogEntry apiLogEntry, ITraceProvider traceProvider, ITraceTerminal traceTerminal, IMicroBus bus, IConfiguration configuration)
+        private static void ProcessResponse(HttpResponseMessage response, ApiLogEntry apiLogEntry, 
+            ITraceProvider traceProvider, ITraceTerminal traceTerminal, IConfiguration configuration, ILogService logService)
         {
 
             if (!ShouldLog(configuration)) return;
@@ -60,7 +61,7 @@ namespace App.Infrastructure.Tracing
             traceProvider.Dispose();
 
             var traceSteps = traceTerminal.TraceSteps;
-            await bus.SendAsync(new ApiEntryCommand(apiLogEntry, traceSteps));
+           logService.SaveTrace(apiLogEntry, traceSteps);
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
@@ -70,8 +71,8 @@ namespace App.Infrastructure.Tracing
 
             var tracer = (ITraceTerminal)scope.GetService(typeof(ITraceTerminal));
             var traceStepper = (ITraceProvider)scope.GetService(typeof(ITraceProvider));
-            var bus = (IMicroBus)scope.GetService(typeof(IMicroBus));
             var configurationHelper = (IConfiguration)scope.GetService(typeof(IConfiguration));
+            var logService = (ILogService) scope.GetService(typeof(ILogService));
 
             ApiLogEntry apiLogEntry = null;
 
@@ -87,7 +88,7 @@ namespace App.Infrastructure.Tracing
             }
 
             var response = await base.SendAsync(request, cancellationToken);
-            await ProcessResponse(response, apiLogEntry, traceStepper, tracer, bus, configurationHelper);
+            ProcessResponse(response, apiLogEntry, traceStepper, tracer, configurationHelper, logService);
 
             return response;
         }
@@ -126,7 +127,7 @@ namespace App.Infrastructure.Tracing
             {
                 if (item.Value == null) continue;
 
-                var header = item.Value.Aggregate(string.Empty, (current, value) => current + (value + " "));
+                var header = item.Value.Aggregate(string.Empty, (current, value) => current + value + " ");
                 // Trim the trailing space and add item to the dictionary
                 header = header.TrimEnd(" ".ToCharArray());
                 dict.Add(item.Key, header);
