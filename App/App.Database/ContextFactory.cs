@@ -6,7 +6,7 @@ namespace App.Database
     {
 #if DEBUG
 
-        private const string DbConnection = "Data Source=.;Initial Catalog=<DATBASE_NAME_HERE>;Integrated Security=True;";
+        private const string DbConnection = "Data Source=.;Initial Catalog=GenericDb;Integrated Security=True;";
         public DatabaseContext Create()
         {
             return new DatabaseContext(DbConnection);
