@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using App.Core.Contracts;
 
@@ -9,23 +6,23 @@ namespace App.Api.Controllers
 {
     public class ValuesController : ApiController
     {
-        private readonly ITraceStepper _traceStepper;
+        private readonly ITraceProvider _traceProvider;
 
-        public ValuesController( ITraceStepper traceStepper)
+        public ValuesController( ITraceProvider traceProvider)
         {
-            _traceStepper = traceStepper;
+            _traceProvider = traceProvider;
         }
 
         public IEnumerable<string> Get()
         {
             try
             {
-                _traceStepper.WriteOperation("Entered get", "Index", "No metadata");
+                _traceProvider.WriteOperation("Entered get", "Index", "No metadata");
                 return new[] { "value1", "value2" };
             }
             finally
             {
-                _traceStepper.WriteOperation("Exited get", "Index", "No metadata");
+                _traceProvider.WriteOperation("Exited get", "Index", "No metadata");
             }
         }
     }

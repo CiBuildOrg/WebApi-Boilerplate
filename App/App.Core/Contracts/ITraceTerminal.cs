@@ -29,11 +29,11 @@ namespace App.Core.Contracts
         public string Metadata { get; set; }
     }
 
-    public interface ITracer
+    public interface ITraceTerminal
     {
-        void WriteMessage(TraceMessageInfo info);
-        void WriteException(TraceExceptionInfo info);
-        void WriteOperation(TraceOperationInfo info);
+        void AcceptMessage(TraceMessageInfo info);
+        void AcceptException(TraceExceptionInfo info);
+        void AcceptOperation(TraceOperationInfo info);
 
         List<TraceStep> TraceSteps { get; }
     }

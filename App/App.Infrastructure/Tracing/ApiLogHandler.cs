@@ -22,7 +22,7 @@ namespace App.Infrastructure.Tracing
             return configuration.GetBool(ConfigurationKeys.ShouldTrace);
         }
 
-        private static void ProcessRequest(string request, ApiLogEntry apiLogEntry, IConfiguration configuration, ITraceStepper traceStepper)
+        private static void ProcessRequest(string request, ApiLogEntry apiLogEntry, IConfiguration configuration, ITraceProvider traceProvider)
         {
             if (!ShouldLog(configuration)) return;
 
@@ -33,12 +33,12 @@ namespace App.Infrastructure.Tracing
                 apiLogEntry.RequestContentBody = "No body payload detected";
             }
 
-            traceStepper.WriteOperation("Web API request", "request headers", apiLogEntry.RequestHeaders);
-            traceStepper.WriteOperation("Web API request", "query string", apiLogEntry.RequestUri);
-            traceStepper.WriteOperation("Web API request", "body request", apiLogEntry.RequestContentBody);
+            traceProvider.WriteOperation("Web API request", "request headers", apiLogEntry.RequestHeaders);
+            traceProvider.WriteOperation("Web API request", "query string", apiLogEntry.RequestUri);
+            traceProvider.WriteOperation("Web API request", "body request", apiLogEntry.RequestContentBody);
         }
 
-        private static async Task ProcessResponse(HttpResponseMessage response, ApiLogEntry apiLogEntry, ITraceStepper traceStepper, ITracer tracer, IMicroBus bus, IConfiguration configuration)
+        private static async Task ProcessResponse(HttpResponseMessage response, ApiLogEntry apiLogEntry, ITraceProvider traceProvider, ITraceTerminal traceTerminal, IMicroBus bus, IConfiguration configuration)
         {
 
             if (!ShouldLog(configuration)) return;
@@ -54,12 +54,12 @@ namespace App.Infrastructure.Tracing
                 apiLogEntry.ResponseHeaders = SerializeHeaders(response.Content.Headers);
             }
 
-            traceStepper.WriteOperation("Web API response", "response body", apiLogEntry.ResponseContentBody);
-            traceStepper.WriteOperation("Web API response", "response headers", apiLogEntry.ResponseHeaders);
+            traceProvider.WriteOperation("Web API response", "response body", apiLogEntry.ResponseContentBody);
+            traceProvider.WriteOperation("Web API response", "response headers", apiLogEntry.ResponseHeaders);
 
-            traceStepper.Dispose();
+            traceProvider.Dispose();
 
-            var traceSteps = tracer.TraceSteps;
+            var traceSteps = traceTerminal.TraceSteps;
             await bus.SendAsync(new ApiEntryCommand(apiLogEntry, traceSteps));
         }
 
@@ -68,8 +68,8 @@ namespace App.Infrastructure.Tracing
         {
             var scope = request.GetDependencyScope();
 
-            var tracer = (ITracer)scope.GetService(typeof(ITracer));
-            var traceStepper = (ITraceStepper)scope.GetService(typeof(ITraceStepper));
+            var tracer = (ITraceTerminal)scope.GetService(typeof(ITraceTerminal));
+            var traceStepper = (ITraceProvider)scope.GetService(typeof(ITraceProvider));
             var bus = (IMicroBus)scope.GetService(typeof(IMicroBus));
             var configurationHelper = (IConfiguration)scope.GetService(typeof(IConfiguration));
 
@@ -90,7 +90,6 @@ namespace App.Infrastructure.Tracing
             await ProcessResponse(response, apiLogEntry, traceStepper, tracer, bus, configurationHelper);
 
             return response;
-
         }
 
         private static ApiLogEntry CreateApiLogEntryWithRequestData(HttpRequestMessage request)

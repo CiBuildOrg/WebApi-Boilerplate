@@ -19,11 +19,11 @@ namespace App.Api.Controllers
 {
     public class LogsController : Controller
     {
-        const string XmlHeader8 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-        const string XmlHeader16 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+        private const string XmlHeader8 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+        private const string XmlHeader16 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
-        const string LogsSortAscendingKey = "asc";
-        const string LogsSortDescendingKey = "desc";
+        private const string LogsSortAscendingKey = "asc";
+        private const string LogsSortDescendingKey = "desc";
 
         private const int LogLimit = 2 * 24; // 2 days
 

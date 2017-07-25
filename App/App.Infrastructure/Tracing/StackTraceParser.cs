@@ -7,10 +7,10 @@ namespace App.Infrastructure.Tracing
 {
     public static class StackTraceParser
     {
-        const string Space = @"[\x20\t]";
-        const string NotSpace = @"[^\x20\t]";
+        private const string Space = @"[\x20\t]";
+        private const string NotSpace = @"[^\x20\t]";
 
-        static readonly Regex Regex = new Regex(@"
+        private static readonly Regex Regex = new Regex(@"
             ^
             " + Space + @"*
             \w+ " + Space + @"+
@@ -95,7 +95,7 @@ namespace App.Infrastructure.Tracing
                         Token(groups["line"], tokenSelector)));
         }
 
-        static T Token<T>(Capture capture, Func<int, int, string, T> tokenSelector)
+        private static T Token<T>(Capture capture, Func<int, int, string, T> tokenSelector)
         {
             return tokenSelector(capture.Index, capture.Length, capture.Value);
         }

@@ -67,8 +67,8 @@
     <Compile Include="Contracts\IDbContext.cs" />
     <Compile Include="Contracts\INow.cs" />
     <Compile Include="Contracts\IResolver.cs" />
-    <Compile Include="Contracts\ITracer.cs" />
-    <Compile Include="Contracts\ITraceStepper.cs" />
+    <Compile Include="Contracts\ITraceTerminal.cs" />
+    <Compile Include="Contracts\ITraceProvider.cs" />
     <Compile Include="Contracts\ITraceStepUtil.cs" />
     <Compile Include="CoreModule.cs" />
     <Compile Include="Implementations\NowImplementation.cs" />

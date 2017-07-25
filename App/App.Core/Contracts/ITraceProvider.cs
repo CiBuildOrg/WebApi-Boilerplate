@@ -2,7 +2,7 @@
 
 namespace App.Core.Contracts
 {
-    public interface ITraceStepper : IDisposable
+    public interface ITraceProvider : IDisposable
     {
         void WriteMessage(string message);
         void WriteException(Exception exception, string description);

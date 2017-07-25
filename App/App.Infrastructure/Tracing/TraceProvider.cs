@@ -6,14 +6,14 @@ using ProductionStackTrace;
 
 namespace App.Infrastructure.Tracing
 {
-    public class TraceStepper : ITraceStepper
+    public class TraceProvider : ITraceProvider
     {
-        private readonly ITracer _tracer;
+        private readonly ITraceTerminal _traceTerminal;
         private readonly IConfiguration _helper;
 
-        public TraceStepper(ITracer tracer, IConfiguration helper)
+        public TraceProvider(ITraceTerminal traceTerminal, IConfiguration helper)
         {
-            _tracer = tracer;
+            _traceTerminal = traceTerminal;
             _helper = helper;
         }
 
@@ -56,14 +56,14 @@ namespace App.Infrastructure.Tracing
                     var type = stackTraceEntry.Type;
                     if (string.IsNullOrEmpty(type)) continue;
 
-                    var @typeof = typeof(TraceStepper).Name;
+                    var @typeof = typeof(TraceProvider).Name;
                     if (type.EndsWith(@typeof))
                     {
                         @break = true;
                     }
                 }
 
-                _tracer.WriteMessage(new TraceMessageInfo
+                _traceTerminal.AcceptMessage(new TraceMessageInfo
                 {
                     Frame = frame,
                     Source = methodName,
@@ -107,7 +107,7 @@ namespace App.Infrastructure.Tracing
                     var type = stackTraceEntry.Type;
                     if (string.IsNullOrEmpty(type)) continue;
 
-                    var @typeof = typeof(TraceStepper).Name;
+                    var @typeof = typeof(TraceProvider).Name;
                     if (type.EndsWith(@typeof))
                     {
                         @break = true;
@@ -116,7 +116,7 @@ namespace App.Infrastructure.Tracing
 
                 var exceptionName = exception.GetType().Name;
                 var exceptionTrace = ExceptionReporting.GetExceptionReport(exception);
-                _tracer.WriteException(new TraceExceptionInfo
+                _traceTerminal.AcceptException(new TraceExceptionInfo
                 {
                     Frame = frame,
                     Exception = exceptionTrace,
@@ -162,14 +162,14 @@ namespace App.Infrastructure.Tracing
                 var type = stackTraceEntry.Type;
                 if (string.IsNullOrEmpty(type)) continue;
 
-                var @typeof = typeof(TraceStepper).Name;
+                var @typeof = typeof(TraceProvider).Name;
                 if (type.EndsWith(@typeof))
                 {
                     @break = true;
                 }
             }
 
-            _tracer.WriteOperation(new TraceOperationInfo
+            _traceTerminal.AcceptOperation(new TraceOperationInfo
             {
                 Metadata = operationMetadata,
                 Frame = frame,

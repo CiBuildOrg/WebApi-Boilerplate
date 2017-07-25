@@ -11,9 +11,9 @@ namespace App.Core.Implementations
             _resolver = resolver;
         }
 
-        public ITraceStepper Get()
+        public ITraceProvider Get()
         {
-            return _resolver.Resolve<ITraceStepper>();
+            return _resolver.Resolve<ITraceProvider>();
         }
     }
 }

@@ -10,8 +10,8 @@ namespace App.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SimpleTracer>().As<ITracer>().InstancePerLifetimeScope();
-            builder.RegisterType<TraceStepper>().As<ITraceStepper>().InstancePerLifetimeScope();
+            builder.RegisterType<SimpleTraceTerminal>().As<ITraceTerminal>().InstancePerLifetimeScope();
+            builder.RegisterType<TraceProvider>().As<ITraceProvider>().InstancePerLifetimeScope();
             builder.RegisterType<ApiLogHandler>().AsSelf().InstancePerLifetimeScope();
 
             RegisterBus(builder);

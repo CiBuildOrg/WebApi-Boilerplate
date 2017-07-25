@@ -9,7 +9,7 @@ using App.Metrics.Concurrency;
 
 namespace App.Infrastructure.Tracing
 {
-    public class SimpleTracer : ITracer
+    public class SimpleTraceTerminal : ITraceTerminal
     {
         private readonly INow _now;
         private readonly IConfiguration _helper;
@@ -17,7 +17,7 @@ namespace App.Infrastructure.Tracing
         private readonly ConcurrentList<TraceStep> _steps;
         private AtomicInteger _index;
 
-        public SimpleTracer(INow now, IConfiguration helper)
+        public SimpleTraceTerminal(INow now, IConfiguration helper)
         {
             _now = now;
             _helper = helper;
@@ -31,7 +31,7 @@ namespace App.Infrastructure.Tracing
 
         private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldTrace);
 
-        public void WriteMessage(TraceMessageInfo info)
+        public void AcceptMessage(TraceMessageInfo info)
         {
             if (ShouldLog)
             {
@@ -58,7 +58,7 @@ namespace App.Infrastructure.Tracing
             }
         }
 
-        public void WriteException(TraceExceptionInfo info)
+        public void AcceptException(TraceExceptionInfo info)
         {
             if (ShouldLog)
             {
@@ -85,7 +85,7 @@ namespace App.Infrastructure.Tracing
             }
         }
 
-        public void WriteOperation(TraceOperationInfo info)
+        public void AcceptOperation(TraceOperationInfo info)
         {
             if (ShouldLog)
             {

@@ -143,9 +143,9 @@
     <Compile Include="Tracing\Resources\Embedded.cs" />
     <Compile Include="Tracing\Resources\JsonPrettifier.cs" />
     <Compile Include="Tracing\Resources\XmlPrettifyHelper.cs" />
-    <Compile Include="Tracing\SimpleTracer.cs" />
+    <Compile Include="Tracing\SimpleTraceTerminal.cs" />
     <Compile Include="Tracing\StackTraceParser.cs" />
-    <Compile Include="Tracing\TraceStepper.cs" />
+    <Compile Include="Tracing\TraceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
