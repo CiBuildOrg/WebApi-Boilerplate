@@ -37,9 +37,8 @@ namespace App.Core.Utils
             if (body == null)
                 return sortAscending ? query.OrderBy(selector) : query.OrderByDescending(selector);
 
-            var keyExpr = body.Operand as MemberExpression;
 
-            if (keyExpr != null)
+            if (body.Operand is MemberExpression keyExpr)
                 return (IOrderedQueryable<T>)query.Provider.CreateQuery(
                     Expression.Call(
                         QueryableType,

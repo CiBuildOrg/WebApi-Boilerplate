@@ -5,6 +5,7 @@ using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using App.Exceptions;
@@ -59,7 +60,7 @@ namespace App.Core.Utils
         {
             Exception result;
             // let the unique constraint exceptions flow 
-            var innerException = dbUex.InnerException?.InnerException as SqlException;
+            var innerException = (SqlException) dbUex.InnerException?.InnerException;
 
             if (innerException != null && (innerException.Number == 2627 || innerException.Number == 2601))
             {
@@ -89,8 +90,7 @@ namespace App.Core.Utils
                 result = new ContextUniqueConstraintFailureException(detailedException);
             }
             else
-            if (!(dbUex.InnerException is UpdateException) ||
-                !(dbUex.InnerException.InnerException is SqlException))
+            if (!(dbUex.InnerException is UpdateException))
             {
                 IEnumerable<DbEntityEntry> entries = dbUex.Entries.ToList();
 
@@ -121,11 +121,11 @@ namespace App.Core.Utils
                     (SqlException)dbUex.InnerException.InnerException;
 
                 var outputLines = new StringBuilder();
+                Debug.Assert(sqlException != null, "sqlException != null");
                 for (var i = 0; i < sqlException.Errors.Count; i++)
                 {
                     var errorNum = sqlException.Errors[i].Number;
-                    string errorText;
-                    if (SqlErrorTextDict.TryGetValue(errorNum, out errorText))
+                    if (SqlErrorTextDict.TryGetValue(errorNum, out string errorText))
                         outputLines.AppendLine(errorText);
                 }
 

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+// ReSharper disable MustUseReturnValue
 
 namespace App.Infrastructure.Tracing.Dashboard.Controls
 {
     /// <summary>
     /// Build a BootstrapTable control.
     /// </summary>
-    internal partial class TableBuilder : IColumnBuilder
+    public partial class TableBuilder : IColumnBuilder
     {
         ///<exclude/>
         private readonly TagBuilder _builder;

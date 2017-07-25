@@ -4,13 +4,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
+// ReSharper disable MustUseReturnValue
 
 namespace App.Infrastructure.Tracing.Dashboard.Controls
 {
     /// <summary>
     /// Build a BootstrapTable control.
     /// </summary>
-    internal class TableBuilderT<TModel> : TableBuilder, IColumnBuilderT<TModel>
+    public class TableBuilderT<TModel> : TableBuilder, IColumnBuilderT<TModel>
     {
         /// <exclude/>
         public TableBuilderT(string id = null, string url = null, TablePaginationOption sidePagination = TablePaginationOption.None, 
@@ -114,7 +115,7 @@ namespace App.Infrastructure.Tracing.Dashboard.Controls
         /// <inheritDoc/>
         public IColumnBuilderT<TModel> Apply<TProperty>(Expression<Func<TModel, TProperty>> expression, ColumnOption option, object[] value)
         {
-            ApplyToColumnT(expression, option.FieldName(), string.Format("[{0}]", string.Join(",", value)));
+            ApplyToColumnT(expression, option.FieldName(), $"[{string.Join(",", value)}]");
             return this;
         }
 

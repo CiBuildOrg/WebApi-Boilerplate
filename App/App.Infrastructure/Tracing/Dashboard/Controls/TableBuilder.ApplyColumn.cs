@@ -2,12 +2,13 @@
 
 namespace App.Infrastructure.Tracing.Dashboard.Controls
 {
-    internal partial class TableBuilder
+    public partial class TableBuilder
     {
         /// <inheritDoc/>
         public IColumnBuilder ApplyToColumn(string name, object value)
         {
-            var applyToColumn = ApplyToColumn(_currentColumn, name, value);
+            // ReSharper disable once MustUseReturnValue
+            ApplyToColumn(_currentColumn, name, value);
             return this;
         }
 
@@ -26,7 +27,7 @@ namespace App.Infrastructure.Tracing.Dashboard.Controls
         /// <exclude/>
         public IColumnBuilder Apply(ColumnOption option, object[] value)
         {
-            return ApplyToColumn(option.FieldName(), string.Format("[{0}]", string.Join(",", value)));
+            return ApplyToColumn(option.FieldName(), $"[{string.Join(",", value)}]");
         }
 
         /// <exclude/>
@@ -34,6 +35,7 @@ namespace App.Infrastructure.Tracing.Dashboard.Controls
         {
             options.ForEach(option =>
             {
+                // ReSharper disable once MustUseReturnValue
                 ApplyToColumn(option.FieldName(), option.FieldValue() ?? true.ToStringLower());
             });
             return this;
@@ -44,6 +46,7 @@ namespace App.Infrastructure.Tracing.Dashboard.Controls
         {
             options.ForEach(option =>
             {
+                // ReSharper disable once MustUseReturnValue
                 ApplyToColumn(option.FieldName(), option.FieldValue() ?? false.ToStringLower());
             });
             return this;

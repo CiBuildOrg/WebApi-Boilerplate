@@ -13,13 +13,10 @@ using System.Web.Script.Serialization;
 namespace App.Infrastructure.Tracing.Dashboard
 {
     /// <exclude/>
-    internal static class Extensions
+    public static class Extensions
     {
         /// <exclude/>
-        public static string ToStringLower(this object value)
-        {
-            return value != null ? value.ToString().ToLower() : null;
-        }
+        public static string ToStringLower(this object value) => value?.ToString().ToLower();
 
         /// <exclude/>
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
@@ -61,18 +58,18 @@ namespace App.Infrastructure.Tracing.Dashboard
         public static string GetName<TModel, TProperty>(this Expression<Func<TModel, TProperty>> field)
         {
             var member = field.Body as MemberExpression;
-            return member.Member.Name;
+            return member?.Member.Name;
         }
 
         /// <exclude/>
         public static string GetDisplayName<TModel, TProperty>(this Expression<Func<TModel, TProperty>> field)
         {
             var member = field.Body as MemberExpression;
+            if (member == null) throw new NullReferenceException("member is not a MemberExpression");
             var display = member.Member.GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute;
-            if (display != null && !string.IsNullOrEmpty(display.GetName()))
-                return display.GetName();
-            else
-                return member.Member.Name.SplitCamelCase();
+            return !string.IsNullOrEmpty(display?.GetName())
+                ? display.GetName()
+                : member.Member.Name.SplitCamelCase();
         }
 
         /// <exclude/>

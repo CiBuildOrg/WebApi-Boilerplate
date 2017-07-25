@@ -1,4 +1,4 @@
-using System.Web.WebPages.Html;
+using System.Web.Mvc;
 using App.Infrastructure.Tracing.Dashboard.Controls;
 
 namespace App.Infrastructure.Tracing.Dashboard
@@ -46,7 +46,7 @@ namespace App.Infrastructure.Tracing.Dashboard
         /// <returns>Html representation of the control.</returns>
         public static ITableBuilderT<TModel> BootstrapTable<TModel>(this HtmlHelper helper, string url = null, TablePaginationOption pagination = TablePaginationOption.None, object htmlAttributes = null)
         {
-            return BootstrapTable<TModel>(helper, null, url, pagination, htmlAttributes);
+            return new TableBuilderT<TModel>(null, url, pagination, htmlAttributes);
         }
 
         /// <summary>

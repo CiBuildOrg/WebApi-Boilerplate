@@ -98,10 +98,8 @@ namespace App.Api.Controllers
 
                 foreach (var tracestep in traceSteps)
                 {
-                    builder.Append(string.Format("<p style=\"white-space: nowrap;\">{0}</p>", string.Format("From {0} method located in frame {1} {2} {3} \r\n", tracestep.Source,
-                        string.Format("<pre class=\"prettyprint lang-cs\">{0}</pre>", tracestep.Frame),
-                        (!string.IsNullOrEmpty(tracestep.Name) ? string.Format(" (which processes {0}) ", tracestep.Name) : ""),
-                        (!string.IsNullOrEmpty(tracestep.Message) ? string.Format(" (with message {0}) ", tracestep.Message) : ""))));
+                    builder.Append(
+                        $"<p style=\"white-space: nowrap;\">{string.Format($"From {tracestep.Source} method located in frame {string.Format($"<pre class=\"prettyprint lang-cs\">{tracestep.Frame}</pre>", tracestep.Frame)} {(!string.IsNullOrEmpty(tracestep.Name) ? $" (which processes {tracestep.Name}) " : "")} {(!string.IsNullOrEmpty(tracestep.Message) ? $" (with message {tracestep.Message}) " : "")} \r\n", tracestep.Source, $"<pre class=\"prettyprint lang-cs\">{tracestep.Frame}</pre>", (!string.IsNullOrEmpty(tracestep.Name) ? $" (which processes {tracestep.Name}) " : ""), (!string.IsNullOrEmpty(tracestep.Message) ? $" (with message {tracestep.Message}) " : ""))}</p>");
 
                     if (string.IsNullOrEmpty(tracestep.Metadata)) continue;
 
@@ -116,8 +114,8 @@ namespace App.Api.Controllers
                     }
                     else if (JsonUtils.IsValidJson(tracestep.Metadata))
                     {
-                        beautified = string.Format("<pre class=\"prettyprint lang-json\">{0}</pre>",
-                            JsonPrettifier.BeautifyJson(tracestep.Metadata));
+                        beautified =
+                            $"<pre class=\"prettyprint lang-json\">{JsonPrettifier.BeautifyJson(tracestep.Metadata)}</pre>";
                     }
                     else
                     {
@@ -136,8 +134,8 @@ namespace App.Api.Controllers
                 var item = new TraceViewModel
                 {
 
-                    Duration = captureDuration ? string.Format("{0} seconds",
-                        (trace.ResponseTimestamp.Value - trace.RequestTimestamp.Value).TotalSeconds.ToString("#.##")) : "Duration not captured",
+                    Duration = captureDuration ? $"{(trace.ResponseTimestamp.Value - trace.RequestTimestamp.Value).TotalSeconds.ToString("#.##")} seconds"
+                        : "Duration not captured",
                     Timestamp = trace.Timestamp.ToString(CultureInfo.InvariantCulture),
                     Uri = trace.RequestUri,
                     Workflow = new HtmlString(HttpUtility.HtmlDecode(traceString)).ToHtmlString()

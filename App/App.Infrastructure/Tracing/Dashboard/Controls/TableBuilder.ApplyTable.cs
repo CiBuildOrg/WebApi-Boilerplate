@@ -2,7 +2,7 @@
 
 namespace App.Infrastructure.Tracing.Dashboard.Controls
 {
-    internal partial class TableBuilder
+    public partial class TableBuilder
     {
         /// <inheritDoc/>
         public ITableBuilder ApplyToTable(string name, object value)
@@ -28,7 +28,7 @@ namespace App.Infrastructure.Tracing.Dashboard.Controls
             if (option.GetType() == typeof(TableOption) && option == TableOption.Columns)
                 return Columns(value.Select(o => o.ToString()).ToArray());
             else
-                return ApplyToTable(option.FieldName(), string.Format("[{0}]", string.Join(",", value)));
+                return ApplyToTable(option.FieldName(), $"[{string.Join(",", value)}]");
         }
 
         /// <exclude/>
@@ -36,6 +36,7 @@ namespace App.Infrastructure.Tracing.Dashboard.Controls
         {
             options.ForEach(option =>
             {
+                // ReSharper disable once MustUseReturnValue
                 ApplyToTable(option.FieldName(), option.FieldValue() ?? true.ToStringLower());
             });
             return this;
@@ -46,6 +47,7 @@ namespace App.Infrastructure.Tracing.Dashboard.Controls
         {
             options.ForEach(option =>
             {
+                // ReSharper disable once MustUseReturnValue
                 ApplyToTable(option.FieldName(), option.FieldValue() ?? false.ToStringLower());
             });
             return this;
