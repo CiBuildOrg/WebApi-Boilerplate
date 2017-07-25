@@ -29,7 +29,7 @@ namespace App.Infrastructure.Tracing
             }
         }
 
-        private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldLogSteps);
+        private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldTrace);
 
         public void WriteMessage(TraceMessageInfo info)
         {

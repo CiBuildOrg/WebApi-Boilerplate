@@ -22,7 +22,7 @@ namespace App.Infrastructure.Tracing
             _helper = helper;
         }
 
-        private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldLogSteps);
+        private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldTrace);
 
         public Task Handle(ApiEntryCommand command)
         {

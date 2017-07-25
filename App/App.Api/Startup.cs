@@ -8,7 +8,6 @@ using App.Core.Contracts;
 using App.Core.Implementations;
 using App.Infrastructure.Di;
 using App.Infrastructure.Logging.Owin;
-using App.Infrastructure.Tracing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
@@ -23,7 +22,7 @@ namespace App.Api
         {
             var container = AutofacConfig.ConfigureContainer();
             app.UseAutofacMiddleware(container);
-            GlobalConfiguration.Configuration.MessageHandlers.Add(container.Resolve<ApiLogHandler>());
+            
             app.UseCommonLogging();
         }
 

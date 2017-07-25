@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Http.Routing;
 using App.Core;
 using App.Core.Contracts;
-using App.Core.Utils;
 using App.Dto.Traces;
 using Enexure.MicroBus;
 using Newtonsoft.Json;
@@ -18,41 +17,31 @@ namespace App.Infrastructure.Tracing
 {
     public class ApiLogHandler : DelegatingHandler
     {
-        private readonly ITracer _tracer;
-        private readonly ITraceStepper _traceStepper;
-        private readonly IMicroBus _bus;
-        private readonly IConfiguration _helper;
-
-        public ApiLogHandler(ITracer tracer, ITraceStepper traceStepper, IMicroBus bus, IConfiguration helper)
+        private static bool ShouldLog(IConfiguration configuration)
         {
-            _tracer = tracer;
-            _traceStepper = traceStepper;
-            _bus = bus;
-            _helper = helper;
+            return configuration.GetBool(ConfigurationKeys.ShouldTrace);
         }
 
-        private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldLogSteps);
-
-        private void ProcessRequest(Task<string> task, ApiLogEntry apiLogEntry)
+        private static void ProcessRequest(string request, ApiLogEntry apiLogEntry, IConfiguration configuration, ITraceStepper traceStepper)
         {
-            if (!ShouldLog) return;
+            if (!ShouldLog(configuration)) return;
 
-            apiLogEntry.RequestContentBody = task.Result;
+            apiLogEntry.RequestContentBody = request;
 
             if (string.IsNullOrEmpty(apiLogEntry.RequestContentBody))
             {
                 apiLogEntry.RequestContentBody = "No body payload detected";
             }
 
-            _traceStepper.WriteOperation("Web API request", "request headers", apiLogEntry.RequestHeaders);
-            _traceStepper.WriteOperation("Web API request", "query string", apiLogEntry.RequestUri);
-            _traceStepper.WriteOperation("Web API request", "body request", apiLogEntry.RequestContentBody);
+            traceStepper.WriteOperation("Web API request", "request headers", apiLogEntry.RequestHeaders);
+            traceStepper.WriteOperation("Web API request", "query string", apiLogEntry.RequestUri);
+            traceStepper.WriteOperation("Web API request", "body request", apiLogEntry.RequestContentBody);
         }
 
-        private async Task ProcessResponse(HttpResponseMessage response, ApiLogEntry apiLogEntry)
+        private static async Task ProcessResponse(HttpResponseMessage response, ApiLogEntry apiLogEntry, ITraceStepper traceStepper, ITracer tracer, IMicroBus bus, IConfiguration configuration)
         {
 
-            if (!ShouldLog) return ;
+            if (!ShouldLog(configuration)) return;
 
             // Update the API log entry with response info
             apiLogEntry.ResponseStatusCode = (int)response.StatusCode;
@@ -65,36 +54,40 @@ namespace App.Infrastructure.Tracing
                 apiLogEntry.ResponseHeaders = SerializeHeaders(response.Content.Headers);
             }
 
-            _traceStepper.WriteOperation("Web API response", "response body", apiLogEntry.ResponseContentBody);
-            _traceStepper.WriteOperation("Web API response", "response headers", apiLogEntry.ResponseHeaders);
+            traceStepper.WriteOperation("Web API response", "response body", apiLogEntry.ResponseContentBody);
+            traceStepper.WriteOperation("Web API response", "response headers", apiLogEntry.ResponseHeaders);
 
-            _traceStepper.Dispose();
+            traceStepper.Dispose();
 
-            var traceSteps = _tracer.TraceSteps;
-            await _bus.SendAsync(new ApiEntryCommand(apiLogEntry, traceSteps));
+            var traceSteps = tracer.TraceSteps;
+            await bus.SendAsync(new ApiEntryCommand(apiLogEntry, traceSteps));
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
+            var scope = request.GetDependencyScope();
+
+            var tracer = (ITracer)scope.GetService(typeof(ITracer));
+            var traceStepper = (ITraceStepper)scope.GetService(typeof(ITraceStepper));
+            var bus = (IMicroBus)scope.GetService(typeof(IMicroBus));
+            var configurationHelper = (IConfiguration)scope.GetService(typeof(IConfiguration));
+
             ApiLogEntry apiLogEntry = null;
 
-            if (ShouldLog)
+            if (ShouldLog(configurationHelper))
             {
                 apiLogEntry = CreateApiLogEntryWithRequestData(request);
             }
 
             if (request.Content != null)
             {
-                await request.Content.ReadAsStringAsync()
-                    .ContinueWith(task =>
-                    {
-                        ProcessRequest(task, apiLogEntry);
-                    }, cancellationToken);
+                var requestContent = await request.Content.ReadAsStringAsync();
+                ProcessRequest(requestContent, apiLogEntry, configurationHelper, traceStepper);
             }
 
             var response = await base.SendAsync(request, cancellationToken);
-            await ProcessResponse(response, apiLogEntry);
+            await ProcessResponse(response, apiLogEntry, traceStepper, tracer, bus, configurationHelper);
 
             return response;
 
