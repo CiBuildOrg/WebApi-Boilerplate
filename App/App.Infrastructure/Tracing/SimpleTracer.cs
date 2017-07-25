@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using App.Core;
@@ -15,7 +14,7 @@ namespace App.Infrastructure.Tracing
         private readonly INow _now;
         private readonly IConfiguration _helper;
         private readonly object _thisLock = new object();
-        private ConcurrentList<TraceStep> _steps;
+        private readonly ConcurrentList<TraceStep> _steps;
         private AtomicInteger _index;
 
         public SimpleTracer(INow now, IConfiguration helper)
@@ -32,7 +31,7 @@ namespace App.Infrastructure.Tracing
 
         private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldLogSteps);
 
-        public void WriteMessage(string source, string frame, string message)
+        public void WriteMessage(TraceMessageInfo info)
         {
             if (ShouldLog)
             {
@@ -43,9 +42,9 @@ namespace App.Infrastructure.Tracing
                     var step = new TraceStep
                     {
                         Index = index,
-                        Message = message,
-                        Frame = frame,
-                        Source = source,
+                        Message = info.Message,
+                        Frame = info.Frame,
+                        Source = info.Source,
                         StepTimestamp = _now.UtcNow,
                         Metadata = string.Empty,
                         Type = StepType.Message,
@@ -59,7 +58,7 @@ namespace App.Infrastructure.Tracing
             }
         }
 
-        public void WriteException(string source, string frame, string exception, string description, string name)
+        public void WriteException(TraceExceptionInfo info)
         {
             if (ShouldLog)
             {
@@ -69,14 +68,14 @@ namespace App.Infrastructure.Tracing
 
                     var step = new TraceStep
                     {
-                        Name = name,
+                        Name = info.Name,
                         Index = index,
-                        Frame = frame,
-                        Source = source,
-                        Metadata = exception,
+                        Frame = info.Frame,
+                        Source = info.Source,
+                        Metadata = info.Exception,
                         Type = StepType.Exception,
                         StepTimestamp = _now.UtcNow,
-                        Message = description
+                        Message = info.Description
                     };
 
                     _steps.Add(step);
@@ -86,7 +85,7 @@ namespace App.Infrastructure.Tracing
             }
         }
 
-        public void WriteOperation(string source, string frame, string description, string name, string operationMetadata)
+        public void WriteOperation(TraceOperationInfo info)
         {
             if (ShouldLog)
             {
@@ -97,13 +96,13 @@ namespace App.Infrastructure.Tracing
                     var step = new TraceStep
                     {
                         Index = index,
-                        Frame = frame,
-                        Source = source,
-                        Metadata = operationMetadata,
+                        Frame = info.Frame,
+                        Source = info.Source,
+                        Metadata = info.Metadata,
                         Type = StepType.Operation,
                         StepTimestamp = _now.UtcNow,
-                        Message = description,
-                        Name = name
+                        Message = info.Description,
+                        Name = info.Name
                     };
 
                     _steps.Add(step);
@@ -112,8 +111,6 @@ namespace App.Infrastructure.Tracing
                 }
             }
         }
-
-
 
         public List<TraceStep> TraceSteps
         {
@@ -121,16 +118,6 @@ namespace App.Infrastructure.Tracing
             {
                 var steps = !ShouldLog ? new List<TraceStep>() : _steps.OrderBy(x => x.Index).ToList();
                 return steps;
-            }
-        }
-            
-        public void Clear()
-        {
-            using (new LockUtil(_thisLock))
-            {
-                _steps = new ConcurrentList<TraceStep>();
-                _index = new AtomicInteger(0);
-                _index.Increment();
             }
         }
     }
