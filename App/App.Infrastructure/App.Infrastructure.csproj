@@ -126,9 +126,6 @@
     <Compile Include="Tracing\Dashboard\TableOption.cs" />
     <Compile Include="Tracing\Dashboard\TablePaginationOption.cs" />
     <Compile Include="Tracing\Dashboard\ValueFieldAttribute.cs" />
-    <Compile Include="Tracing\Resources\Embedded.cs" />
-    <Compile Include="Tracing\Resources\JsonPrettifier.cs" />
-    <Compile Include="Tracing\Resources\XmlPrettifyHelper.cs" />
     <Compile Include="Tracing\SimpleTraceTerminal.cs" />
     <Compile Include="Tracing\StackTraceParser.cs" />
     <Compile Include="Tracing\TraceProvider.cs" />
@@ -136,10 +133,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Tracing\Resources\json.html" />
-    <EmbeddedResource Include="Tracing\Resources\xml.xslt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Core\App.Core.csproj">

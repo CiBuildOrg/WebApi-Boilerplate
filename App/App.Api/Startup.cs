@@ -11,6 +11,7 @@ using App.Infrastructure.Logging.Owin;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using Microsoft.Owin;
 using Owin;
 [assembly: OwinStartup("ProductionConfiguration", typeof(Startup))]

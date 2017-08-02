@@ -42,9 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\TraceSearchRequest.cs" />
     <Compile Include="Traces\ApiLogEntry.cs" />
     <Compile Include="Traces\TraceStep.cs" />
-    <Compile Include="TraceViewModel.cs" />
+    <Compile Include="Response\TraceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Entities\App.Entities.csproj">
@@ -52,5 +53,6 @@
       <Name>App.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

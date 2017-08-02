@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Formatting = Newtonsoft.Json.Formatting;
 
-namespace App.Infrastructure.Tracing.Resources
+namespace App.Services.Resources
 {
     public class JsonPrettifier
     {

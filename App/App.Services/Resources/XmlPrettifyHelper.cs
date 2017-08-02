@@ -3,7 +3,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 
-namespace App.Infrastructure.Tracing.Resources
+namespace App.Services.Resources
 {
     public class XmlPrettifyHelper
     {

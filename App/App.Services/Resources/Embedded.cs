@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace App.Infrastructure.Tracing.Resources
+namespace App.Services.Resources
 {
     public class EmbeddedResources
     {
