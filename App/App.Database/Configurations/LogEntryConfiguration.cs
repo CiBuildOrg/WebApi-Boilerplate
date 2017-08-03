@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using App.Entities;
 
 namespace App.Database.Configurations
 {
-    public class LogEntryConfiguration : BaseConfiguration<LogEntry>
+    public class LogEntryConfiguration : EntityTypeConfiguration<LogEntry>
     {
 
         public LogEntryConfiguration() : this("dbo")
@@ -16,7 +17,7 @@ namespace App.Database.Configurations
             ToTable(Tables.LogEntriesTable, schema);
 
             HasKey(x => x.Id);
-
+            
             Property(x => x.Timestamp).HasColumnName("Timestamp").HasColumnType("datetime").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(x => x.RequestTimestamp).HasColumnName("RequestTimestamp").HasColumnType("datetime").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(x => x.ResponseTimestamp).HasColumnName("ResponseTimestamp").HasColumnType("datetime").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);

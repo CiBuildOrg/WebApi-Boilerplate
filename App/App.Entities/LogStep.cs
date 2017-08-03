@@ -1,9 +1,12 @@
 ﻿using System;
+using App.Entities.Contracts;
 
 namespace App.Entities
 {
-    public class LogStep : BaseEntity
+    public class LogStep : IBaseEntity
     {
+        public Guid Id { get; set; }
+
         public int Index { get; set; }
         public DateTime StepTimestamp { get; set; }
         public StepType Type { get; set; }

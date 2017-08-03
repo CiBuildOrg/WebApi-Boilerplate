@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using App.Entities;
 
 namespace App.Database.Configurations
 {
-    public class LogStepConfiguration : BaseConfiguration<LogStep>
+    public class LogStepConfiguration : EntityTypeConfiguration<LogStep>
     {
 
 
@@ -15,6 +16,8 @@ namespace App.Database.Configurations
         private LogStepConfiguration(string schema)
         {
             ToTable(Tables.LogStepsTable, schema);
+
+            HasKey(x => x.Id);
 
             Property(x => x.Index).HasColumnName("Index").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(x => x.StepTimestamp).HasColumnName("StepTimestamp").HasColumnType("datetime").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);

@@ -93,11 +93,11 @@ namespace App.Database.Implementations
 
         public override int SaveChanges()
         {
-            foreach (var entry in ChangeTracker.Entries<BaseEntity>()
-                .Where(e => e.State == EntityState.Added))
-            {
-                entry.Entity.Id = SequentialGuid.NewSequentialGuid();
-            }
+            //foreach (var entry in ChangeTracker.Entries<IBaseEntity>()
+            //    .Where(e => e.State == EntityState.Added))
+            //{
+            //    entry.Entity.Id = SequentialGuid.NewSequentialGuid();
+            //}
 
             return SaveUtil.ExecuteDatabaseSave(base.SaveChanges);
         }

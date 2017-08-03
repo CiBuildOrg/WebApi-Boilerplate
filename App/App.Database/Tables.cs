@@ -7,5 +7,7 @@
         internal const string LogStepsTable = "LogSteps";
 
         internal const string LogEntriesTable = "LogEntries";
+
+        internal const string ClientsTable = "Clients";
     }
 }

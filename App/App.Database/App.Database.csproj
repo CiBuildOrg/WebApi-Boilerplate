@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\BaseConfiguration.cs" />
+    <Compile Include="Configurations\ClientConfiguration.cs" />
     <Compile Include="Configurations\DummyConfiguration.cs" />
     <Compile Include="Configurations\LogEntryConfiguration.cs" />
     <Compile Include="Configurations\LogStepConfiguration.cs" />

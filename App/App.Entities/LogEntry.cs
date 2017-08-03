@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using App.Entities.Contracts;
 
 namespace App.Entities
 {
-    public class LogEntry : BaseEntity
+    public class LogEntry : IBaseEntity
     {
+        public Guid Id { get; set; }
+
         public DateTime Timestamp { get; set; }
 
         public DateTime? RequestTimestamp { get; set; }
