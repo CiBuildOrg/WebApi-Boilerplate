@@ -29,13 +29,11 @@ namespace App.Api.Controllers
                 Order = order
             });
 
-            var model = new
+            return Json(new
             {
                 total = traces.Count,
                 rows = traces
-            };
-
-            return Json(model, JsonRequestBehavior.AllowGet);
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
