@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using App.Entities.Contracts;
 
 namespace App.Entities.Security
 {
-    public class Client
+    public class Client : IBaseEntity
     {
         public Guid Id { get; set; }
 
@@ -19,12 +16,5 @@ namespace App.Entities.Security
         public int RefreshTokenLifeTime { get; set; }
 
         public string AllowedOrigin { get; set; }
-    }
-
-    public enum ApplicationType
-    {
-        JavaScript = 0,
-        NativeConfidential = 1,
-        ExternalInterface = 2,
     }
 }

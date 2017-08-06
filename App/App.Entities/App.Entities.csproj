@@ -46,8 +46,11 @@
     <Compile Include="LogEntry.cs" />
     <Compile Include="LogStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ApplicationType.cs" />
     <Compile Include="Security\Client.cs" />
+    <Compile Include="Security\RefreshToken.cs" />
     <Compile Include="StepType.cs" />
+    <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
