@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace App.Security.Password
+namespace App.Security.Validation
 {
     public class PasswordValidator : Microsoft.AspNet.Identity.PasswordValidator
     {
@@ -10,12 +10,16 @@ namespace App.Security.Password
         {
             var result = await base.ValidateAsync(password);
 
-            // add your custom logic to this 
-            if (!password.Contains("abcdef") && !password.Contains("123456"))
+            var passwordStrength = PasswordChecker.EvalPwdStrength(password);
+            if (passwordStrength == PasswordStrength.Strong
+                || passwordStrength == PasswordStrength.Medium
+                || passwordStrength == PasswordStrength.Normal)
+            {
                 return result;
+            }
 
             var errors = result.Errors.ToList();
-            errors.Add("Password can not containe sequence of chars");
+            errors.Add("Password is too weak");
             result = new IdentityResult(errors);
 
             return result;

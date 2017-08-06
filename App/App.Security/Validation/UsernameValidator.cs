@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace App.Security
+namespace App.Security.Validation
 {
     public class UsernameValidator : UserValidator<ApplicationUser>
     {

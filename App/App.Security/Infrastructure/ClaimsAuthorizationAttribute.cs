@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace App.Security
+namespace App.Security.Infrastructure
 {
     /// <summary>
     /// This represents authorization by claims

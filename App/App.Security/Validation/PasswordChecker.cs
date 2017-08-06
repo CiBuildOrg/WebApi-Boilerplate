@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App.Security.Password
+namespace App.Security.Validation
 {
     internal static class PasswordChecker
     {

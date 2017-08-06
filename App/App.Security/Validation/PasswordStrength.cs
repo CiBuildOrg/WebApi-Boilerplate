@@ -1,4 +1,4 @@
-namespace App.Security.Password
+namespace App.Security.Validation
 {
     /// <summary>
     /// Password weak indicator

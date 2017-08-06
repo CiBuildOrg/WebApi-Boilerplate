@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using App.Entities;
+using App.Security.Infrastructure;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Security

@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 
-namespace App.Security
+namespace App.Security.Infrastructure
 {
     public class ApplicationRoleManager : RoleManager<ApplicationRole>
     {   

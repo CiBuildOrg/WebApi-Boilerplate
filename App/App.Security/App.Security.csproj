@@ -82,17 +82,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractAudience.cs" />
-    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Infrastructure\ApplicationDbContext.cs" />
     <Compile Include="ApplicationRole.cs" />
-    <Compile Include="ApplicationRoleManager.cs" />
+    <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
     <Compile Include="ApplicationUser.cs" />
-    <Compile Include="ApplicationUserManager.cs" />
-    <Compile Include="ClaimsAuthorizationAttribute.cs" />
-    <Compile Include="Password\PasswordChecker.cs" />
-    <Compile Include="Password\PasswordStrength.cs" />
+    <Compile Include="Infrastructure\ApplicationUserManager.cs" />
+    <Compile Include="Infrastructure\ClaimsAuthorizationAttribute.cs" />
+    <Compile Include="Validation\PasswordChecker.cs" />
+    <Compile Include="Validation\PasswordStrength.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Password\PasswordValidator.cs" />
-    <Compile Include="UsernameValidator.cs" />
+    <Compile Include="Validation\PasswordValidator.cs" />
+    <Compile Include="Validation\UsernameValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Entities\App.Entities.csproj">

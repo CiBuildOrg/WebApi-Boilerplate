@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using App.Security.Validation;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using PasswordValidator = App.Security.Password.PasswordValidator;
+using PasswordValidator = App.Security.Validation.PasswordValidator;
 
-namespace App.Security
+namespace App.Security.Infrastructure
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
