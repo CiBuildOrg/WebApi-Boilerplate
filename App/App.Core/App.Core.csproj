@@ -78,6 +78,8 @@
     <Compile Include="Contracts\ITraceStepUtil.cs" />
     <Compile Include="CoreModule.cs" />
     <Compile Include="Extensions\AutowireAutomapper.cs" />
+    <Compile Include="Extensions\HashType.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Implementations\NowImplementation.cs" />
     <Compile Include="Implementations\Resolver.cs" />
     <Compile Include="Implementations\TraceStepUtil.cs" />

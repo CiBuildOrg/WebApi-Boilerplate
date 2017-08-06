@@ -18,12 +18,27 @@ namespace App.Database.Configurations
 
             HasKey(x => x.Id);
 
-            Property(x => x.AboutMe)
-                .HasColumnName("AboutMe")
+            Property(x => x.Description)
+                .HasColumnName("Description")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(2000)
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            Property(x => x.FullName)
+                .HasColumnName("FullName")
+                .HasColumnType("nvarchar")
+                .HasMaxLength(2000)
+                .IsRequired()
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            Property(x => x.JoinDate)
+                .HasColumnName("JoinDate")
+                .HasColumnType("datetime2")
+                .IsRequired()
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+
         }
 
     }

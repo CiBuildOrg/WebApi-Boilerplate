@@ -52,6 +52,10 @@
     <Compile Include="Request\CreateRoleBindingModel.cs" />
     <Compile Include="Request\CreateUserBindingModel.cs" />
     <Compile Include="Request\TraceSearchRequest.cs" />
+    <Compile Include="Response\ClientReturnModel.cs" />
+    <Compile Include="Response\EmployeeReturnModel.cs" />
+    <Compile Include="Response\RoleReturnModel.cs" />
+    <Compile Include="Response\UserReturnModel.cs" />
     <Compile Include="Traces\ApiLogEntry.cs" />
     <Compile Include="Traces\TraceStep.cs" />
     <Compile Include="Response\TraceViewModel.cs" />
