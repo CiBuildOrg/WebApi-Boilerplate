@@ -39,7 +39,6 @@ namespace App.Api.Security
         public Client FindClient(string clientId)
         {
             var client = _context.Clients.Find(clientId);
-
             return client;
         }
 
@@ -63,28 +62,24 @@ namespace App.Api.Security
             _context.Clients.Add(client);
 
             var result = await _context.SaveChangesAsync() > 0;
-
             return result ? client : null;
         }
 
         public async Task<bool> RemoveClient(string id)
         {
             var client = await _context.Clients.FindAsync(id);
-
             if (client == null)
             {
                 return false;
             }
 
             _context.Clients.Remove(client);
-
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> AddRefreshToken(RefreshToken token)
         {
             var existingToken = _context.RefreshTokens.SingleOrDefault(r => r.Subject == token.Subject && r.ClientId == token.ClientId);
-
             if (existingToken != null)
             {
                 await RemoveRefreshToken(existingToken);
@@ -97,14 +92,12 @@ namespace App.Api.Security
         public async Task<bool> RemoveRefreshToken(RefreshToken existingToken)
         {
             _context.RefreshTokens.Remove(existingToken);
-
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> RemoveRefreshToken(string refreshTokenId)
         {
             var refreshToken = _context.RefreshTokens.Find(refreshTokenId);
-
             if (refreshToken == null)
             {
                 return false;
@@ -117,7 +110,6 @@ namespace App.Api.Security
         public async Task<RefreshToken> FindRefreshToken(string refreshTokenId)
         {
             var refreshToken = await _context.RefreshTokens.FindAsync(refreshTokenId);
-
             return refreshToken;
         }
 
@@ -130,7 +122,10 @@ namespace App.Api.Security
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
 
             if (disposing)
             {
