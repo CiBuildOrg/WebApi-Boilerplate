@@ -50,9 +50,9 @@ namespace App.Api.Security
 
             var client = new Client
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 Active = true,
-                AllowedOrigin = (string.IsNullOrWhiteSpace(clientModel.AllowedOrigin)) ? "*" : clientModel.AllowedOrigin,
+                AllowedOrigin = string.IsNullOrWhiteSpace(clientModel.AllowedOrigin) ? "*" : clientModel.AllowedOrigin,
                 ApplicationType = clientModel.ApplicationType,
                 Name = clientModel.Name,
                 RefreshTokenLifeTime = clientModel.RefreshTokenLifeTime,

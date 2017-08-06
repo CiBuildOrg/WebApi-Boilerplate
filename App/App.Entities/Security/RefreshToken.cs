@@ -3,9 +3,9 @@ using App.Entities.Contracts;
 
 namespace App.Entities.Security
 {
-    public class RefreshToken : IBaseEntity
+    public class RefreshToken 
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Subject { get; set; }
 

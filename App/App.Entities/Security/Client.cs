@@ -1,11 +1,10 @@
 ﻿using System;
-using App.Entities.Contracts;
 
 namespace App.Entities.Security
 {
-    public class Client : IBaseEntity
+    public class Client 
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Secret { get; set; }
 
