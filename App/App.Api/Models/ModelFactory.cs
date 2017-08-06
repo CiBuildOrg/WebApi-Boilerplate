@@ -1,6 +1,8 @@
 using System.Net.Http;
 using System.Web.Http.Routing;
+using App.Database.Security;
 using App.Dto.Response;
+using App.Entities;
 using App.Entities.Security;
 using App.Security;
 using App.Security.Infrastructure;
@@ -38,14 +40,13 @@ namespace App.Api.Models
             };
         }
 
-        public RoleReturnModel Create(ApplicationRole role)
+        public RoleReturnModel Create(CustomRole role)
         {
             return new RoleReturnModel
             {
                 Url = _urlHelper.Link("GetRoleById", new { id = role.Id }),
                 Id = role.Id,
                 Name = role.Name,
-                Description = role.Description
             };
         }
 

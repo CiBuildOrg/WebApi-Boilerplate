@@ -1,11 +1,12 @@
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace App.Security.Validation
+namespace App.Database.Security
 {
-    public class UsernameValidator : UserValidator<ApplicationUser>
+    public class UsernameValidator : UserValidator<ApplicationUser, Guid>
     {
         private readonly List<string> _allowedEmailDomains = new List<string>
         {
@@ -16,7 +17,7 @@ namespace App.Security.Validation
             // add yours here
         };
 
-        public UsernameValidator(UserManager<ApplicationUser, string> manager) : base(manager)
+        public UsernameValidator(UserManager<ApplicationUser, Guid> manager) : base(manager)
         {
         }
 

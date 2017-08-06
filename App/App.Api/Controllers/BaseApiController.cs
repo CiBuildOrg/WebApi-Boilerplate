@@ -2,6 +2,9 @@
 using System.Web.Http;
 using App.Api.Models;
 using App.Api.Security;
+using App.Database.Security;
+using App.Entities;
+using App.Entities.Security;
 using App.Security.Infrastructure;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;

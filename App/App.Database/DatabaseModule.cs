@@ -12,7 +12,7 @@ namespace App.Database
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DatabaseContext>().As<IDatabaseContext>().InstancePerLifetimeScope();
+            builder.RegisterType<DatabaseContext>().AsSelf().InstancePerLifetimeScope();
         }   
     }
 }

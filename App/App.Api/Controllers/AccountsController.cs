@@ -5,9 +5,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using App.Database.Security;
 using App.Dto.Request;
 using App.Entities;
-using App.Security;
 using Microsoft.AspNet.Identity;
 
 namespace App.Api.Controllers
@@ -37,7 +37,7 @@ namespace App.Api.Controllers
         /// <returns>user</returns>
         [Authorize(Roles = "Admin")]
         [Route("user/{id:guid}", Name = "GetUserById")]
-        public async Task<IHttpActionResult> GetUser(string id)
+        public async Task<IHttpActionResult> GetUser(Guid id)
         {
             var user = await AppUserManager.FindByIdAsync(id);
 
@@ -67,7 +67,7 @@ namespace App.Api.Controllers
         /// <returns>role</returns>
         [Authorize(Roles = "Admin")]
         [Route("role/{id:guid}", Name = "GetRoleById")]
-        public async Task<IHttpActionResult> GetRole(string id)
+        public async Task<IHttpActionResult> GetRole(Guid id)
         {
             var role = await AppRoleManager.FindByIdAsync(id);
 
@@ -113,7 +113,7 @@ namespace App.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser()
+            var user = new ApplicationUser
             {
                 UserName = createUserModel.Username,
                 Email = createUserModel.Email,
@@ -159,7 +159,7 @@ namespace App.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await AppUserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await AppUserManager.ChangePasswordAsync(Guid.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -177,7 +177,7 @@ namespace App.Api.Controllers
         [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("user/{id:guid}", Name = "DeleteUser")]
-        public async Task<IHttpActionResult> DeleteUser(string id)
+        public async Task<IHttpActionResult> DeleteUser(Guid id)
         {
             // TODO: Only SuperAdmin or Admin can delete users.
             var appUser = await AppUserManager.FindByIdAsync(id);
@@ -206,7 +206,7 @@ namespace App.Api.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("user/{id:guid}/assignclaims")]
-        public async Task<IHttpActionResult> AssignClaimsToUser([FromUri] string id, [FromBody] List<ClaimBindingModel> claimsToAssign)
+        public async Task<IHttpActionResult> AssignClaimsToUser([FromUri] Guid id, [FromBody] List<ClaimBindingModel> claimsToAssign)
         {
             if (!ModelState.IsValid)
             {
@@ -242,7 +242,7 @@ namespace App.Api.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("user/{id:guid}/removeclaims")]
-        public async Task<IHttpActionResult> RemoveClaimsFromUser([FromUri] string id, [FromBody] List<ClaimBindingModel> claimsToRemove)
+        public async Task<IHttpActionResult> RemoveClaimsFromUser([FromUri] Guid id, [FromBody] List<ClaimBindingModel> claimsToRemove)
         {
             if (!ModelState.IsValid)
             {
@@ -276,7 +276,7 @@ namespace App.Api.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("user/{id:guid}/assignroles")]
-        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] List<string> rolesToAssign)
+        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] Guid id, [FromBody] List<Guid> rolesToAssign)
         {
             if (!ModelState.IsValid)
             {
@@ -319,7 +319,7 @@ namespace App.Api.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("user/{id:guid}/removeroles")]
-        public async Task<IHttpActionResult> RemoveRolesFromUser([FromUri] string id, [FromBody] List<string> rolesToRemove)
+        public async Task<IHttpActionResult> RemoveRolesFromUser([FromUri] Guid id, [FromBody] List<Guid> rolesToRemove)
         {
             if (!ModelState.IsValid)
             {

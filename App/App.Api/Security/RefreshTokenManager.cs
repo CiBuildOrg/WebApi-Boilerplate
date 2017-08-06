@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using App.Core.Contracts;
+using App.Database;
 using App.Dto.Request;
 using App.Entities.Security;
-using App.Security.Infrastructure;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataHandler.Encoder;
@@ -14,16 +15,16 @@ namespace App.Api.Security
 {
     public class RefreshTokenManager : IDisposable
     {
-        private readonly ApplicationDbContext _context;
+        private readonly DatabaseContext _context;
 
-        public RefreshTokenManager(ApplicationDbContext dbContext)
+        public RefreshTokenManager(DatabaseContext dbContext)
         {
             _context = dbContext;
         }
 
         public static RefreshTokenManager Create(IdentityFactoryOptions<RefreshTokenManager> options, IOwinContext context)
         {
-            return new RefreshTokenManager(context.Get<ApplicationDbContext>());
+            return new RefreshTokenManager(context.Get<DatabaseContext>());
         }
 
         public IEnumerable<Client> GetClients()
@@ -50,7 +51,7 @@ namespace App.Api.Security
 
             var client = new Client
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 Active = true,
                 AllowedOrigin = string.IsNullOrWhiteSpace(clientModel.AllowedOrigin) ? "*" : clientModel.AllowedOrigin,
                 ApplicationType = clientModel.ApplicationType,

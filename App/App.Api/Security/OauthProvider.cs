@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using App.Database.Security;
+using App.Entities;
 using App.Entities.Security;
 using App.Security.Infrastructure;
 using Microsoft.AspNet.Identity.Owin;

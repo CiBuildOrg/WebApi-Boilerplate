@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
@@ -6,12 +7,17 @@ using System.Linq;
 using App.Core;
 using App.Core.Contracts;
 using App.Core.Utils;
-using App.Entities;
+using App.Database.Security;
 using App.Entities.Contracts;
+using App.Entities.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Database.Implementations
 {
-    public abstract class DbContextBase : DbContext, IDbContext
+    public abstract class DbContextBase : IdentityDbContext<ApplicationUser, CustomRole, Guid,
+        Entities.Security.IdentityUserLogin, 
+        Entities.Security.IdentityUserRole, 
+        Entities.Security.IdentityUserClaim>
     {
         private readonly IConfigurationModule[] _modules;
 

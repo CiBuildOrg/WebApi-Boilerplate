@@ -5,7 +5,9 @@ namespace App.Entities.Security
 {
     public class RefreshToken 
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
+
+        public string RefreshTokenId { get; set; }
 
         public string Subject { get; set; }
 

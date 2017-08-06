@@ -52,6 +52,12 @@
     <Reference Include="LinqKit, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqKit.1.1.9.0\lib\net45\LinqKit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -85,6 +91,10 @@
     <ProjectReference Include="..\App.Core\App.Core.csproj">
       <Project>{3720884E-16AF-4C75-B5DC-E08E815D9A63}</Project>
       <Name>App.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Database\App.Database.csproj">
+      <Project>{041D6355-BBF2-4FE9-AE90-3490379D7157}</Project>
+      <Name>App.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Dto\App.Dto.csproj">
       <Project>{5DB82D4E-AA87-405B-8750-053F2EC057FF}</Project>

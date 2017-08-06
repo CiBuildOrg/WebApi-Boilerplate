@@ -9,6 +9,9 @@ using App.Api;
 using App.Api.Security;
 using App.Core.Contracts;
 using App.Core.Implementations;
+using App.Database.Security;
+using App.Entities;
+using App.Entities.Security;
 using App.Infrastructure.Di;
 using App.Infrastructure.Logging.Owin;
 using App.Security.Infrastructure;
@@ -44,7 +47,7 @@ namespace App.Api
         {
             var container = AutofacConfig.ConfigureContainer();
             app.UseAutofacMiddleware(container);
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
             app.CreatePerOwinContext<RefreshTokenManager>(RefreshTokenManager.Create);

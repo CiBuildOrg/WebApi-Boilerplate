@@ -1,12 +1,8 @@
 ﻿using System.Data.Entity;
 using App.Entities;
+using App.Entities.Security;
 
 namespace App.Core.Contracts
 {
-    public interface IDatabaseContext : IDbContext
-    {
-        IDbSet<Dummy> Dummy { get; }
-
-        IDbSet<LogEntry> LogEntries { get; set; }
-    }
+    
 }

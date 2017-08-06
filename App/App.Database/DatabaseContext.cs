@@ -1,13 +1,19 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using App.Core.Contracts;
 using App.Database.Extensions;
 using App.Database.Implementations;
 using App.Entities;
+using App.Entities.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Database
 {
-    public class DatabaseContext : DbContextBase, IDatabaseContext
+
+    public class DatabaseContext : DbContextBase
     {
+
+
         public DatabaseContext(IConfiguration configuration)
             : base(configuration, new ContextConfigurationModule())
         {
@@ -21,8 +27,11 @@ namespace App.Database
             this.DisableDatabaseInitialization();
         }
 
-        public IDbSet<Dummy> Dummy { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
-        public IDbSet<LogEntry> LogEntries { get; set; }
+        public DbSet<Dummy> Dummy { get; set; }
+
+        public DbSet<LogEntry> LogEntries { get; set; }
     }
 }

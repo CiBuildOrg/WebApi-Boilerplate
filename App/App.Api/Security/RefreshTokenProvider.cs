@@ -29,7 +29,8 @@ namespace App.Api.Security
 
             var token = new RefreshToken
             {
-                Id = refreshTokenId.GetHash(),
+                Id = Guid.NewGuid(),
+                RefreshTokenId = refreshTokenId.GetHash(),
                 ClientId = clientId,
                 Subject = context.Ticket.Identity.Name,
                 IssuedUtc = DateTime.UtcNow,

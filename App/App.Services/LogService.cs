@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using App.Core;
 using App.Core.Contracts;
 using App.Core.Utils;
+using App.Database;
 using App.Dto.Request;
 using App.Dto.Response;
 using App.Dto.Traces;
@@ -24,12 +25,12 @@ namespace App.Services
 
         private const int LogLimit = 2 * 24; // 2 days
 
-        private readonly IDatabaseContext _context;
+        private readonly DatabaseContext _context;
         private readonly INow _now;
         private readonly IConfiguration _helper;
         private readonly IMapper _mapper;
 
-        public LogService(IDatabaseContext context, INow now, IConfiguration helper, IMapper mapper)
+        public LogService(DatabaseContext context, INow now, IConfiguration helper, IMapper mapper)
         {
             _context = context;
             _now = now;
