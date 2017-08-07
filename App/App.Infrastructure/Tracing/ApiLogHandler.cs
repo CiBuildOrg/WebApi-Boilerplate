@@ -126,7 +126,14 @@ namespace App.Infrastructure.Tracing
 
         private static string SerializeRouteData(IHttpRouteData routeData)
         {
-            return JsonConvert.SerializeObject(routeData, Formatting.Indented);
+            try
+            {
+                return JsonConvert.SerializeObject(routeData, Formatting.Indented);
+            }
+            catch
+            {
+                return JsonConvert.SerializeObject(new{ routeData.Route.RouteTemplate });
+            }
         }
 
         private static string SerializeHeaders(HttpHeaders headers)
