@@ -7,13 +7,13 @@ namespace App.Database
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class AddRoleDescription : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRoleDescription));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708071904055_InitialMigration"; }
+            get { return "201708072247211_AddRoleDescription"; }
         }
         
         string IMigrationMetadata.Source

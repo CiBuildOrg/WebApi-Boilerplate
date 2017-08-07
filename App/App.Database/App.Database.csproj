@@ -78,9 +78,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201708071904055_InitialMigration.cs" />
-    <Compile Include="Migrations\201708071904055_InitialMigration.Designer.cs">
-      <DependentUpon>201708071904055_InitialMigration.cs</DependentUpon>
+    <Compile Include="DbSeed.cs" />
+    <Compile Include="Migrations\201708072228136_InitialMigration.cs" />
+    <Compile Include="Migrations\201708072228136_InitialMigration.Designer.cs">
+      <DependentUpon>201708072228136_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708072247211_AddRoleDescription.cs" />
+    <Compile Include="Migrations\201708072247211_AddRoleDescription.Designer.cs">
+      <DependentUpon>201708072247211_AddRoleDescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Security\ApplicationRoleManager.cs" />
     <Compile Include="Security\ApplicationUser.cs" />
@@ -128,8 +133,11 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708071904055_InitialMigration.resx">
-      <DependentUpon>201708071904055_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708072228136_InitialMigration.resx">
+      <DependentUpon>201708072228136_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708072247211_AddRoleDescription.resx">
+      <DependentUpon>201708072247211_AddRoleDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

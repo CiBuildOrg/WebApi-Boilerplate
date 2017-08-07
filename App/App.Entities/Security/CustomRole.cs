@@ -10,5 +10,7 @@ namespace App.Entities.Security
         {
             Name = name;
         }
+
+        public string RoleDescription { get; set; }
     }
 }
