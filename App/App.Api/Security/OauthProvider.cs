@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using App.Database.Security;
 using App.Entities.Security;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -11,6 +13,15 @@ namespace App.Api.Security
 {
     public class OauthProvider : OAuthAuthorizationServerProvider
     {
+        private readonly IRefreshTokenManager _refreshTokenManager;
+        private readonly UserManager<ApplicationUser, Guid> _applicationUserManager;
+
+        public OauthProvider(IRefreshTokenManager refreshTokenManager, UserManager<ApplicationUser, Guid> applicationUserManager)
+        {
+            _refreshTokenManager = refreshTokenManager;
+            _applicationUserManager = applicationUserManager;
+        }
+
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
 
@@ -27,7 +38,7 @@ namespace App.Api.Security
                 return Task.FromResult<object>(null);
             }
 
-            var client = context.OwinContext.Get<RefreshTokenManager>().FindClient(context.ClientId);
+            var client = _refreshTokenManager.FindClient(context.ClientId);
 
             if (client == null)
             {
@@ -84,8 +95,7 @@ namespace App.Api.Security
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-            var user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await _applicationUserManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -102,7 +112,7 @@ namespace App.Api.Security
                 return;
             }
 
-            var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
+            var oAuthIdentity = await user.GenerateUserIdentityAsync(_applicationUserManager, "JWT");
 
             oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             oAuthIdentity.AddClaim(new Claim("sub", context.UserName));

@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity;
 
 namespace App.Security.Validation
 {
-    public class PasswordValidator : Microsoft.AspNet.Identity.PasswordValidator
+    public class CustomPasswordValidator : PasswordValidator
     {
         public override async Task<IdentityResult> ValidateAsync(string password)
         {

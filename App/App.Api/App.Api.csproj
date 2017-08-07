@@ -280,6 +280,7 @@
     <Compile Include="Security\OauthProvider.cs" />
     <Compile Include="Security\RefreshTokenManager.cs" />
     <Compile Include="Security\RefreshTokenProvider.cs" />
+    <Compile Include="Security\SecurityKeys.cs" />
     <Compile Include="Security\SecurityToken.cs" />
     <Compile Include="Security\ValidIssuers.cs" />
     <Compile Include="Startup.cs" />

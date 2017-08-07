@@ -7,8 +7,13 @@ using App.Entities.Security;
 
 namespace App.Database
 {
+    public interface IDatabaseContext  :IDbContext
+    {
+        
+    }
 
-    public class DatabaseContext : DbContextBase
+
+    public class DatabaseContext : DbContextBase, IDatabaseContext
     {
         public DatabaseContext(IConfiguration configuration)
             : base(configuration, new ContextConfigurationModule())

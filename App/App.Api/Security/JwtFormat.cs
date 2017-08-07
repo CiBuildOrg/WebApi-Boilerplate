@@ -4,6 +4,8 @@ using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using App.Core;
+using App.Core.Contracts;
 using App.Entities.Security;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -14,12 +16,17 @@ namespace App.Api.Security
 {
     public class JwtFormat : ISecureDataFormat<AuthenticationTicket>
     {
+        private readonly IConfiguration _configuration;
+        private readonly IRefreshTokenManager _refreshTokenManager;
         private readonly string _issuer;
         private List<Client> _allowedAudiences = new List<Client>();
 
-        public JwtFormat(string issuer)
+        public JwtFormat(IConfiguration configuration, IRefreshTokenManager refreshTokenManager)
         {
-            _issuer = issuer;
+            _configuration = configuration;
+            _refreshTokenManager = refreshTokenManager;
+
+            _issuer = _configuration.GetString(SecurityKeys.Issuer); // issuer;
         }
 
         public string Protect(AuthenticationTicket data)
@@ -30,7 +37,7 @@ namespace App.Api.Security
             }
 
             string audienceId = data.Properties.Dictionary[Startup.ClientPropertyName];
-            var client = HttpContext.Current.GetOwinContext().Get<RefreshTokenManager>().FindClient(audienceId);
+            var client = _refreshTokenManager.FindClient(audienceId);
             string symmetricKeyBase64 = client.Secret;
 
             var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyBase64);
@@ -57,8 +64,7 @@ namespace App.Api.Security
 
         public AuthenticationTicket Unprotect(string protectedText)
         {
-            IEnumerable<Client> AllowedAudience() => 
-                HttpContext.Current.GetOwinContext().Get<RefreshTokenManager>().GetAllowedClients();
+            IEnumerable<Client> AllowedAudience() => _refreshTokenManager.GetAllowedClients();
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -89,8 +95,8 @@ namespace App.Api.Security
 
             //var props = new AuthenticationProperties
             //{
-            //	AllowRefresh = true,
-            //	IsPersistent = true
+            //    AllowRefresh = true,
+            //    IsPersistent = true
             //};
 
             //var ticket = new AuthenticationTicket(claimsIdentity, props);

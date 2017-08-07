@@ -9,6 +9,13 @@ namespace App.Api.Security
 {
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {
+        private readonly IRefreshTokenManager _refreshTokenManager;
+
+        public RefreshTokenProvider(IRefreshTokenManager refreshTokenManager)
+        {
+            _refreshTokenManager = refreshTokenManager;
+        }
+
         public void Create(AuthenticationTokenCreateContext context)
         {
             throw new NotImplementedException();
@@ -24,7 +31,6 @@ namespace App.Api.Security
             }
 
             var refreshTokenId = Guid.NewGuid().ToString("N");
-            var manager = context.OwinContext.Get<RefreshTokenManager>();
             var lifeTime = context.OwinContext.Get<string>(Startup.ClientRefreshTokenLifeTimePropertyName);
 
             var token = new RefreshToken
@@ -42,7 +48,7 @@ namespace App.Api.Security
 
             token.ProtectedTicket = context.SerializeTicket();
 
-            var result = await manager.AddRefreshToken(token);
+            var result = await _refreshTokenManager.AddRefreshToken(token);
             if (result)
                 context.SetToken(refreshTokenId);
         }
@@ -58,13 +64,12 @@ namespace App.Api.Security
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             var hashedTokenId = context.Token.GetHash();
-
             var refreshToken = await context.OwinContext.Get<RefreshTokenManager>().FindRefreshToken(hashedTokenId);
 
             if (refreshToken != null)
             {
                 context.DeserializeTicket(refreshToken.ProtectedTicket);
-                var result = await context.OwinContext.Get<RefreshTokenManager>().RemoveRefreshToken(hashedTokenId);
+                await _refreshTokenManager.RemoveRefreshToken(hashedTokenId);
             }
         }
     }

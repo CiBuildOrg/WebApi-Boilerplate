@@ -6,24 +6,31 @@ using System.Threading.Tasks;
 using App.Database;
 using App.Dto.Request;
 using App.Entities.Security;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 
 namespace App.Api.Security
 {
-    public class RefreshTokenManager : IDisposable
+    public interface IRefreshTokenManager : IDisposable
+    {
+        IEnumerable<Client> GetClients();
+        IEnumerable<Client> GetAllowedClients();
+        Client FindClient(string clientId);
+        Task<Client> AddClientAsync(ClientBindingModel clientModel);
+        Task<bool> RemoveClient(string id);
+        Task<bool> AddRefreshToken(RefreshToken token);
+        Task<bool> RemoveRefreshToken(RefreshToken existingToken);
+        Task<bool> RemoveRefreshToken(string refreshTokenId);
+        Task<RefreshToken> FindRefreshToken(string refreshTokenId);
+        List<RefreshToken> GetAllRefreshTokens();
+    }
+
+    public class RefreshTokenManager : IRefreshTokenManager
     {
         private readonly DatabaseContext _context;
 
         public RefreshTokenManager(DatabaseContext dbContext)
         {
             _context = dbContext;
-        }
-
-        public static RefreshTokenManager Create(IdentityFactoryOptions<RefreshTokenManager> options, IOwinContext context)
-        {
-            return new RefreshTokenManager(context.Get<DatabaseContext>());
         }
 
         public IEnumerable<Client> GetClients()

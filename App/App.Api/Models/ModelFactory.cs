@@ -1,30 +1,28 @@
+using System;
 using System.Net.Http;
 using System.Web.Http.Routing;
 using App.Database.Security;
 using App.Dto.Response;
 using App.Entities.Security;
+using Microsoft.AspNet.Identity;
 
 namespace App.Api.Models
 {
     public class ModelFactory
     {
-        private readonly UrlHelper _urlHelper;
-        private readonly ApplicationUserManager _appUserManager;
-        private ApplicationRoleManager _appRoleManager;
+        private readonly UserManager<ApplicationUser, Guid> _appUserManager;
 
-        public ModelFactory(HttpRequestMessage request, 
-            ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        public ModelFactory(UserManager<ApplicationUser, Guid> userManager)
         {
-            _urlHelper = new UrlHelper(request);
-            _appRoleManager = roleManager;
             _appUserManager = userManager;
         }
 
-        public UserReturnModel Create(ApplicationUser user)
+        public UserReturnModel Create(ApplicationUser user, HttpRequestMessage request)
         {
+            var urlHelper = new UrlHelper(request);
             return new UserReturnModel
             {
-                Url = _urlHelper.Link("GetUserById", new { id = user.Id }),
+                Url = urlHelper.Link("GetUserById", new { id = user.Id }),
                 Id = user.Id,
                 UserName = user.UserName,
                 FullName = user.ProfileInfo.FullName,
@@ -37,11 +35,12 @@ namespace App.Api.Models
             };
         }
 
-        public RoleReturnModel Create(CustomRole role)
+        public RoleReturnModel Create(CustomRole role, HttpRequestMessage request)
         {
+            var urlHelper = new UrlHelper(request);
             return new RoleReturnModel
             {
-                Url = _urlHelper.Link("GetRoleById", new { id = role.Id }),
+                Url = urlHelper.Link("GetRoleById", new { id = role.Id }),
                 Id = role.Id,
                 Name = role.Name,
             };

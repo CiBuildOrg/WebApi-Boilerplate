@@ -77,7 +77,7 @@
     <Compile Include="Contracts\ITraceProvider.cs" />
     <Compile Include="Contracts\ITraceStepUtil.cs" />
     <Compile Include="CoreModule.cs" />
-    <Compile Include="Extensions\AutowireAutomapper.cs" />
+    <Compile Include="Extensions\AutofacExtensions.cs" />
     <Compile Include="Extensions\HashType.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Implementations\NowImplementation.cs" />

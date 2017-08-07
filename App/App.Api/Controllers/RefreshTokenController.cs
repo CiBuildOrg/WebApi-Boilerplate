@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using App.Api.Security;
 using App.Core.Extensions;
 
 namespace App.Api.Controllers
@@ -13,6 +14,13 @@ namespace App.Api.Controllers
     [RoutePrefix("api/refreshtoken")]
     public class RefreshTokenController : BaseApiController
     {
+        private readonly IRefreshTokenManager _refreshTokenManager;
+
+        public RefreshTokenController(IRefreshTokenManager refreshTokenManager)
+        {
+            _refreshTokenManager = refreshTokenManager;
+        }
+
         /// <summary>
         /// Gets all refresh tokens in current WebApi
         /// </summary>
@@ -20,7 +28,7 @@ namespace App.Api.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(AppRefreshTokenManager.GetAllRefreshTokens());
+            return Ok(_refreshTokenManager.GetAllRefreshTokens());
         }
 
         /// <summary>
@@ -33,7 +41,7 @@ namespace App.Api.Controllers
         public async Task<IHttpActionResult> Delete(string tokenId)
         {
             var hashedTokenId = tokenId.GetHash();
-            var result = await AppRefreshTokenManager.RemoveRefreshToken(hashedTokenId);
+            var result = await _refreshTokenManager.RemoveRefreshToken(hashedTokenId);
 
             if (result)
             {

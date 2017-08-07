@@ -5,9 +5,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using App.Api.Models;
 using App.Database.Security;
 using App.Dto.Request;
 using App.Entities;
+using App.Entities.Security;
 using Microsoft.AspNet.Identity;
 
 namespace App.Api.Controllers
@@ -19,6 +21,18 @@ namespace App.Api.Controllers
     [RoutePrefix("api/account")]
     public class AccountsController : BaseApiController
     {
+
+        private readonly ModelFactory _factory;
+        private readonly UserManager<ApplicationUser, Guid> _applicationUserManager;
+        private readonly RoleManager<CustomRole, Guid> _applicationRoleManager;
+
+        public AccountsController(UserManager<ApplicationUser, Guid> applicationUserManager, RoleManager<CustomRole, Guid> applicationRoleManager)
+        {
+            _applicationUserManager = applicationUserManager;
+            _applicationRoleManager = applicationRoleManager;
+            _factory = new ModelFactory(_applicationUserManager);
+        }
+
         /// <summary>
         /// Get users
         /// </summary>
@@ -27,7 +41,7 @@ namespace App.Api.Controllers
         [Route("users")]
         public IHttpActionResult GetUsers()
         {
-            return Ok(AppUserManager.Users.ToList().Select(u => TheModelFactory.Create(u)));
+            return Ok(_applicationUserManager.Users.ToList().Select(u => _factory.Create(u, Request)));
         }
 
         /// <summary>
@@ -39,11 +53,11 @@ namespace App.Api.Controllers
         [Route("user/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUser(Guid id)
         {
-            var user = await AppUserManager.FindByIdAsync(id);
+            var user = await _applicationUserManager.FindByIdAsync(id);
 
             if (user != null)
             {
-                return Ok(TheModelFactory.Create(user));
+                return Ok(_factory.Create(user, Request));
             }
 
             return NotFound();
@@ -57,7 +71,7 @@ namespace App.Api.Controllers
         [Route("roles")]
         public IHttpActionResult GetRoles()
         {
-            return Ok(AppRoleManager.Roles.ToList().Select(r => TheModelFactory.Create(r)));
+            return Ok(_applicationRoleManager.Roles.ToList().Select(r => _factory.Create(r, Request)));
         }
 
         /// <summary>
@@ -69,11 +83,11 @@ namespace App.Api.Controllers
         [Route("role/{id:guid}", Name = "GetRoleById")]
         public async Task<IHttpActionResult> GetRole(Guid id)
         {
-            var role = await AppRoleManager.FindByIdAsync(id);
+            var role = await _applicationRoleManager.FindByIdAsync(id);
 
             if (role != null)
             {
-                return Ok(TheModelFactory.Create(role));
+                return Ok(_factory.Create(role, Request));
             }
 
             return NotFound();
@@ -88,11 +102,11 @@ namespace App.Api.Controllers
         [Route("user/{username}", Name = "GetUserByName")]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
-            var user = await AppUserManager.FindByNameAsync(username);
+            var user = await _applicationUserManager.FindByNameAsync(username);
 
             if (user != null)
             {
-                return Ok(TheModelFactory.Create(user));
+                return Ok(_factory.Create(user, Request));
             }
 
             return NotFound();
@@ -126,23 +140,22 @@ namespace App.Api.Controllers
                 }
             };
 
-            var result = await AppUserManager.CreateAsync(user, createUserModel.Password);
+            var result = await _applicationUserManager.CreateAsync(user, createUserModel.Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
-            var assignRole = AppRoleManager.FindByName("User");
+            var assignRole = _applicationRoleManager.FindByName("User");
 
             if (assignRole != null)
             {
-                await AppUserManager.AddToRoleAsync(user.Id, assignRole.Name);
+                await _applicationUserManager.AddToRoleAsync(user.Id, assignRole.Name);
             }
 
             var locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
-
-            return Created(locationHeader, TheModelFactory.Create(user));
+            return Created(locationHeader, _factory.Create(user, Request));
         }
 
         /// <summary>
@@ -159,14 +172,10 @@ namespace App.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await AppUserManager.ChangePasswordAsync(Guid.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
+            var result = await _applicationUserManager.ChangePasswordAsync(Guid.Parse(User.Identity.GetUserId()), 
+                model.OldPassword, model.NewPassword);
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return !result.Succeeded ? GetErrorResult(result) : Ok();
         }
 
         /// <summary>
@@ -180,11 +189,11 @@ namespace App.Api.Controllers
         public async Task<IHttpActionResult> DeleteUser(Guid id)
         {
             // TODO: Only SuperAdmin or Admin can delete users.
-            var appUser = await AppUserManager.FindByIdAsync(id);
+            var appUser = await _applicationUserManager.FindByIdAsync(id);
 
             if (appUser != null)
             {
-                var result = await AppUserManager.DeleteAsync(appUser);
+                var result = await _applicationUserManager.DeleteAsync(appUser);
 
                 if (!result.Succeeded)
                 {
@@ -213,7 +222,7 @@ namespace App.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var appUser = await AppUserManager.FindByIdAsync(id);
+            var appUser = await _applicationUserManager.FindByIdAsync(id);
 
             if (appUser == null)
             {
@@ -224,10 +233,10 @@ namespace App.Api.Controllers
             {
                 if (appUser.Claims.Any(c => c.ClaimType == item.Type))
                 {
-                    await AppUserManager.RemoveClaimAsync(id, new Claim(item.Type, item.Value));
+                    await _applicationUserManager.RemoveClaimAsync(id, new Claim(item.Type, item.Value));
                 }
 
-                await AppUserManager.AddClaimAsync(id, new Claim(item.Type, item.Value, ClaimValueTypes.String));
+                await _applicationUserManager.AddClaimAsync(id, new Claim(item.Type, item.Value, ClaimValueTypes.String));
             }
 
             return Ok();
@@ -249,7 +258,7 @@ namespace App.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var appUser = await AppUserManager.FindByIdAsync(id);
+            var appUser = await _applicationUserManager.FindByIdAsync(id);
 
             if (appUser == null)
             {
@@ -260,7 +269,7 @@ namespace App.Api.Controllers
             {
                 if (appUser.Claims.Any(c => c.ClaimType == item.Type))
                 {
-                    await AppUserManager.RemoveClaimAsync(id, new Claim(item.Type, item.Value));
+                    await _applicationUserManager.RemoveClaimAsync(id, new Claim(item.Type, item.Value));
                 }
             }
 
@@ -283,7 +292,7 @@ namespace App.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var appUser = await AppUserManager.FindByIdAsync(id);
+            var appUser = await _applicationUserManager.FindByIdAsync(id);
 
             if (appUser == null)
             {
@@ -292,7 +301,7 @@ namespace App.Api.Controllers
 
             foreach (var roleId in rolesToAssign)
             {
-                var role = await AppRoleManager.FindByIdAsync(roleId);
+                var role = await _applicationRoleManager.FindByIdAsync(roleId);
 
                 if (role == null)
                 {
@@ -301,10 +310,10 @@ namespace App.Api.Controllers
 
                 if (appUser.Roles.Any(r => r.RoleId == role.Id))
                 {
-                    await AppUserManager.RemoveFromRoleAsync(appUser.Id, role.Name);
+                    await _applicationUserManager.RemoveFromRoleAsync(appUser.Id, role.Name);
                 }
 
-                await AppUserManager.AddToRoleAsync(appUser.Id, role.Name);
+                await _applicationUserManager.AddToRoleAsync(appUser.Id, role.Name);
             }
 
             return Ok();
@@ -326,7 +335,7 @@ namespace App.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var appUser = await AppUserManager.FindByIdAsync(id);
+            var appUser = await _applicationUserManager.FindByIdAsync(id);
 
             if (appUser == null)
             {
@@ -335,11 +344,11 @@ namespace App.Api.Controllers
 
             foreach (var roleId in rolesToRemove)
             {
-                var role = await AppRoleManager.FindByIdAsync(roleId);
+                var role = await _applicationRoleManager.FindByIdAsync(roleId);
 
                 if (appUser.Roles.Any(r => r.RoleId == role.Id))
                 {
-                    await AppUserManager.RemoveFromRoleAsync(appUser.Id, role.Name);
+                    await _applicationUserManager.RemoveFromRoleAsync(appUser.Id, role.Name);
                 }
             }
 

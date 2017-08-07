@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Web.Compilation;
 using System.Web.Http;
@@ -16,9 +17,10 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using JwtFormat = App.Api.Security.JwtFormat;
 
 [assembly: OwinStartup("ProductionConfiguration", typeof(Startup))]
 namespace App.Api
@@ -44,29 +46,24 @@ namespace App.Api
         {
             var container = AutofacConfig.ConfigureContainer();
             app.UseAutofacMiddleware(container);
-            //app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
-            app.CreatePerOwinContext<RefreshTokenManager>(RefreshTokenManager.Create);
-
-            ConfigureOAuth(app);
-            ConfigureOAuthTokenConsumption(app);
+            ConfigureOAuth(app, container);
+            ConfigureOAuthTokenConsumption(app, container);
 
             app.UseCommonLogging();
         }
 
-        private void ConfigureOAuth(IAppBuilder app)
+        private void ConfigureOAuth(IAppBuilder app, IComponentContext componentContext)
         {
-            var issuer = ConfigurationManager.AppSettings["tokenIssuer"];
+            //var issuer = ConfigurationManager.AppSettings["tokenIssuer"];
 
             OAuthAuthorizationServerOptions serverOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/auth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                Provider = new OauthProvider(),
-                AccessTokenFormat = new JwtFormat(issuer),
-                RefreshTokenProvider = new RefreshTokenProvider()
+                Provider = componentContext.Resolve<OAuthAuthorizationServerProvider>(),
+                AccessTokenFormat = componentContext.Resolve<ISecureDataFormat<AuthenticationTicket>>(),
+                RefreshTokenProvider = componentContext.Resolve<IAuthenticationTokenProvider>()
             };
 
             app.UseOAuthAuthorizationServer(serverOptions);
@@ -85,14 +82,12 @@ namespace App.Api
             //    });
         }
 
-        private void ConfigureOAuthTokenConsumption(IAppBuilder app)
+        private void ConfigureOAuthTokenConsumption(IAppBuilder app, IComponentContext componentContext)
         {
-            var issuer = ConfigurationManager.AppSettings["tokenIssuer"];
-
             app.UseOAuthBearerAuthentication(
                 new OAuthBearerAuthenticationOptions
                 {
-                    AccessTokenFormat = new JwtFormat(issuer)
+                    AccessTokenFormat = componentContext.Resolve<ISecureDataFormat<AuthenticationTicket>>()
                 });
         }
 

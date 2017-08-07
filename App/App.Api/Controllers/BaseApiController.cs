@@ -4,23 +4,22 @@ using App.Api.Models;
 using App.Api.Security;
 using App.Database.Security;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-
 namespace App.Api.Controllers
 {
     public class BaseApiController : ApiController
     {
-        protected ApplicationUserManager AppUserManager => 
-            Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //protected ApplicationUserManager AppUserManager => 
+        //    Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-        protected ApplicationRoleManager AppRoleManager => 
-            Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+        //protected ApplicationRoleManager AppRoleManager => 
+        //    Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
 
-        protected RefreshTokenManager AppRefreshTokenManager => 
-            Request.GetOwinContext().GetUserManager<RefreshTokenManager>();
+        //protected RefreshTokenManager AppRefreshTokenManager => 
+        //    Request.GetOwinContext().GetUserManager<RefreshTokenManager>();
 
-        protected ModelFactory TheModelFactory => 
-            new ModelFactory(Request, AppUserManager, AppRoleManager);
+        //protected ModelFactory TheModelFactory => 
+        //    new ModelFactory(Request, AppUserManager, AppRoleManager);
+
 
         protected IHttpActionResult GetErrorResult(IdentityResult result)
         {
