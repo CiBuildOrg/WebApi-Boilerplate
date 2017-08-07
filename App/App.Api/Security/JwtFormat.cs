@@ -8,6 +8,7 @@ using App.Entities.Security;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Thinktecture.IdentityModel.Tokens;
+using SecurityToken = System.IdentityModel.Tokens.SecurityToken;
 
 namespace App.Api.Security
 {

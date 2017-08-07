@@ -13,8 +13,8 @@ namespace App.Database
             builder.RegisterType<DatabaseContext>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().As<UserManager<ApplicationUser, Guid>>().InstancePerLifetimeScope();
             builder.RegisterType<IdentityUserStore>().As<IUserStore<ApplicationUser, Guid >> ();
-            builder.RegisterType<IdentityRoleStore>().As<IRoleStore<CustomRole, Guid >> ().InstancePerLifetimeScope();
-            builder.RegisterType<ApplicationRoleManager>().As<RoleManager<CustomRole, Guid>>()
+            builder.RegisterType<IdentityRoleStore>().As<IRoleStore<ApplicationRole, Guid >> ().InstancePerLifetimeScope();
+            builder.RegisterType<ApplicationRoleManager>().As<RoleManager<ApplicationRole, Guid>>()
                 .InstancePerLifetimeScope();
         }   
     }

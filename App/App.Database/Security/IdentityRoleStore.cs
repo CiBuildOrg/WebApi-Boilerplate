@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Database.Security
 {
-    public class IdentityRoleStore : RoleStore<CustomRole, Guid, Entities.Security.IdentityUserRole>
+    public class IdentityRoleStore : RoleStore<ApplicationRole, Guid, Entities.Security.ApplicationIdentityUserRole>
     {
         public IdentityRoleStore(DatabaseContext context)
             : base(context)

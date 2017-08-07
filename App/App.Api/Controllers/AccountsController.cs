@@ -24,9 +24,9 @@ namespace App.Api.Controllers
 
         private readonly ModelFactory _factory;
         private readonly UserManager<ApplicationUser, Guid> _applicationUserManager;
-        private readonly RoleManager<CustomRole, Guid> _applicationRoleManager;
+        private readonly RoleManager<ApplicationRole, Guid> _applicationRoleManager;
 
-        public AccountsController(UserManager<ApplicationUser, Guid> applicationUserManager, RoleManager<CustomRole, Guid> applicationRoleManager)
+        public AccountsController(UserManager<ApplicationUser, Guid> applicationUserManager, RoleManager<ApplicationRole, Guid> applicationRoleManager)
         {
             _applicationUserManager = applicationUserManager;
             _applicationRoleManager = applicationRoleManager;

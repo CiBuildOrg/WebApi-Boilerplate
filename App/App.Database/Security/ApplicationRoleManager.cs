@@ -4,9 +4,9 @@ using Microsoft.AspNet.Identity;
 
 namespace App.Database.Security
 {
-    public class ApplicationRoleManager : RoleManager<CustomRole, Guid>
+    public class ApplicationRoleManager : RoleManager<ApplicationRole, Guid>
     {
-        public ApplicationRoleManager(IRoleStore<CustomRole, Guid> store) : base(store)
+        public ApplicationRoleManager(IRoleStore<ApplicationRole, Guid> store) : base(store)
         {
             
         }

@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Entities.Security
 {
-    public class IdentityUserClaim : IdentityUserClaim<Guid>
+    public class ApplicationIdentityUserRole : IdentityUserRole<Guid>
     {
     }
-}
+}       

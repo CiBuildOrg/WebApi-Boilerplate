@@ -35,7 +35,7 @@ namespace App.Api.Models
             };
         }
 
-        public RoleReturnModel Create(CustomRole role, HttpRequestMessage request)
+        public RoleReturnModel Create(ApplicationRole role, HttpRequestMessage request)
         {
             var urlHelper = new UrlHelper(request);
             return new RoleReturnModel

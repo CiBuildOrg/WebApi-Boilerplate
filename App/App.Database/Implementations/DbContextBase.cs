@@ -14,10 +14,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Database.Implementations
 {
-    public abstract class DbContextBase : IdentityDbContext<ApplicationUser, CustomRole, Guid,
-        Entities.Security.IdentityUserLogin, 
-        Entities.Security.IdentityUserRole, 
-        Entities.Security.IdentityUserClaim>
+    public abstract class DbContextBase : IdentityDbContext<ApplicationUser, ApplicationRole, Guid,
+        Entities.Security.ApplicationIdentityUserLogin, 
+        Entities.Security.ApplicationIdentityUserRole, 
+        Entities.Security.ApplicationIdentityUserClaim>
     {
         private readonly IConfigurationModule[] _modules;
 

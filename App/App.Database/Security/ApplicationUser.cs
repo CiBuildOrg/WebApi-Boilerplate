@@ -2,18 +2,16 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using App.Entities;
+using App.Entities.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using IdentityUserClaim = App.Entities.Security.IdentityUserClaim;
-using IdentityUserLogin = App.Entities.Security.IdentityUserLogin;
-using IdentityUserRole = App.Entities.Security.IdentityUserRole;
 
 namespace App.Database.Security
 {
     public class ApplicationUser : IdentityUser<Guid, 
-        IdentityUserLogin, 
-        IdentityUserRole, 
-        IdentityUserClaim>
+        ApplicationIdentityUserLogin, 
+        ApplicationIdentityUserRole, 
+        ApplicationIdentityUserClaim>
     {
         public virtual UserProfile ProfileInfo { get; set; }
 

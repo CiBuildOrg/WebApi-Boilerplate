@@ -24,13 +24,13 @@ namespace App.Database
         internal static void PopulateDatabase(DatabaseContext context)
         {
             var applicationUserManager = new UserManager<ApplicationUser, Guid>(new IdentityUserStore(context));
-            var applicationRoleManager = new RoleManager<CustomRole, Guid>(new IdentityRoleStore(context));
+            var applicationRoleManager = new RoleManager<ApplicationRole, Guid>(new IdentityRoleStore(context));
 
             // seed the data
 
             if (!applicationRoleManager.Roles.Any(x => x.Name == "SuperAdmin"))
             {
-                applicationRoleManager.Create(new CustomRole("SuperAdmin")
+                applicationRoleManager.Create(new ApplicationRole("SuperAdmin")
                 {
                     Id = Guid.Parse(SuperAdminId),
                     RoleDescription = "super admin"
@@ -39,7 +39,7 @@ namespace App.Database
 
             if (!applicationRoleManager.Roles.Any(x => x.Name == "Admin"))
             {
-                applicationRoleManager.Create(new CustomRole("Admin")
+                applicationRoleManager.Create(new ApplicationRole("Admin")
                 {
                     Id = Guid.Parse(AdminId),
                     RoleDescription = "administrator"
@@ -48,7 +48,7 @@ namespace App.Database
 
             if (!applicationRoleManager.Roles.Any(x => x.Name == "User"))
             {
-                applicationRoleManager.Create(new CustomRole("User")
+                applicationRoleManager.Create(new ApplicationRole("User")
                 {
                     Id = Guid.Parse(UserId),
                     RoleDescription = "user"
