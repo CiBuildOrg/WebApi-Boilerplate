@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\AppClaimsPrincipal.cs" />
     <Compile Include="Infrastructure\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="SecurityModule.cs" />
     <Compile Include="Validation\PasswordChecker.cs" />

@@ -81,7 +81,6 @@
     <Compile Include="LogEntry.cs" />
     <Compile Include="LogStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\AppClaimsPrincipal.cs" />
     <Compile Include="Security\ApplicationRole.cs" />
     <Compile Include="Security\ApplicationIdentityUserClaim.cs" />
     <Compile Include="Security\ApplicationIdentityUserLogin.cs" />

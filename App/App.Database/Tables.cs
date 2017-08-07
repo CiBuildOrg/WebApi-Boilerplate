@@ -7,6 +7,8 @@
         internal const string LogEntriesTable = "LogEntries";
         internal const string UserProfileTable = "UserProfiles";
         internal const string ClientsTable = "Clients";
-        public static string RefreshTokensTable = "RefreshTokens";
+        internal static string RefreshTokensTable = "RefreshTokens";
+
+        // asp identity tables
     }
 }

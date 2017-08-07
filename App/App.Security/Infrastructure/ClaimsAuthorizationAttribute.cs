@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using App.Entities.Security;
 
 namespace App.Security.Infrastructure
 {
@@ -31,7 +32,7 @@ namespace App.Security.Infrastructure
         /// <returns></returns>
         public override Task OnAuthorizationAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
-            var principal = actionContext.RequestContext.Principal as ClaimsPrincipal;
+            var principal = actionContext.RequestContext.Principal as AppClaimsPrincipal;
 
             if (principal != null && !principal.Identity.IsAuthenticated)
             {
