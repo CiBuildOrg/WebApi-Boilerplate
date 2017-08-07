@@ -34,12 +34,9 @@ namespace App.Database.Configurations
 
             Property(x => x.JoinDate)
                 .HasColumnName("JoinDate")
-                .HasColumnType("datetime2")
+                .HasColumnType("datetime")
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
-
         }
-
     }
 }

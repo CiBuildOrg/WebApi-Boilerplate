@@ -24,13 +24,13 @@ namespace App.Database.Configurations
             Property(x => x.Name).HasMaxLength(100).HasColumnName("Name")
                 .HasColumnType("nvarchar").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(x => x.ApplicationType).HasColumnName("ApplicationType").HasColumnType("byte")
+            Property(x => x.ApplicationType).HasColumnName("ApplicationType").HasColumnType("int")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(x => x.Active).HasColumnName("Active").HasColumnType("bit")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(x => x.RefreshTokenLifeTime).HasColumnName("RefreshTokenLifeTime").HasColumnType("nvarchar")
+            Property(x => x.RefreshTokenLifeTime).HasColumnName("RefreshTokenLifeTime").HasColumnType("int")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(x => x.AllowedOrigin).HasColumnName("AllowedOrigin").HasColumnType("nvarchar").HasMaxLength(100)

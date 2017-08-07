@@ -23,10 +23,10 @@ namespace App.Database.Configurations
             Property(x => x.ProtectedTicket).HasColumnType("nvarchar").HasColumnName("ProtectedTicket")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(x => x.IssuedUtc).HasColumnName("IssuedUtc").HasColumnType("datetime2")
+            Property(x => x.IssuedUtc).HasColumnName("IssuedUtc").HasColumnType("datetime")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(x => x.ExpiresUtc).HasColumnName("ExpiresUtc").HasColumnType("datetime2")
+            Property(x => x.ExpiresUtc).HasColumnName("ExpiresUtc").HasColumnType("datetime")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
     }

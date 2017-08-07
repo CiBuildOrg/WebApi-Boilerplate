@@ -19,7 +19,6 @@ namespace App.Database.Security
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUserManager manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
-
             return userIdentity;
         }
     }

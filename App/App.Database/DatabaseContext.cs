@@ -12,8 +12,6 @@ namespace App.Database
 
     public class DatabaseContext : DbContextBase
     {
-
-
         public DatabaseContext(IConfiguration configuration)
             : base(configuration, new ContextConfigurationModule())
         {
@@ -31,7 +29,6 @@ namespace App.Database
         public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public DbSet<Dummy> Dummy { get; set; }
-
         public DbSet<LogEntry> LogEntries { get; set; }
     }
 }
