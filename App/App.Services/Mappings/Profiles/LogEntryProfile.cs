@@ -2,7 +2,6 @@
 using System.Globalization;
 using App.Dto.Response;
 using App.Entities;
-using App.Services.Mappings.ValueResolvers;
 using AutoMapper;
 
 namespace App.Services.Mappings.Profiles

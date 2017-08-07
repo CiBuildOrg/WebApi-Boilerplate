@@ -2,7 +2,6 @@
 using App.Core.Contracts;
 using App.Database.Configurations;
 using App.Database.Security;
-using App.Entities;
 
 namespace App.Database
 {

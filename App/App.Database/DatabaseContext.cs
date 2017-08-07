@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using App.Core.Contracts;
 using App.Database.Extensions;
 using App.Database.Implementations;
 using App.Entities;
 using App.Entities.Security;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Database
 {

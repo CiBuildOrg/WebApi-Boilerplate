@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using App.Core.Contracts;
 using App.Database;
 using App.Dto.Request;
 using App.Entities.Security;

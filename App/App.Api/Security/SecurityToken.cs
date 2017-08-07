@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens;
 using System.Linq;
 using App.Entities;
-using App.Entities.Security;
-using App.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace App.Api.Security
 {

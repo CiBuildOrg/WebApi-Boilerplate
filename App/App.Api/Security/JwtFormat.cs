@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using App.Entities.Security;
-using App.Security;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;

@@ -1,5 +1,4 @@
 ﻿using System;
-using App.Entities.Contracts;
 
 namespace App.Entities.Security
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using App.Core.Contracts;
-using App.Core.Utils;
 using App.Exceptions;
 using Autofac;
 

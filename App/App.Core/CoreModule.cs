@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Contracts;
+﻿using App.Core.Contracts;
 using App.Core.Implementations;
 using Autofac;
-using Autofac.Core;
 
 namespace App.Core
 {
