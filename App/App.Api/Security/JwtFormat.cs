@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Claims;
-using System.Web;
-using App.Core;
 using App.Core.Contracts;
 using App.Entities.Security;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Thinktecture.IdentityModel.Tokens;
@@ -16,17 +13,14 @@ namespace App.Api.Security
 {
     public class JwtFormat : ISecureDataFormat<AuthenticationTicket>
     {
-        private readonly IConfiguration _configuration;
         private readonly IRefreshTokenManager _refreshTokenManager;
         private readonly string _issuer;
         private List<Client> _allowedAudiences = new List<Client>();
 
         public JwtFormat(IConfiguration configuration, IRefreshTokenManager refreshTokenManager)
         {
-            _configuration = configuration;
             _refreshTokenManager = refreshTokenManager;
-
-            _issuer = _configuration.GetString(SecurityKeys.Issuer); // issuer;
+            _issuer = configuration.GetString(SecurityKeys.Issuer); // issuer;
         }
 
         public string Protect(AuthenticationTicket data)

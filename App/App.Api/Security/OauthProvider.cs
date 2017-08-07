@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using App.Database.Security;
 using App.Entities.Security;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 

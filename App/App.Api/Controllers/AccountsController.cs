@@ -191,19 +191,14 @@ namespace App.Api.Controllers
             // TODO: Only SuperAdmin or Admin can delete users.
             var appUser = await _applicationUserManager.FindByIdAsync(id);
 
-            if (appUser != null)
+            if (appUser == null)
             {
-                var result = await _applicationUserManager.DeleteAsync(appUser);
-
-                if (!result.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-
-                return Ok();
+                return NotFound();
             }
 
-            return NotFound();
+            var result = await _applicationUserManager.DeleteAsync(appUser);
+
+            return !result.Succeeded ? GetErrorResult(result) : Ok();
         }
 
         /// <summary>

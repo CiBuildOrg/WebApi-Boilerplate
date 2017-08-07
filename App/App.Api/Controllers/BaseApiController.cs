@@ -1,8 +1,4 @@
-﻿using System.Net.Http;
-using System.Web.Http;
-using App.Api.Models;
-using App.Api.Security;
-using App.Database.Security;
+﻿using System.Web.Http;
 using Microsoft.AspNet.Identity;
 namespace App.Api.Controllers
 {

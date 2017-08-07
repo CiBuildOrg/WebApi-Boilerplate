@@ -3,7 +3,6 @@ using App.Database.Security;
 using App.Entities.Security;
 using Autofac;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Database
 {

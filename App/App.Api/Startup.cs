@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Mvc;
 using App.Api;
-using App.Api.Security;
 using App.Core.Contracts;
 using App.Core.Implementations;
-using App.Database.Security;
 using App.Infrastructure.Di;
 using App.Infrastructure.Logging.Owin;
 using Autofac;
