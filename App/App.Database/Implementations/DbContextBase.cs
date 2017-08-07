@@ -15,9 +15,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace App.Database.Implementations
 {
     public abstract class DbContextBase : IdentityDbContext<ApplicationUser, ApplicationRole, Guid,
-        Entities.Security.ApplicationIdentityUserLogin, 
-        Entities.Security.ApplicationIdentityUserRole, 
-        Entities.Security.ApplicationIdentityUserClaim>
+        ApplicationIdentityUserLogin, 
+        ApplicationIdentityUserRole, 
+        ApplicationIdentityUserClaim>
     {
         private readonly IConfigurationModule[] _modules;
 
