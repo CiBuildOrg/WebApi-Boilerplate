@@ -16,18 +16,6 @@ namespace App.Database
             builder.RegisterType<IdentityRoleStore>().As<IRoleStore<CustomRole, Guid >> ().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationRoleManager>().As<RoleManager<CustomRole, Guid>>()
                 .InstancePerLifetimeScope();
-
-            //builder.RegisterType<UsernameValidator>().As<UserValidator<ApplicationUser, Guid>>().InstancePerLifetimeScope();
-            builder.Register<IIdentityValidator<ApplicationUser>>(x =>
-            {
-                var manager = x.Resolve<UserManager<ApplicationUser, Guid>>();
-                return new UsernameValidator(manager)
-                {
-                    AllowOnlyAlphanumericUserNames = true,
-                    RequireUniqueEmail = true
-                };
-            });
-
         }   
     }
 }
