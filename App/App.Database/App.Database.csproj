@@ -87,6 +87,10 @@
     <Compile Include="Migrations\201708072247211_AddRoleDescription.Designer.cs">
       <DependentUpon>201708072247211_AddRoleDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708080013595_RenameAspTables.cs" />
+    <Compile Include="Migrations\201708080013595_RenameAspTables.Designer.cs">
+      <DependentUpon>201708080013595_RenameAspTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Security\ApplicationRoleManager.cs" />
     <Compile Include="Security\ApplicationUser.cs" />
     <Compile Include="Security\ApplicationUserManager.cs" />
@@ -138,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708072247211_AddRoleDescription.resx">
       <DependentUpon>201708072247211_AddRoleDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708080013595_RenameAspTables.resx">
+      <DependentUpon>201708080013595_RenameAspTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

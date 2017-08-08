@@ -10,5 +10,14 @@
         internal static string RefreshTokensTable = "RefreshTokens";
 
         // asp identity tables
+        internal static string ApplicationUsersTable = "ApplicationUsers";
+
+        internal static string ApplicationIdentityUserClaimsTable = "ApplicationUserClaims";
+
+        internal static string ApplicationIdentityUserLoginsTable = "ApplicationUserLogins";
+
+        internal static string ApplicationIdentityUserRolesTable = "ApplicationUserRoles";
+
+        internal static string ApplicationRolesTable = "ApplicationRoles";
     }
 }
