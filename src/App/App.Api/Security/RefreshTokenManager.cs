@@ -10,20 +10,6 @@ using Microsoft.Owin.Security.DataHandler.Encoder;
 
 namespace App.Api.Security
 {
-    public interface IRefreshTokenManager : IDisposable
-    {
-        IEnumerable<Client> GetClients();
-        IEnumerable<Client> GetAllowedClients();
-        Client FindClient(string clientId);
-        Task<Client> AddClientAsync(ClientBindingModel clientModel);
-        Task<bool> RemoveClient(string id);
-        Task<bool> AddRefreshToken(RefreshToken token);
-        Task<bool> RemoveRefreshToken(RefreshToken existingToken);
-        Task<bool> RemoveRefreshToken(string refreshTokenId);
-        Task<RefreshToken> FindRefreshToken(string refreshTokenId);
-        List<RefreshToken> GetAllRefreshTokens();
-    }
-
     public class RefreshTokenManager : IRefreshTokenManager
     {
         private readonly DatabaseContext _context;
@@ -45,7 +31,7 @@ namespace App.Api.Security
 
         public Client FindClient(string clientId)
         {
-            var client = _context.Clients.Find(clientId);
+            var client = _context.Clients.Find(Guid.Parse(clientId));
             return client;
         }
 

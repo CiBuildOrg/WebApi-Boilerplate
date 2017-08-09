@@ -35,8 +35,7 @@ namespace App.Api.Security
 
             var token = new RefreshToken
             {
-                Id = Guid.NewGuid(),
-                RefreshTokenId = refreshTokenId.GetHash(),
+                Id = refreshTokenId.GetHash(),
                 ClientId = clientId,
                 Subject = context.Ticket.Identity.Name,
                 IssuedUtc = DateTime.UtcNow,
@@ -64,7 +63,7 @@ namespace App.Api.Security
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             var hashedTokenId = context.Token.GetHash();
-            var refreshToken = await context.OwinContext.Get<RefreshTokenManager>().FindRefreshToken(hashedTokenId);
+            var refreshToken = await _refreshTokenManager.FindRefreshToken(hashedTokenId);
 
             if (refreshToken != null)
             {

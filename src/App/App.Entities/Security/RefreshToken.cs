@@ -4,8 +4,7 @@ namespace App.Entities.Security
 {
     public class RefreshToken 
     {
-        public Guid Id { get; set; }
-        public string RefreshTokenId { get; set; }
+        public string Id { get; set; }
         public string Subject { get; set; }
         public string ClientId { get; set; }
         public DateTime IssuedUtc { get; set; }

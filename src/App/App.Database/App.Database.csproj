@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201708080013595_RenameAspTables.Designer.cs">
       <DependentUpon>201708080013595_RenameAspTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708092106290_RevertRefreshTokenId.cs" />
+    <Compile Include="Migrations\201708092106290_RevertRefreshTokenId.Designer.cs">
+      <DependentUpon>201708092106290_RevertRefreshTokenId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Security\ApplicationRoleManager.cs" />
     <Compile Include="Security\ApplicationUser.cs" />
     <Compile Include="Security\ApplicationUserManager.cs" />
@@ -145,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708080013595_RenameAspTables.resx">
       <DependentUpon>201708080013595_RenameAspTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708092106290_RevertRefreshTokenId.resx">
+      <DependentUpon>201708092106290_RevertRefreshTokenId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

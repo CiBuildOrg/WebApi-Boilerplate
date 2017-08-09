@@ -1,0 +1,95 @@
+{
+	"variables": [],
+	"info": {
+		"name": "WebApiBoilerplate",
+		"_postman_id": "e7aa613e-df3e-a38b-fbe2-f4387f7fa1e0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AUTH - Receive authentication token",
+			"request": {
+				"url": "http://localhost:49972/auth/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "doruc",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "asdf3235",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "F1179B6B-15A8-4250-9ED9-4C2D5EE0376B",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Demonstrates how to receive an authentication token from the oauth layer we have set-up "
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH - Renew authentication token with refresh token",
+			"request": {
+				"url": "http://localhost:49972/auth/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "refresh_token",
+							"value": "2fb97c7f71a24676b08fd9fb18acad6f",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "F1179B6B-15A8-4250-9ED9-4C2D5EE0376B",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Demonstrates how to receive an authentication token from the oauth layer we have set-up "
+			},
+			"response": []
+		}
+	]
+}
