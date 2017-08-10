@@ -4,8 +4,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using App.Api.Models;
 using App.Api.Security;
-using App.Database.Security;
 using App.Dto.Request;
+using App.Entities.Security;
 using Microsoft.AspNet.Identity;
 
 namespace App.Api.Controllers

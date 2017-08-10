@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using App.Database.Security;
 using App.Entities;
 using App.Entities.Security;
+using App.Security.Infrastructure;
 using Microsoft.AspNet.Identity;
 
 namespace App.Database

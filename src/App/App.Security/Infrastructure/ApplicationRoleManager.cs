@@ -2,7 +2,7 @@
 using App.Entities.Security;
 using Microsoft.AspNet.Identity;
 
-namespace App.Database.Security
+namespace App.Security.Infrastructure
 {
     public class ApplicationRoleManager : RoleManager<ApplicationRole, Guid>
     {

@@ -99,9 +99,6 @@
     <Compile Include="Migrations\201708101514505_LinkRefreshTokenToClients.Designer.cs">
       <DependentUpon>201708101514505_LinkRefreshTokenToClients.cs</DependentUpon>
     </Compile>
-    <Compile Include="Security\ApplicationRoleManager.cs" />
-    <Compile Include="Security\ApplicationUser.cs" />
-    <Compile Include="Security\ApplicationUserManager.cs" />
     <Compile Include="Configurations\ClientConfiguration.cs" />
     <Compile Include="Configurations\DummyConfiguration.cs" />
     <Compile Include="Configurations\LogEntryConfiguration.cs" />
@@ -116,10 +113,7 @@
     <Compile Include="Extensions\DbContextExtensions.cs" />
     <Compile Include="Implementations\DbContextBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\IdentityRoleStore.cs" />
-    <Compile Include="Security\IdentityUserStore.cs" />
     <Compile Include="Tables.cs" />
-    <Compile Include="Security\UsernameValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -129,6 +123,10 @@
     <ProjectReference Include="..\App.Core\App.Core.csproj">
       <Project>{3720884e-16af-4c75-b5dc-e08e815d9a63}</Project>
       <Name>App.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Entities.Security\App.Entities.Security.csproj">
+      <Project>{406CE224-1147-46C8-A503-4CDB185C7D48}</Project>
+      <Name>App.Entities.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Entities\App.Entities.csproj">
       <Project>{1f43c2e5-4d77-4aee-a9bb-c706eead0240}</Project>

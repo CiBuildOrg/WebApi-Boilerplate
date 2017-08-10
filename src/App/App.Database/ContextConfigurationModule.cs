@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
 using App.Core.Contracts;
 using App.Database.Configurations;
-using App.Database.Security;
 using App.Entities.Security;
 
 namespace App.Database

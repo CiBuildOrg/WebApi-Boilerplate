@@ -37,6 +37,8 @@ namespace App.Database.Configurations
                 .HasColumnType("datetime")
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            
         }
     }
 }

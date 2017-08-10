@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens;
 using System.Linq;
 using App.Entities;
+using App.Entities.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
 

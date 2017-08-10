@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Data.Entity;
 using App.Entities.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace App.Database.Security
+namespace App.Security.Infrastructure
 {
     public class IdentityRoleStore : RoleStore<ApplicationRole, Guid, ApplicationIdentityUserRole>
     {
-        public IdentityRoleStore(DatabaseContext context)
+        public IdentityRoleStore(DbContext context)
             : base(context)
         {
         }

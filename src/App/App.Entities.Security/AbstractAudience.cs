@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using App.Entities.Security;
 
-namespace App.Entities
+namespace App.Entities.Security
 {
     public abstract class AbstractAudience<T> : IEnumerable<T>
     {

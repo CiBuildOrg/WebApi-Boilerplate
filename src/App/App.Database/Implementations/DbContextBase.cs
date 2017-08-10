@@ -7,7 +7,6 @@ using System.Linq;
 using App.Core;
 using App.Core.Contracts;
 using App.Core.Utils;
-using App.Database.Security;
 using App.Entities.Contracts;
 using App.Entities.Security;
 using Microsoft.AspNet.Identity.EntityFramework;

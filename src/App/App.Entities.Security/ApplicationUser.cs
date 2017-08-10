@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using App.Entities;
-using App.Entities.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace App.Database.Security
+namespace App.Entities.Security
 {
     public class ApplicationUser : IdentityUser<Guid, 
         ApplicationIdentityUserLogin, 

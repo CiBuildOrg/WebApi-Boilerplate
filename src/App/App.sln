@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5901405C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Api.Tests", "..\..\tests\App.Api.Tests\App.Api.Tests.csproj", "{CEC19CAA-20D1-4309-82F6-139BE939C323}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Entities.Security", "App.Entities.Security\App.Entities.Security.csproj", "{406CE224-1147-46C8-A503-4CDB185C7D48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{CEC19CAA-20D1-4309-82F6-139BE939C323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEC19CAA-20D1-4309-82F6-139BE939C323}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEC19CAA-20D1-4309-82F6-139BE939C323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{406CE224-1147-46C8-A503-4CDB185C7D48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{406CE224-1147-46C8-A503-4CDB185C7D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{406CE224-1147-46C8-A503-4CDB185C7D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{406CE224-1147-46C8-A503-4CDB185C7D48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,6 @@
 using System;
 using System.Net.Http;
 using System.Web.Http.Routing;
-using App.Database.Security;
 using App.Dto.Response;
 using App.Entities.Security;
 using Microsoft.AspNet.Identity;

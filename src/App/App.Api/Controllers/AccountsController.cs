@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using App.Api.Models;
-using App.Database.Security;
 using App.Dto.Request;
 using App.Entities;
 using App.Entities.Security;

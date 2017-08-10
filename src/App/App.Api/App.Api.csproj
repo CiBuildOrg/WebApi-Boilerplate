@@ -381,6 +381,10 @@
       <Project>{5DB82D4E-AA87-405B-8750-053F2EC057FF}</Project>
       <Name>App.Dto</Name>
     </ProjectReference>
+    <ProjectReference Include="..\App.Entities.Security\App.Entities.Security.csproj">
+      <Project>{406CE224-1147-46C8-A503-4CDB185C7D48}</Project>
+      <Name>App.Entities.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Entities\App.Entities.csproj">
       <Project>{1F43C2E5-4D77-4AEE-A9BB-C706EEAD0240}</Project>
       <Name>App.Entities</Name>

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
 
-namespace App.Entities.Security
+namespace App.Security.Infrastructure
 {
     public class AppClaimsPrincipal : ClaimsPrincipal
     {

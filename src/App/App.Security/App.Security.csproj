@@ -86,7 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\AppClaimsPrincipal.cs" />
+    <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
+    <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Infrastructure\ClaimsAuthorizationAttribute.cs" />
+    <Compile Include="Infrastructure\IdentityRoleStore.cs" />
+    <Compile Include="Infrastructure\IdentityUserStore.cs" />
+    <Compile Include="Infrastructure\UsernameValidator.cs" />
     <Compile Include="SecurityModule.cs" />
     <Compile Include="Validation\PasswordChecker.cs" />
     <Compile Include="Validation\PasswordStrength.cs" />
@@ -96,6 +101,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Entities.Security\App.Entities.Security.csproj">
+      <Project>{406ce224-1147-46c8-a503-4cdb185c7d48}</Project>
+      <Name>App.Entities.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

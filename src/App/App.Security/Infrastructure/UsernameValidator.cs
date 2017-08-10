@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Entities.Security;
 using Microsoft.AspNet.Identity;
 
-namespace App.Database.Security
+namespace App.Security.Infrastructure
 {
     public class UsernameValidator : UserValidator<ApplicationUser, Guid>
     {
