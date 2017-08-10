@@ -3,6 +3,7 @@ using System.Linq;
 using App.Core;
 using App.Core.Contracts;
 using App.Core.Utils;
+using App.Dto.Request;
 using App.Dto.Traces;
 using App.Entities;
 using App.Metrics.Concurrency;

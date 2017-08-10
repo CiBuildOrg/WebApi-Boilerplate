@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using App.Core;
 using App.Core.Contracts;
+using App.Dto.Request;
 using ProductionStackTrace;
 
 namespace App.Infrastructure.Tracing
