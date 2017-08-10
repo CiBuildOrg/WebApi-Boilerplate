@@ -1,6 +1,6 @@
-﻿using App.Api.Security;
-using App.Core.Contracts;
-using App.Security.Contracts;
+﻿using App.Core.Contracts;
+using App.Infrastructure.Contracts;
+using App.Infrastructure.Security;
 using Autofac;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using App.Api.Security;
 using App.Core.Extensions;
+using App.Infrastructure.Contracts;
 
 namespace App.Api.Controllers
 {

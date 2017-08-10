@@ -1,10 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using App.Database;
 using App.Entities.Security;
 using App.Infrastructure.Contracts;
 
-namespace App.Api.Security
+namespace App.Infrastructure.Security
 {
     public class ApplicationUserManager : IApplicationUserManager
     {

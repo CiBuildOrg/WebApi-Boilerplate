@@ -5,7 +5,7 @@ using App.Entities.Security;
 using App.Infrastructure.Contracts;
 using Microsoft.Owin.Security.Infrastructure;
 
-namespace App.Api.Security
+namespace App.Infrastructure.Security
 {
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {
@@ -25,7 +25,7 @@ namespace App.Api.Security
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            var clientId = context.Ticket.Properties.Dictionary[Startup.ClientPropertyName];
+            var clientId = context.Ticket.Properties.Dictionary[OwinEnvironment.ClientPropertyName];
 
             if (string.IsNullOrWhiteSpace(clientId))
             {
@@ -33,8 +33,8 @@ namespace App.Api.Security
             }
 
             var refreshTokenId = Guid.NewGuid().ToString("N");
-            var lifeTime = context.OwinContext.Get<string>(Startup.ClientRefreshTokenLifeTimePropertyName);
-            var userId = context.OwinContext.Get<string>(Startup.UserPropertyName);
+            var lifeTime = context.OwinContext.Get<string>(OwinEnvironment.ClientRefreshTokenLifeTimePropertyName);
+            var userId = context.OwinContext.Get<string>(OwinEnvironment.UserPropertyName);
             var user = _applicationUserManager.FindApplciationUser(Guid.Parse(userId));
 
             if (user == null)
@@ -69,7 +69,7 @@ namespace App.Api.Security
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            var allowedOrigin = context.OwinContext.Get<string>(Startup.ClientAllowedOriginPropertyName);
+            var allowedOrigin = context.OwinContext.Get<string>(OwinEnvironment.ClientAllowedOriginPropertyName);
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             var hashedTokenId = context.Token.GetHash();
@@ -77,7 +77,7 @@ namespace App.Api.Security
 
             if (refreshToken != null)
             {
-                context.OwinContext.Set(Startup.UserPropertyName, refreshToken.User.Id.ToString());
+                context.OwinContext.Set(OwinEnvironment.UserPropertyName, refreshToken.User.Id.ToString());
                 context.DeserializeTicket(refreshToken.ProtectedTicket);
                 await _refreshTokenManager.RemoveRefreshToken(hashedTokenId);
             }
