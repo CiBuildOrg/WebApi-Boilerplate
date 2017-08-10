@@ -128,7 +128,11 @@ namespace App.Infrastructure.Tracing
         {
             try
             {
-                return JsonConvert.SerializeObject(routeData, Formatting.Indented);
+                return JsonConvert.SerializeObject(routeData, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+                
             }
             catch
             {

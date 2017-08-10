@@ -73,7 +73,7 @@ namespace App.Api.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("{id:guid}", Name = "DeleteClient")]
-        public async Task<IHttpActionResult> DeleteClient(string id)
+        public async Task<IHttpActionResult> DeleteClient(Guid id)
         {
             var client = _refreshTokenManager.FindClient(id);
             if (client == null) return NotFound();

@@ -17,8 +17,8 @@ namespace App.Database.Configurations
             Property(x => x.Subject).HasColumnType("nvarchar").HasColumnName("Subject")
                 .IsRequired().HasMaxLength(50).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(x => x.ClientId).HasColumnType("nvarchar").HasColumnName("ClientId")
-                .IsRequired().HasMaxLength(50).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            //Property(x => x.ClientId).HasColumnType("uniqueidentifier").HasColumnName("ClientId")
+            //    .IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(x => x.ProtectedTicket).HasColumnType("nvarchar").HasColumnName("ProtectedTicket")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);

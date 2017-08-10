@@ -35,6 +35,8 @@ namespace App.Database.Configurations
 
             Property(x => x.AllowedOrigin).HasColumnName("AllowedOrigin").HasColumnType("nvarchar").HasMaxLength(100)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            HasMany(x => x.RefreshTokens).WithRequired(x => x.Client).HasForeignKey(x => x.ClientId);
         }
     }
 }

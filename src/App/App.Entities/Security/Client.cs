@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace App.Entities.Security
 {
@@ -15,5 +17,7 @@ namespace App.Entities.Security
         public int RefreshTokenLifeTime { get; set; }
 
         public string AllowedOrigin { get; set; }
+
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }

@@ -29,9 +29,9 @@ namespace App.Api.Security
             return _context.Clients.Where(x => x.Active);
         }
 
-        public Client FindClient(string clientId)
+        public Client FindClient(Guid clientId)
         {
-            var client = _context.Clients.Find(Guid.Parse(clientId));
+            var client = _context.Clients.Find(clientId);
             return client;
         }
 
@@ -58,7 +58,7 @@ namespace App.Api.Security
             return result ? client : null;
         }
 
-        public async Task<bool> RemoveClient(string id)
+        public async Task<bool> RemoveClient(Guid id)
         {
             var client = await _context.Clients.FindAsync(id);
             if (client == null)

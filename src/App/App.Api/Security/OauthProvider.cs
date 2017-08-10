@@ -37,7 +37,7 @@ namespace App.Api.Security
                 return Task.FromResult<object>(null);
             }
 
-            var client = _refreshTokenManager.FindClient(context.ClientId);
+            var client = _refreshTokenManager.FindClient(Guid.Parse(context.ClientId));
 
             if (client == null)
             {

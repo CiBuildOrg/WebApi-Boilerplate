@@ -46,9 +46,11 @@ namespace App.Api
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/auth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                
                 Provider = componentContext.Resolve<OAuthAuthorizationServerProvider>(),
                 AccessTokenFormat = componentContext.Resolve<ISecureDataFormat<AuthenticationTicket>>(),
-                RefreshTokenProvider = componentContext.Resolve<IAuthenticationTokenProvider>()
+                RefreshTokenProvider = componentContext.Resolve<IAuthenticationTokenProvider>(),
+                AccessTokenProvider = new AuthenticationTokenProvider()
             };
 
             app.UseOAuthAuthorizationServer(serverOptions);

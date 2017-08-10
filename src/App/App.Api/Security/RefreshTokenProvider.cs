@@ -36,7 +36,7 @@ namespace App.Api.Security
             var token = new RefreshToken
             {
                 Id = refreshTokenId.GetHash(),
-                ClientId = clientId,
+                ClientId = Guid.Parse(clientId),
                 Subject = context.Ticket.Identity.Name,
                 IssuedUtc = DateTime.UtcNow,
                 ExpiresUtc = DateTime.UtcNow.AddSeconds(Convert.ToDouble(lifeTime))

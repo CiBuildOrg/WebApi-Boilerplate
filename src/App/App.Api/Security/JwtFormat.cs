@@ -32,7 +32,7 @@ namespace App.Api.Security
             }
 
             string audienceId = data.Properties.Dictionary[Startup.ClientPropertyName];
-            var client = _refreshTokenManager.FindClient(audienceId);
+            var client = _refreshTokenManager.FindClient(Guid.Parse(audienceId));
             string symmetricKeyBase64 = client.Secret;
 
             var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyBase64);
@@ -87,14 +87,6 @@ namespace App.Api.Security
 
             var result = handler.ValidateToken(protectedText, validationParams, out SecurityToken token);
             var claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
-
-            //var props = new AuthenticationProperties
-            //{
-            //    AllowRefresh = true,
-            //    IsPersistent = true
-            //};
-
-            //var ticket = new AuthenticationTicket(claimsIdentity, props);
             var ticket = new AuthenticationTicket(claimsIdentity, null);
             return ticket;
         }

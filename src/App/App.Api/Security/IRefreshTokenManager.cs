@@ -10,9 +10,9 @@ namespace App.Api.Security
     {
         IEnumerable<Client> GetClients();
         IEnumerable<Client> GetAllowedClients();
-        Client FindClient(string clientId);
+        Client FindClient(Guid clientId);
         Task<Client> AddClientAsync(ClientBindingModel clientModel);
-        Task<bool> RemoveClient(string id);
+        Task<bool> RemoveClient(Guid id);
         Task<bool> AddRefreshToken(RefreshToken token);
         Task<bool> RemoveRefreshToken(RefreshToken existingToken);
         Task<bool> RemoveRefreshToken(string refreshTokenId);
