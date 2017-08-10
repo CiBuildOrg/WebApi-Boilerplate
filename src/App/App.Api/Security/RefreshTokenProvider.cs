@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using App.Core.Extensions;
 using App.Entities.Security;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Infrastructure;
 
 namespace App.Api.Security
