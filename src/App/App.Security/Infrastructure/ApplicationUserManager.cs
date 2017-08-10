@@ -10,6 +10,7 @@ namespace App.Security.Infrastructure
             PasswordValidator passwordValidator) 
             : base(store)
         {
+            
             UserValidator = new UsernameValidator(this)
             {
                 AllowOnlyAlphanumericUserNames = true,

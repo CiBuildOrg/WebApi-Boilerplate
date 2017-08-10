@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -102,7 +103,7 @@ namespace App.Api.Security
 
         public async Task<RefreshToken> FindRefreshToken(string refreshTokenId)
         {
-            var refreshToken = await _context.RefreshTokens.FindAsync(refreshTokenId);
+            var refreshToken = await _context.RefreshTokens.Include(x => x.User).SingleOrDefaultAsync(x => x.Id == refreshTokenId);
             return refreshToken;
         }
 

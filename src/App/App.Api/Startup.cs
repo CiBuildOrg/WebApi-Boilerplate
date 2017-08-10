@@ -28,6 +28,8 @@ namespace App.Api
         /// </summary>
         public const string ClientPropertyName = "as:client_id";
 
+        public const string UserPropertyName = "as:user_id";
+
         public void Configuration(IAppBuilder app)
         {
             var container = AutofacConfig.ConfigureContainer();

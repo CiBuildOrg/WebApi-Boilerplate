@@ -113,8 +113,10 @@ namespace App.Api.Security
             var oAuthIdentity = await user.GenerateUserIdentityAsync(_applicationUserManager, "JWT");
 
             oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            oAuthIdentity.AddClaim(new Claim("user_id", user.Id.ToString()));
             oAuthIdentity.AddClaim(new Claim("sub", context.UserName));
 
+            context.OwinContext.Set(Startup.UserPropertyName, user.Id.ToString());
             var props = new AuthenticationProperties(new Dictionary<string, string>
             {
                 { Startup.ClientPropertyName, context.ClientId ?? string.Empty  },

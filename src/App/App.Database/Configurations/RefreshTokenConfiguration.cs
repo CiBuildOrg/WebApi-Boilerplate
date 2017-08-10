@@ -28,6 +28,8 @@ namespace App.Database.Configurations
 
             Property(x => x.ExpiresUtc).HasColumnName("ExpiresUtc").HasColumnType("datetime")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            HasRequired(x => x.User).WithOptional(x => x.RefreshToken);
         }
     }
 }

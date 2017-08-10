@@ -1,4 +1,5 @@
-﻿using App.Security.Validation;
+﻿using App.Security.Infrastructure;
+using App.Security.Validation;
 using Autofac;
 using Microsoft.AspNet.Identity;
 
@@ -9,7 +10,6 @@ namespace App.Security
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-
             builder.Register<PasswordValidator>(x => new CustomPasswordValidator
             {
                 RequiredLength = 6,

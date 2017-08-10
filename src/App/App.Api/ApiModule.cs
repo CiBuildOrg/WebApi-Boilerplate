@@ -1,5 +1,6 @@
 ﻿using App.Api.Security;
 using App.Core.Contracts;
+using App.Security.Contracts;
 using Autofac;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
@@ -16,6 +17,7 @@ namespace App.Api
             builder.RegisterType<RefreshTokenProvider>().As<IAuthenticationTokenProvider>().InstancePerLifetimeScope();
             builder.RegisterType<JwtFormat>().As<ISecureDataFormat<AuthenticationTicket>>().InstancePerLifetimeScope();
             builder.RegisterType<OauthProvider>().As<OAuthAuthorizationServerProvider>().InstancePerLifetimeScope();
+            builder.RegisterType<ApplicationUserManager>().As<IApplicationUserManager>().InstancePerLifetimeScope();
         }
     }
 }

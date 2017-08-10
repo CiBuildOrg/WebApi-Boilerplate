@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using App.Core.Extensions;
 using App.Entities.Security;
+using App.Security.Contracts;
 using Microsoft.Owin.Security.Infrastructure;
 
 namespace App.Api.Security
@@ -9,10 +10,12 @@ namespace App.Api.Security
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {
         private readonly IRefreshTokenManager _refreshTokenManager;
+        private readonly IApplicationUserManager _applicationUserManager;
 
-        public RefreshTokenProvider(IRefreshTokenManager refreshTokenManager)
+        public RefreshTokenProvider(IRefreshTokenManager refreshTokenManager, IApplicationUserManager applicationUserManager)
         {
             _refreshTokenManager = refreshTokenManager;
+            _applicationUserManager = applicationUserManager;
         }
 
         public void Create(AuthenticationTokenCreateContext context)
@@ -31,6 +34,13 @@ namespace App.Api.Security
 
             var refreshTokenId = Guid.NewGuid().ToString("N");
             var lifeTime = context.OwinContext.Get<string>(Startup.ClientRefreshTokenLifeTimePropertyName);
+            var userId = context.OwinContext.Get<string>(Startup.UserPropertyName);
+            var user = _applicationUserManager.FindApplciationUser(Guid.Parse(userId));
+
+            if (user == null)
+            {
+                return;
+            }
 
             var token = new RefreshToken
             {
@@ -38,7 +48,8 @@ namespace App.Api.Security
                 ClientId = Guid.Parse(clientId),
                 Subject = context.Ticket.Identity.Name,
                 IssuedUtc = DateTime.UtcNow,
-                ExpiresUtc = DateTime.UtcNow.AddSeconds(Convert.ToDouble(lifeTime))
+                ExpiresUtc = DateTime.UtcNow.AddSeconds(Convert.ToDouble(lifeTime)),
+                User = user
             };
 
             context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
@@ -66,6 +77,7 @@ namespace App.Api.Security
 
             if (refreshToken != null)
             {
+                context.OwinContext.Set(Startup.UserPropertyName, refreshToken.User.Id.ToString());
                 context.DeserializeTicket(refreshToken.ProtectedTicket);
                 await _refreshTokenManager.RemoveRefreshToken(hashedTokenId);
             }
