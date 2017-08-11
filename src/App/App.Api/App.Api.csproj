@@ -321,6 +321,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AudienceController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Models\ModelFactory.cs" />
