@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using App.Entities.Security;
 using App.Security.Infrastructure;
 using Autofac;
@@ -13,7 +12,7 @@ namespace App.Database
         {
             builder.RegisterType<DatabaseContext>()
                 .AsSelf().As<DbContext>().InstancePerLifetimeScope();
-            
-        }   
+
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace App.Database
         {
             // disable automatic migrations
             AutomaticMigrationsEnabled = false;
+            SetSqlGenerator("System.Data.SqlClient", new MigrationScriptBuilder()); 
         }
 
         protected override void Seed(DatabaseContext context)
