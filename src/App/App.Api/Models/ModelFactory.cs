@@ -4,6 +4,7 @@ using System.Web.Http.Routing;
 using App.Dto.Response;
 using App.Entities.Security;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Api.Models
 {
@@ -43,6 +44,18 @@ namespace App.Api.Models
                 Id = role.Id,
                 Name = role.Name,
             };
+        }
+
+        public RoleReturnModel Create(IdentityRole appRole, HttpRequestMessage request)
+        {
+            var urlHelper = new UrlHelper(request);
+            return new RoleReturnModel
+            {
+                Url = urlHelper.Link("GetRoleById", new { id = appRole.Id }),
+                Id = Guid.Parse(appRole.Id),
+                Name = appRole.Name
+            };
+
         }
 
         public ClientReturnModel Create(Client client)

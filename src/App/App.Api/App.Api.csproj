@@ -324,6 +324,7 @@
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Controllers\ProtectedController.cs" />
     <Compile Include="Controllers\RefreshTokenController.cs" />

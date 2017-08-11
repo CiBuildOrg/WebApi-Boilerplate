@@ -19,13 +19,11 @@ namespace App.Api.Controllers
     public class AudienceController : BaseApiController
     {
         private readonly IRefreshTokenManager _refreshTokenManager;
-        private readonly UserManager<ApplicationUser, Guid> _applicationUserManager;
         private readonly ModelFactory _factory;
         public AudienceController(IRefreshTokenManager refreshTokenManager, UserManager<ApplicationUser, Guid> applicationUserManager)
         {
             _refreshTokenManager = refreshTokenManager;
-            _applicationUserManager = applicationUserManager;
-            _factory = new ModelFactory(_applicationUserManager);
+            _factory = new ModelFactory(applicationUserManager);
         }
 
         /// <summary>
