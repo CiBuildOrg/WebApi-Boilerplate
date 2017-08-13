@@ -24,11 +24,13 @@ namespace App.Api.Controllers
             if(identity == null)
                 throw new NoNullAllowedException("identity");
 
-            return Ok(identity.Claims.Select(c => new
+            var claimCollection = identity.Claims.Select(x => new {x.Type, x.Value}).ToList();
+
+            return Ok(new
             {
-                c.Type,
-                c.Value
-            }));
+                Message = $"Hello {identity.Name}",
+                claimCollection
+            });
         }
     }
 }

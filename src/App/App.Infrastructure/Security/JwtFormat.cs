@@ -57,31 +57,39 @@ namespace App.Infrastructure.Security
             return jwt;
         }
 
+        private bool ValidateAudience(IEnumerable<string> audiences, SecurityToken securityToken, TokenValidationParameters validationParam)
+        {
+            var enumerable = audiences as string[] ?? audiences.ToArray();
+            if (!_allowedAudiences.Select(c => c.Id.ToString()).Intersect(enumerable).Any())
+            {
+                var allowedAudiences = AllowedAudience().ToList();
+                var validated = AllowedAudience().Select(c => c.Id.ToString().ToLower()).Intersect(enumerable.Select(x => x.ToLower())).Any();
+                return validated;
+            }
+
+            _allowedAudiences.Clear();
+            _allowedAudiences = AllowedAudience().ToList();
+
+            return AllowedAudience().Select(c => c.Id.ToString().ToLower()).Intersect(enumerable.Select( x => x.ToLower())).Any();
+        }
+
+        private IEnumerable<Client> AllowedAudience() => _refreshTokenManager.GetAllowedClients();
+
+
         public AuthenticationTicket Unprotect(string protectedText)
         {
-            IEnumerable<Client> AllowedAudience() => _refreshTokenManager.GetAllowedClients();
-
+            var forDebug = AllowedAudience().ToList();
             var handler = new JwtSecurityTokenHandler();
-
+            var issuerSigningTokens = new SecurityTokensTokens(_issuer) {Audiences = AllowedAudience};
             var validationParams = new TokenValidationParameters
             {
-                AudienceValidator = (audiences, securityToken, validationParam) =>
-                {
-                    var enumerable = audiences as string[] ?? audiences.ToArray();
-                    if (!_allowedAudiences.Select(c => c.Id.ToString()).Intersect(enumerable).Any())
-                        return AllowedAudience().Select(c => c.Id.ToString()).Intersect(enumerable).Any();
-
-                    _allowedAudiences.Clear();
-                    _allowedAudiences = AllowedAudience().ToList();
-
-                    return AllowedAudience().Select(c => c.Id.ToString()).Intersect(enumerable).Any();
-                },
+                AudienceValidator =  ValidateAudience,
                 ValidIssuer = _issuer,
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningTokens = new SecurityTokensTokens(_issuer) { Audiences = AllowedAudience },
+                IssuerSigningTokens = issuerSigningTokens,
                 ClockSkew = TimeSpan.Zero // default value of this property is 5, it adds 5 mins to expiration time.
             };
 

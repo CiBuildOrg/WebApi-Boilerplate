@@ -31,10 +31,12 @@ namespace App.Database
 
         public override IEnumerable<MigrationStatement> Generate(IEnumerable<MigrationOperation> migrationOperations, string providerManifestToken)
         {
+            var transactionName = string.Empty;// UniqueName();
+
             var migrationStatements = base.Generate(migrationOperations, providerManifestToken);
 
             yield return new MigrationStatement { Sql = "BEGIN TRY" };
-            yield return new MigrationStatement { Sql = "BEGIN TRANSACTION " };
+            yield return new MigrationStatement { Sql = $"BEGIN TRANSACTION {transactionName}" };
 
             var migrationNameFound = false;
             var migrationName = string.Empty;
@@ -53,7 +55,7 @@ namespace App.Database
                 yield return migrationStatement;
             }
 
-            yield return new MigrationStatement { Sql = "COMMIT TRANSACTION " };
+            yield return new MigrationStatement { Sql = $"COMMIT TRANSACTION {transactionName}" };
             yield return new MigrationStatement { Sql = "END TRY " };
             yield return new MigrationStatement { Sql = "BEGIN CATCH " };
 
@@ -72,9 +74,11 @@ namespace App.Database
                 };
             }
 
-            yield return new MigrationStatement { Sql = "ROLLBACK TRANSACTION " };
+            yield return new MigrationStatement { Sql = $"ROLLBACK TRANSACTION {transactionName}" };
             yield return new MigrationStatement { Sql = "END CATCH " };
         }
+
+        private static string UniqueName() => Guid.NewGuid().ToString("N");
 
         private class MigrationMatch
         {
@@ -92,19 +96,18 @@ namespace App.Database
 
             // we are on the line where the migration is declared
             var migrationNameMatch = _matchingRegex.Match(sql);
-            if (migrationNameMatch.Success)
+
+            if (!migrationNameMatch.Success)
+                return MigrationMatch.Miss;
+
+            var firstMatch = migrationNameMatch.Groups[0].ToString();
+            var migrationName = firstMatch.Substring(3, firstMatch.Length - 7);
+
+            return new MigrationMatch
             {
-                var firstMatch = migrationNameMatch.Groups[0].ToString();
-                var migrationName = firstMatch.Substring(3, firstMatch.Length - 7);
-
-                return new MigrationMatch
-                {
-                    Success = true,
-                    MigrationName = migrationName
-                };
-            }
-
-            return MigrationMatch.Miss;
+                Success = true,
+                MigrationName = migrationName
+            };
         }
     }
 }

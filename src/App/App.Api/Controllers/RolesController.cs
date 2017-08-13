@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using App.Api.Models;
@@ -25,6 +26,7 @@ namespace App.Api.Controllers
         }
     
         [Route("{id:guid}", Name = "GetRoleById")]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetRole(Guid id)
         {
             var role = await _applicationUserManager.FindByIdAsync(id);
@@ -39,11 +41,10 @@ namespace App.Api.Controllers
         }
 
         [Route("", Name = "GetAllRoles")]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetAllRoles()
         {
-            var roles = _applicationRoleManager.Roles;
-
-            return Ok(roles);
+            return Ok(_applicationRoleManager.Roles.ToList().Select(r => _factory.Create(r, Request)));
         }
 
         [Route("create")]

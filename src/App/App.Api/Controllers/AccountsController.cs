@@ -63,36 +63,6 @@ namespace App.Api.Controllers
         }
 
         /// <summary>
-        /// Get roles
-        /// </summary>
-        /// <returns></returns>
-        [Authorize(Roles = "Admin")]
-        [Route("roles")]
-        public IHttpActionResult GetRoles()
-        {
-            return Ok(_applicationRoleManager.Roles.ToList().Select(r => _factory.Create(r, Request)));
-        }
-
-        /// <summary>
-        /// Get role by guid
-        /// </summary>
-        /// <param name="id">role guid</param>
-        /// <returns>role</returns>
-        [Authorize(Roles = "Admin")]
-        [Route("role/{id:guid}", Name = "GetRoleById")]
-        public async Task<IHttpActionResult> GetRole(Guid id)
-        {
-            var role = await _applicationRoleManager.FindByIdAsync(id);
-
-            if (role != null)
-            {
-                return Ok(_factory.Create(role, Request));
-            }
-
-            return NotFound();
-        }
-
-        /// <summary>
         /// Get user by username
         /// </summary>
         /// <param name="username">username</param>
