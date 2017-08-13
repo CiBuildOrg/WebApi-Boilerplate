@@ -17,6 +17,7 @@ namespace App.Database
         private const string AdminId = "141f10c1-1390-4ea0-85ba-b030fc0397b1";
         private const string UserId = "658f1036-bf08-45d4-a51b-9dbadb53498d";
         private const string DoruCUserId = "7F6C21AC-0201-44D1-8F9A-A92AF2B58AE8";
+        private const string AdamUserId = "89c1ab5b-ca52-4104-8977-cc8c1312c571";
 
         private const string JavascriptClientApplicationId = "F1179B6B-15A8-4250-9ED9-4C2D5EE0376B";
         private const string MobileClientApplicationId = "3CFBC80C-9104-44E8-9E67-43663F25AC47";
@@ -77,6 +78,28 @@ namespace App.Database
                 applicationUserManager.Create(toAddUser, Secret);
                 applicationUserManager.SetLockoutEnabled(toAddUser.Id, false);
                 applicationUserManager.AddToRoles(toAddUser.Id, "SuperAdmin", "Admin", "User");
+            }
+
+            var adamUser = applicationUserManager.FindByName("adam");
+            if (adamUser == null)
+            {
+                adamUser = new ApplicationUser
+                {
+                    Id = Guid.Parse(AdamUserId),
+                    UserName = "adam",
+                    Email = "adam@gmail.com",
+                    EmailConfirmed = true,
+                    ProfileInfo = new UserProfile
+                    {
+                        FullName = "Adam",
+                        Description = "Just adam",
+                        JoinDate = DateTime.UtcNow,
+                    }
+                };
+
+                applicationUserManager.Create(adamUser, Secret);
+                applicationUserManager.SetLockoutEnabled(adamUser.Id, false);
+                applicationUserManager.AddToRoles(adamUser.Id, "User");
             }
 
             // ReSharper disable once InvertIf

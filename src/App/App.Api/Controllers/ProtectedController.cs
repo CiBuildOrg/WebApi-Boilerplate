@@ -32,5 +32,21 @@ namespace App.Api.Controllers
                 claimCollection
             });
         }
+
+        [HttpGet]
+        [Route("admin")]
+        [Authorize(Roles = "Admin, SuperAdmin")]
+        public IHttpActionResult AdminOnly()
+        {
+            return Ok("Admin here");
+        }
+
+        [HttpGet]
+        [Route("user")]
+        [Authorize(Roles = "User")]
+        public IHttpActionResult UserOnly()
+        {
+            return Ok("User here");
+        }
     }
 }
