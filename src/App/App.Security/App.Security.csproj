@@ -85,10 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\AppClaimsPrincipal.cs" />
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
-    <Compile Include="Infrastructure\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Infrastructure\IdentityRoleStore.cs" />
     <Compile Include="Infrastructure\IdentityUserStore.cs" />
     <Compile Include="Infrastructure\UsernameValidator.cs" />
@@ -103,6 +101,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Core\App.Core.csproj">
+      <Project>{3720884E-16AF-4C75-B5DC-E08E815D9A63}</Project>
+      <Name>App.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Entities.Security\App.Entities.Security.csproj">
       <Project>{406ce224-1147-46c8-a503-4cdb185c7d48}</Project>
       <Name>App.Entities.Security</Name>

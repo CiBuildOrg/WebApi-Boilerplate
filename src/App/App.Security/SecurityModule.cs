@@ -26,6 +26,7 @@ namespace App.Security
             builder.RegisterType<IdentityRoleStore>().As<IRoleStore<ApplicationRole, Guid>>().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationRoleManager>().As<RoleManager<ApplicationRole, Guid>>()
                 .InstancePerLifetimeScope();
+
         }
     }
 }

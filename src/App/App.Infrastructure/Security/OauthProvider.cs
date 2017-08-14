@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using App.Core;
 using App.Entities.Security;
 using App.Infrastructure.Contracts;
 using Microsoft.AspNet.Identity;
@@ -96,6 +97,7 @@ namespace App.Infrastructure.Security
 
             var user = await _applicationUserManager.FindAsync(context.UserName, context.Password);
 
+
             if (user == null)
             {
                 context.Rejected();
@@ -114,7 +116,7 @@ namespace App.Infrastructure.Security
             var oAuthIdentity = await user.GenerateUserIdentityAsync(_applicationUserManager, "JWT");
 
             oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            oAuthIdentity.AddClaim(new Claim("user_id", user.Id.ToString()));
+            oAuthIdentity.AddClaim(new Claim(OwinEnvironment.UserPropertyName, user.Id.ToString()));
             oAuthIdentity.AddClaim(new Claim("sub", context.UserName));
 
             context.OwinContext.Set(OwinEnvironment.UserPropertyName, user.Id.ToString());
@@ -125,7 +127,6 @@ namespace App.Infrastructure.Security
             });
 
             var ticket = new AuthenticationTicket(oAuthIdentity, props);
-
             context.Validated(ticket);
         }
 

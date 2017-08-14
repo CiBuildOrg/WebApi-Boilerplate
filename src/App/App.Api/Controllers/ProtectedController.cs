@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using System.Linq;
 using System.Security.Claims;
@@ -19,17 +20,11 @@ namespace App.Api.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            var identity = User.Identity as ClaimsIdentity;
-
-            if(identity == null)
-                throw new NoNullAllowedException("identity");
-
-            var claimCollection = identity.Claims.Select(x => new {x.Type, x.Value}).ToList();
-
+            var currentUser = CurrentUser;
             return Ok(new
             {
-                Message = $"Hello {identity.Name}",
-                claimCollection
+                Message = $"Hello {currentUser.User.FullName}",
+                UserClaims = GetUserClaims()
             });
         }
 
@@ -48,5 +43,6 @@ namespace App.Api.Controllers
         {
             return Ok("User here");
         }
+
     }
 }

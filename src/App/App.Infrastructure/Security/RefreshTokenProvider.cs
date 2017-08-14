@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using App.Core;
 using App.Core.Extensions;
 using App.Entities.Security;
 using App.Infrastructure.Contracts;

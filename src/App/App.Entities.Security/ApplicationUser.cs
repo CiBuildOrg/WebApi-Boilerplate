@@ -11,7 +11,7 @@ namespace App.Entities.Security
         ApplicationIdentityUserRole, 
         ApplicationIdentityUserClaim>
     {
-        public virtual UserProfile ProfileInfo { get; set; }
+        public UserProfile ProfileInfo { get; set; }
 
         public virtual RefreshToken RefreshToken { get; set; }
 
