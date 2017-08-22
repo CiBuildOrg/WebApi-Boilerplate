@@ -48,7 +48,7 @@ namespace App.Infrastructure.Security
             }
 
             // Javascript client 
-            if (client.ApplicationType == ApplicationType.NativeConfidential)
+            if (client.ApplicationType == ApplicationType.Mobile)
             {
                 if (string.IsNullOrWhiteSpace(clientSecret))
                 {

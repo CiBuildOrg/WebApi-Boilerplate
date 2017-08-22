@@ -55,7 +55,7 @@ namespace App.Infrastructure.Security
             var jwt = handler.WriteToken(token);
 
             return jwt;
-        }
+        }   
 
         private bool ValidateAudience(IEnumerable<string> audiences, SecurityToken securityToken, TokenValidationParameters validationParam)
         {
