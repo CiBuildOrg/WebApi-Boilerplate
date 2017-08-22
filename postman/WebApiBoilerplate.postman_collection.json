@@ -24,7 +24,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "doruc",
+							"value": "adam",
 							"description": "",
 							"type": "text"
 						},
@@ -42,7 +42,13 @@
 						},
 						{
 							"key": "client_id",
-							"value": "F1179B6B-15A8-4250-9ED9-4C2D5EE0376B",
+							"value": "3CFBC80C-9104-44E8-9E67-43663F25AC47",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "Z8rZ73CA3F8fRMqOm5BEJH/VKKdC4/dz0rnvz062HyM=",
 							"description": "",
 							"type": "text"
 						}
@@ -81,7 +87,13 @@
 						},
 						{
 							"key": "client_id",
-							"value": "F1179B6B-15A8-4250-9ED9-4C2D5EE0376B",
+							"value": "3CFBC80C-9104-44E8-9E67-43663F25AC47",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "Z8rZ73CA3F8fRMqOm5BEJH/VKKdC4/dz0rnvz062HyM=",
 							"description": "",
 							"type": "text"
 						}
@@ -94,7 +106,7 @@
 		{
 			"name": "Test API controller",
 			"request": {
-				"url": "http://localhost:49972/api/test",
+				"url": "http://localhost:49972/api/test/",
 				"method": "GET",
 				"header": [
 					{
@@ -109,7 +121,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiI3ZjZjMjFhYy0wMjAxLTQ0ZDEtOGY5YS1hOTJhZjJiNThhZTgiLCJ1bmlxdWVfbmFtZSI6WyJkb3J1YyIsImRvcnVjIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYWNjZXNzY29udHJvbHNlcnZpY2UvMjAxMC8wNy9jbGFpbXMvaWRlbnRpdHlwcm92aWRlciI6IkFTUC5ORVQgSWRlbnRpdHkiLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6ImU1YjhkMmNmLTZhODMtNDdkZi1iMWY2LTk1NGMyMjQ3MjIwYiIsInJvbGUiOlsiVXNlciIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJ1c2VyX2lkIjoiN2Y2YzIxYWMtMDIwMS00NGQxLThmOWEtYTkyYWYyYjU4YWU4Iiwic3ViIjoiZG9ydWMiLCJpc3MiOiJzZWxmIiwiYXVkIjoiRjExNzlCNkItMTVBOC00MjUwLTlFRDktNEMyRDVFRTAzNzZCIiwiZXhwIjoxNTAyNjQyMDUzLCJuYmYiOjE1MDI2NDAyNTN9.KcM3fPURZ9ChUmfYInTj6_ZlmpzuL3McJPtvSbOVaQc",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiI4OWMxYWI1Yi1jYTUyLTQxMDQtODk3Ny1jYzhjMTMxMmM1NzEiLCJ1bmlxdWVfbmFtZSI6WyJhZGFtIiwiYWRhbSJdLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL2FjY2Vzc2NvbnRyb2xzZXJ2aWNlLzIwMTAvMDcvY2xhaW1zL2lkZW50aXR5cHJvdmlkZXIiOiJBU1AuTkVUIElkZW50aXR5IiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiI5YjA2ZTNjNy0yYzZlLTRlOWQtOWE3Ny0wODQ0NzJlNDU5YTkiLCJyb2xlIjoiVXNlciIsImFzOnVzZXJfaWQiOiI4OWMxYWI1Yi1jYTUyLTQxMDQtODk3Ny1jYzhjMTMxMmM1NzEiLCJzdWIiOiJhZGFtIiwiaXNzIjoic2VsZiIsImF1ZCI6IkYxMTc5QjZCLTE1QTgtNDI1MC05RUQ5LTRDMkQ1RUUwMzc2QiIsImV4cCI6MTUwMjcxMTIwNCwibmJmIjoxNTAyNzA5NDA0fQ.UYETat_AA1eCYaoe2xyUbj0qvCWHlX-1xpMgvvqDU3I",
 						"description": ""
 					},
 					{
