@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web.Http;
 using App.Api;
+using App.Api.Security;
 using App.Infrastructure.Logging.Owin;
 using Autofac;
 using Microsoft.Owin;
@@ -13,8 +18,6 @@ namespace App.Api
 {
     public class Startup
     {
-        
-
         public void Configuration(IAppBuilder app)
         {
             var container = AutofacConfig.ConfigureContainer();
@@ -22,13 +25,14 @@ namespace App.Api
             ConfigureOAuth(app, container);
             ConfigureOAuthTokenConsumption(app, container);
             app.UseCommonLogging();
+
+            GlobalConfiguration.Configuration.MessageHandlers.Add(container.Resolve<CustomAuthenticationMessageHandler>());
+
         }
 
-        private static void ConfigureOAuth(IAppBuilder app, IComponentContext componentContext)
+        private static void ConfigureOAuth(IAppBuilder app, ILifetimeScope componentContext)
         {
-            //var issuer = ConfigurationManager.AppSettings["tokenIssuer"];
-
-            OAuthAuthorizationServerOptions serverOptions = new OAuthAuthorizationServerOptions
+            var serverOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/auth/token"),
@@ -41,6 +45,7 @@ namespace App.Api
             };
 
             app.UseOAuthAuthorizationServer(serverOptions);
+
             //var audience = ConfigurationManager.AppSettings["resourceApiClientId"];
             //var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["resourceApiClientSecret"]);
 

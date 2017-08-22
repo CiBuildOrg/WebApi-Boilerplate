@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Claims;
+using App.Core;
 using App.Core.Contracts;
 using App.Entities.Security;
 using App.Infrastructure.Contracts;
@@ -15,12 +16,14 @@ namespace App.Infrastructure.Security
     public class JwtFormat : ISecureDataFormat<AuthenticationTicket>
     {
         private readonly IRefreshTokenManager _refreshTokenManager;
+        
         private readonly string _issuer;
         private List<Client> _allowedAudiences = new List<Client>();
 
         public JwtFormat(IConfiguration configuration, IRefreshTokenManager refreshTokenManager)
         {
             _refreshTokenManager = refreshTokenManager;
+            
             _issuer = configuration.GetString(SecurityKeys.Issuer); // issuer;
         }
 
@@ -62,7 +65,6 @@ namespace App.Infrastructure.Security
             var enumerable = audiences as string[] ?? audiences.ToArray();
             if (!_allowedAudiences.Select(c => c.Id.ToString()).Intersect(enumerable).Any())
             {
-                var allowedAudiences = AllowedAudience().ToList();
                 var validated = AllowedAudience().Select(c => c.Id.ToString().ToLower()).Intersect(enumerable.Select(x => x.ToLower())).Any();
                 return validated;
             }
@@ -78,7 +80,6 @@ namespace App.Infrastructure.Security
 
         public AuthenticationTicket Unprotect(string protectedText)
         {
-            var forDebug = AllowedAudience().ToList();
             var handler = new JwtSecurityTokenHandler();
             var issuerSigningTokens = new SecurityTokensTokens(_issuer) {Audiences = AllowedAudience};
             var validationParams = new TokenValidationParameters
@@ -95,6 +96,8 @@ namespace App.Infrastructure.Security
 
             var result = handler.ValidateToken(protectedText, validationParams, out SecurityToken token);
             var claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
+
+          
             var ticket = new AuthenticationTicket(claimsIdentity, null);
             return ticket;
         }

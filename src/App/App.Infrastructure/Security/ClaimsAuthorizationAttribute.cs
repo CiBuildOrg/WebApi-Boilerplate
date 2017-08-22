@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace App.Security.Infrastructure
+namespace App.Infrastructure.Security
 {
     /// <summary>
     /// This represents authorization by claims
@@ -31,7 +31,6 @@ namespace App.Security.Infrastructure
         public override Task OnAuthorizationAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
             var principal = actionContext.RequestContext.Principal as AppClaimsPrincipal;
-
             if (principal != null && !principal.Identity.IsAuthenticated)
             {
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);

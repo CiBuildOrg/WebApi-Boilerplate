@@ -137,10 +137,11 @@
     <Compile Include="Logging\Owin\CommonLogger.cs" />
     <Compile Include="Logging\Owin\CommonLoggingFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AppClaimsPrincipal.cs" />
     <Compile Include="Security\ApplicationUserManager.cs" />
+    <Compile Include="Security\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Security\JwtFormat.cs" />
     <Compile Include="Security\OauthProvider.cs" />
-    <Compile Include="Security\OwinEnvironment.cs" />
     <Compile Include="Security\RefreshTokenManager.cs" />
     <Compile Include="Security\RefreshTokenProvider.cs" />
     <Compile Include="Security\SecurityKeys.cs" />

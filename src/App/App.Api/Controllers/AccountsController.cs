@@ -26,6 +26,7 @@ namespace App.Api.Controllers
         private readonly RoleManager<ApplicationRole, Guid> _applicationRoleManager;
 
         public AccountsController(UserManager<ApplicationUser, Guid> applicationUserManager, RoleManager<ApplicationRole, Guid> applicationRoleManager)
+            
         {
             _applicationUserManager = applicationUserManager;
             _applicationRoleManager = applicationRoleManager;

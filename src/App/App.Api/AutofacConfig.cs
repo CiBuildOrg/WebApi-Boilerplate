@@ -1,14 +1,17 @@
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Mvc;
+using App.Api.Security;
 using App.Core.Contracts;
 using App.Core.Implementations;
 using App.Infrastructure.Di;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Microsoft.Owin;
 
 namespace App.Api
 {
@@ -32,7 +35,6 @@ namespace App.Api
 
             DependencyResolver.SetResolver(new AutofacResolver(Container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(Container);
-
             return Container;
         }
 
@@ -41,6 +43,8 @@ namespace App.Api
             builder.RegisterApiControllers(typeof(Inner).Assembly).PropertiesAutowired();
 
             builder.RegisterType<Global>().PropertiesAutowired();
+
+            builder.RegisterType<CustomAuthenticationMessageHandler>().AsSelf().InstancePerLifetimeScope();
         }
 
         private static void RegisterAllModules(ContainerBuilder builder)
