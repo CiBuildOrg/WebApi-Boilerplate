@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using App.Dto.Request;
 
-namespace App.Infrastructure.Utils.Multipart.Infrastructure
+namespace App.Dto.Request
 {
     public class FormData
     {

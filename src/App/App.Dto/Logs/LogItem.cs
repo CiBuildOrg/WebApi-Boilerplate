@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace App.Infrastructure.Utils.Multipart.Infrastructure.Logger
+namespace App.Dto.Logs
 {
     public class LogItem
     {

@@ -7,8 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using App.Dto.Request;
-using App.Infrastructure.Utils.Multipart.Infrastructure;
-using App.Infrastructure.Utils.Multipart.Infrastructure.Extensions;
+using App.Infrastructure.Extensions;
 
 namespace App.Infrastructure.Utils.Multipart.Converters
 {

@@ -5,8 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using App.Dto.Request;
+using App.Infrastructure.Utils.Multipart.Infrastructure;
 
-namespace App.Infrastructure.Utils.Multipart.Infrastructure.Extensions
+namespace App.Infrastructure.Extensions
 {
     internal static class TypeExtensions
     {

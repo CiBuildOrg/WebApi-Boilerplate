@@ -17,14 +17,11 @@ namespace App.Infrastructure
             builder.RegisterType<TraceProvider>().As<ITraceProvider>().InstancePerLifetimeScope();
             builder.RegisterType<ApiLogHandler>().AsSelf().InstancePerLifetimeScope();
 
-
-
             builder.RegisterType<RefreshTokenManager>().As<IRefreshTokenManager>().InstancePerLifetimeScope();
             builder.RegisterType<RefreshTokenProvider>().As<IAuthenticationTokenProvider>().InstancePerLifetimeScope();
             builder.RegisterType<JwtFormat>().As<ISecureDataFormat<AuthenticationTicket>>().InstancePerLifetimeScope();
             builder.RegisterType<OauthProvider>().As<OAuthAuthorizationServerProvider>().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().As<IApplicationUserManager>().InstancePerLifetimeScope();
         }
-
     }
 }

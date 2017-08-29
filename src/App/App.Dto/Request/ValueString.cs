@@ -1,4 +1,4 @@
-﻿namespace App.Infrastructure.Utils.Multipart.Infrastructure
+﻿namespace App.Dto.Request
 {
     public class ValueString
     {
