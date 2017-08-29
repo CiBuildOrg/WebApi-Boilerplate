@@ -1,6 +1,9 @@
 # Api boilerplate
 
-This will serve as a general base for creating a backend project in .NET
+This will serve as a general base for creating a backend project in .NET. 
+Fair warning: for now I do not fully implement the registration flow. 
+This will eventually connect to the (Xamarin-Starter)[https://github.com/CiBuildOrg/Xamarin-Starter] project. 
+In the near future it will also contain an admin dashboard that will show stats/logins.
 
 ## Getting Started
 
