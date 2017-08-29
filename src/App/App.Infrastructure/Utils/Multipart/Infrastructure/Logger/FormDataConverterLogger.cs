@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace App.Infrastructure.Utils.Multipart.Infrastructure.Logger
 {
     public class FormDataConverterLogger : IFormDataConverterLogger
     {
+        [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
         private Dictionary<string, List<LogErrorInfo>> Errors { get; set; }
 
         public FormDataConverterLogger()
@@ -37,7 +39,7 @@ namespace App.Infrastructure.Utils.Multipart.Infrastructure.Logger
             
             var errors = Errors
                 .SelectMany(m => m.Value)
-                .Select(m => (m.ErrorMessage ?? (m.Exception != null ? m.Exception.Message : "")))
+                .Select(m => m.ErrorMessage ?? (m.Exception?.Message ?? ""))
                 .ToList();
 
             var errorMessage = string.Join(" ", errors);

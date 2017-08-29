@@ -1,20 +1,20 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Formatting;
 
 namespace App.Infrastructure.Utils.Multipart.Infrastructure.Logger
 {
     internal class FormatterLoggerAdapter : IFormDataConverterLogger
     {
+        [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
         private IFormatterLogger FormatterLogger { get; set; }
 
         public FormatterLoggerAdapter(IFormatterLogger formatterLogger)
         {
-            if(formatterLogger == null)
-                throw new ArgumentNullException("formatterLogger");
-            FormatterLogger = formatterLogger;
+            FormatterLogger = formatterLogger ?? throw new ArgumentNullException(nameof(formatterLogger));
         }
 
-        public void LogError(string errorPath, System.Exception exception)
+        public void LogError(string errorPath, Exception exception)
         {
             FormatterLogger.LogError(errorPath, exception);
         }

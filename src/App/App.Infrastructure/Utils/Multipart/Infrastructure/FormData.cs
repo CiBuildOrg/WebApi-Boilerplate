@@ -12,20 +12,14 @@ namespace App.Infrastructure.Utils.Multipart.Infrastructure
 
         public List<ValueFile> Files
         {
-            get { return _files ?? (_files = new List<ValueFile>()); }
-            set
-            {
-                _files = value;
-            }
+            get => _files ?? (_files = new List<ValueFile>());
+            set => _files = value;
         }
 
         public List<ValueString> Fields
         {
-            get { return _fields ?? (_fields = new List<ValueString>()); }
-            set
-            {
-                _fields = value;
-            }
+            get => _fields ?? (_fields = new List<ValueString>());
+            set => _fields = value;
         }
 
         public IEnumerable<string> AllKeys()
@@ -66,7 +60,5 @@ namespace App.Infrastructure.Utils.Multipart.Infrastructure
             value = null;
             return false;
         }
-
-      
     }
 }

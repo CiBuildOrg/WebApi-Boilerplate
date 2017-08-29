@@ -14,13 +14,7 @@ namespace App.Infrastructure.Utils.Multipart.Converters
         public async Task<FormData> Convert(HttpContent content)
         {
             if(content == null)
-                throw new ArgumentNullException("content");
-
-            /*if (!content.IsMimeMultipartContent())
-            {
-                throw new System.Exception("Unsupported Media Type");
-            }*/
-            
+                throw new ArgumentNullException(nameof(content));
             var multipartProvider = await content.ReadAsMultipartAsync();
 
             var multipartFormData = await Convert(multipartProvider);

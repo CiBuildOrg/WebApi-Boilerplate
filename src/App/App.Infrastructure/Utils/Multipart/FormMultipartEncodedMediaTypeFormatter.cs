@@ -7,7 +7,6 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using App.Infrastructure.Utils.Multipart.Converters;
-using App.Infrastructure.Utils.Multipart.Infrastructure;
 using App.Infrastructure.Utils.Multipart.Infrastructure.Logger;
 
 namespace App.Infrastructure.Utils.Multipart
@@ -35,13 +34,11 @@ namespace App.Infrastructure.Utils.Multipart
         {
             base.SetDefaultContentHeaders(type, headers, mediaType);
 
-            //need add boundary
-            //(if add when fill SupportedMediaTypes collection in class constructor then receive post with another boundary will not work - Unsupported Media Type exception will thrown)
             if (headers.ContentType == null)
                 headers.ContentType = new MediaTypeHeaderValue(SupportedMediaType);
 
-            if (!String.Equals(headers.ContentType.MediaType, SupportedMediaType, StringComparison.OrdinalIgnoreCase))
-                throw new System.Exception("Not a Multipart Content");
+            if (!string.Equals(headers.ContentType.MediaType, SupportedMediaType, StringComparison.OrdinalIgnoreCase))
+                throw new Exception("Not a Multipart Content");
 
             if (headers.ContentType.Parameters.All(m => m.Name != "boundary"))
                 headers.ContentType.Parameters.Add(new NameValueHeaderValue("boundary", "MultipartDataMediaFormatterBoundary1q2w3e"));
@@ -51,7 +48,7 @@ namespace App.Infrastructure.Utils.Multipart
                                                                IFormatterLogger formatterLogger)
         {
             var httpContentToFormDataConverter = new HttpContentToFormDataConverter();
-            FormData multipartFormData = await httpContentToFormDataConverter.Convert(content);
+            var multipartFormData = await httpContentToFormDataConverter.Convert(content);
 
             IFormDataConverterLogger logger;
             if (formatterLogger != null)
@@ -60,7 +57,7 @@ namespace App.Infrastructure.Utils.Multipart
                 logger = new FormDataConverterLogger();
 
             var dataToObjectConverter = new FormDataToObjectConverter(multipartFormData, logger);
-            object result = dataToObjectConverter.Convert(type);
+            var result = dataToObjectConverter.Convert(type);
 
             logger.EnsureNoErrors();
 
@@ -71,14 +68,14 @@ namespace App.Infrastructure.Utils.Multipart
                                                 TransportContext transportContext)
         {
             if (!content.IsMimeMultipartContent())
-                throw new System.Exception("Not a Multipart Content");
+                throw new Exception("Not a Multipart Content");
 
-            var boudaryParameter = content.Headers.ContentType.Parameters.FirstOrDefault(m => m.Name == "boundary" && !String.IsNullOrWhiteSpace(m.Value));
+            var boudaryParameter = content.Headers.ContentType.Parameters.FirstOrDefault(m => m.Name == "boundary" && !string.IsNullOrWhiteSpace(m.Value));
             if (boudaryParameter == null)
-                throw new System.Exception("multipart boundary not found");
+                throw new Exception("multipart boundary not found");
 
             var objectToMultipartDataByteArrayConverter = new ObjectToMultipartDataByteArrayConverter();
-            byte[] multipartData = objectToMultipartDataByteArrayConverter.Convert(value, boudaryParameter.Value);
+            var multipartData = objectToMultipartDataByteArrayConverter.Convert(value, boudaryParameter.Value);
 
             await writeStream.WriteAsync(multipartData, 0, multipartData.Length);
 

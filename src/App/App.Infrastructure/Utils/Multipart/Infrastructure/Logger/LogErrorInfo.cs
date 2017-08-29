@@ -2,9 +2,9 @@ namespace App.Infrastructure.Utils.Multipart.Infrastructure.Logger
 {
     public class LogErrorInfo
     {
-        public string ErrorMessage { get; private set; }
-        public System.Exception Exception { get; private set; }
-        public bool IsException { get; private set; }
+        public string ErrorMessage { get; }
+        public System.Exception Exception { get; }
+        public bool IsException { get; }
 
         public LogErrorInfo(string errorMessage)
         {
