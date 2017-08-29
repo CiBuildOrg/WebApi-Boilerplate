@@ -6,6 +6,7 @@
         internal const string LogStepsTable = "LogSteps";
         internal const string LogEntriesTable = "LogEntries";
         internal const string UserProfileTable = "UserProfiles";
+        internal const string ImageTable = "Images";
         internal const string ClientsTable = "Clients";
         internal static string RefreshTokensTable = "RefreshTokens";
 

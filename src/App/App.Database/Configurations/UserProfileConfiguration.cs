@@ -38,7 +38,7 @@ namespace App.Database.Configurations
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            
+            HasMany(x => x.ProfileImages).WithRequired(x => x.UserProfile).HasForeignKey(x => x.UserProfileId);
         }
     }
 }

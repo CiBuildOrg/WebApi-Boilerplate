@@ -77,6 +77,9 @@
   <ItemGroup>
     <Compile Include="Contracts\IBaseEntity.cs" />
     <Compile Include="Dummy.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="ImageSize.cs" />
+    <Compile Include="ImageType.cs" />
     <Compile Include="LogEntry.cs" />
     <Compile Include="LogStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
