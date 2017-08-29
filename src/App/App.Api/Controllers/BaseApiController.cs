@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 using App.Entities;

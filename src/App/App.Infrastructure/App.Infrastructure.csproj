@@ -170,6 +170,20 @@
     <Compile Include="Tracing\SimpleTraceTerminal.cs" />
     <Compile Include="Tracing\StackTraceParser.cs" />
     <Compile Include="Tracing\TraceProvider.cs" />
+    <Compile Include="Utils\Multipart\Converters\FormDataToObjectConverter.cs" />
+    <Compile Include="Utils\Multipart\Converters\HttpContentToFormDataConverter.cs" />
+    <Compile Include="Utils\Multipart\Converters\ObjectToMultipartDataByteArrayConverter.cs" />
+    <Compile Include="Utils\Multipart\FormMultipartEncodedMediaTypeFormatter.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\DateTimeConverterISO8601.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\Extensions\TypeExtensions.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\FormData.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\Logger\FormatterLoggerAdapter.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\Logger\FormDataConverterLogger.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\Logger\IFormDataConverterLogger.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\Logger\LogErrorInfo.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\Logger\LogItem.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\ValueFile.cs" />
+    <Compile Include="Utils\Multipart\Infrastructure\ValueString.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

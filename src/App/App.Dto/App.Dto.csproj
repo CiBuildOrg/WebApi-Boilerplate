@@ -51,6 +51,7 @@
     <Compile Include="Request\ClientBindingModel.cs" />
     <Compile Include="Request\CreateRoleBindingModel.cs" />
     <Compile Include="Request\CreateUserBindingModel.cs" />
+    <Compile Include="Request\HttpFile.cs" />
     <Compile Include="Request\TraceExceptionInfo.cs" />
     <Compile Include="Request\TraceMessageBase.cs" />
     <Compile Include="Request\TraceMessageInfo.cs" />

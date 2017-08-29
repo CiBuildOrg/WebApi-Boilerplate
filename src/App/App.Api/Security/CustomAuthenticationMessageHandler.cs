@@ -23,25 +23,23 @@ namespace App.Api.Security
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             ClaimsPrincipal incomingPrincipal = request.GetRequestContext().Principal as ClaimsPrincipal;
-            if (incomingPrincipal != null)
+            if (incomingPrincipal == null) return await base.SendAsync(request, cancellationToken);
+            var nameIdentifierClaim = incomingPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+            var userIdValue = nameIdentifierClaim?.Value;
+            if (userIdValue != null)
             {
-                var nameIdentifierClaim = incomingPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+                var userId = Guid.Parse(userIdValue);
+                var userProfile = _context.Users.Include(x => x.ProfileInfo)
+                    .SingleOrDefault(x => x.Id == userId);
 
-                var userIdValue = nameIdentifierClaim?.Value;
-                if (userIdValue != null)
+                if (userProfile != null)
                 {
-                    var userId = Guid.Parse(userIdValue);
-                    var userProfile = _context.Users.Include(x => x.ProfileInfo)
-                        .SingleOrDefault(x => x.Id == userId);
-
-                    if (userProfile != null)
-                    {
-                        request.GetRequestContext().Principal =
-                            new AppClaimsPrincipal(incomingPrincipal, userProfile.ProfileInfo);
-                    }
+                    request.GetRequestContext().Principal =
+                        new AppClaimsPrincipal(incomingPrincipal, userProfile.ProfileInfo);
                 }
             }
-            
+
             return await base.SendAsync(request, cancellationToken);
         }
     }
