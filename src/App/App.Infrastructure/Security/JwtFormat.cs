@@ -94,7 +94,7 @@ namespace App.Infrastructure.Security
                 ClockSkew = TimeSpan.Zero // default value of this property is 5, it adds 5 mins to expiration time.
             };
 
-            var result = handler.ValidateToken(protectedText, validationParams, out SecurityToken token);
+            var result = handler.ValidateToken(protectedText, validationParams, out SecurityToken _);
             var claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
 
           
