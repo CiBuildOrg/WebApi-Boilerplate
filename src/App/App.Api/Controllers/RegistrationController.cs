@@ -7,7 +7,7 @@ namespace App.Api.Controllers
     /// Client 
     /// </summary>
     [ApiExplorerSettings(IgnoreApi = true)]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     [RoutePrefix("api/registration")]
     public class RegistrationController : BaseApiController
     {

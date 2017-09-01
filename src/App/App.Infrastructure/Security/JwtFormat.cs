@@ -34,9 +34,9 @@ namespace App.Infrastructure.Security
                 throw new ArgumentNullException(nameof(data));
             }
 
-            string audienceId = data.Properties.Dictionary[OwinEnvironment.ClientPropertyName];
+            var audienceId = data.Properties.Dictionary[OwinEnvironment.ClientPropertyName];
             var client = _refreshTokenManager.FindClient(Guid.Parse(audienceId));
-            string symmetricKeyBase64 = client.Secret;
+            var symmetricKeyBase64 = client.Secret;
 
             var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyBase64);
             var signingCredentials = new HmacSigningCredentials(keyByteArray);

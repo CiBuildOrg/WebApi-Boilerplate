@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationConstants.cs" />
     <Compile Include="ConfigurationKeys.cs" />
     <Compile Include="Contracts\IConfiguration.cs" />
     <Compile Include="Contracts\IConfigurationModule.cs" />

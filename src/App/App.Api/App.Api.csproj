@@ -207,6 +207,7 @@
     <Content Include="Content\xml.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\users\small\default.jpg" />
     <Content Include="Scripts\bootstrap-table\bootstrap-table.js" />
     <Content Include="Scripts\bootstrap-table\bootstrap-table.min.js" />
     <Content Include="Scripts\bootstrap-table\extensions\editable\bootstrap-table-editable.min.js" />
@@ -362,7 +363,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Images\" />
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
