@@ -27,5 +27,6 @@ namespace App.Database
 
         public DbSet<Dummy> Dummy { get; set; }
         public DbSet<LogEntry> LogEntries { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using App.Core;
 using App.Core.Contracts;
 using App.Database;
@@ -18,18 +16,18 @@ namespace App.Services
     {
         private readonly UserManager<ApplicationUser, Guid> _applicationUserManager;
         private readonly IImageProcessorService _imageProcessorService;
-        private readonly IStorageProvider _storageProvider;
         private readonly INow _now;
         private readonly DatabaseContext _context;
+        private readonly IImageService _imageService;
 
         public UserService(UserManager<ApplicationUser, Guid> applicationUserManager, 
-            IImageProcessorService imageProcessorService, IStorageProvider storageProvider, INow now, DatabaseContext context)
+            IImageProcessorService imageProcessorService, INow now, DatabaseContext context, IImageService imageService)
         {
             _applicationUserManager = applicationUserManager;
             _imageProcessorService = imageProcessorService;
-            _storageProvider = storageProvider;
             _now = now;
             _context = context;
+            _imageService = imageService;
         }
         
         public NewUserResponse Register(NewUserDto request)
@@ -40,16 +38,9 @@ namespace App.Services
                 var imageId = Guid.NewGuid();
 
                 var imageMemoryStream = _imageProcessorService.ProcessAvatar(request.Avatar.Buffer);
-                var extension = MimeTypeMap.List.MimeTypeMap.GetExtension(ApplicationConstants.DefaultMimeType).First();
                 var filename = imageId.ToString();
 
-                var imagePath =
-                    HttpContext.Current.Server.MapPath(string.Format(ApplicationConstants.ImagePathTemplate,
-                        ApplicationConstants.DefaultUserSubDirectory,
-                        ReturnSizeSubdirectory(ImageSize.Small),
-                        filename, extension));
-
-                _storageProvider.StoreFile(imagePath, imageMemoryStream);
+                _imageService.StoreImage(imageMemoryStream, imageId);
 
                 var user = new ApplicationUser
                 {
@@ -75,7 +66,7 @@ namespace App.Services
                     DateStoredUtc = _now.UtcNow,
                     FileName = filename,
                     ImageSize = ImageSize.Small,
-                    MimeType = extension,
+                    MimeType = ApplicationConstants.DefaultMimeType,
                     ImageType = ImageType.Avatar
                 };
 
@@ -99,25 +90,6 @@ namespace App.Services
                     Error = ex.Message,
                     Success = false
                 };
-            }
-        }
-
-        /// <summary>
-        /// Returns the size directory ( small/medium/large )
-        /// </summary>
-        /// <param name="imageSize"></param>
-        /// <returns></returns>
-        private static string ReturnSizeSubdirectory(ImageSize imageSize)
-        {
-            switch (imageSize)
-            {
-                case ImageSize.Small:
-                    return "small";
-                case ImageSize.Medium:
-                    return "medium";
-                case ImageSize.Large:
-                    return "large";
-                default: throw new InvalidOperationException($"Image size {imageSize} does not exist");
             }
         }
     }
