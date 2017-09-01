@@ -55,6 +55,7 @@
     <Compile Include="Request\CreateUserBindingModel.cs" />
     <Compile Include="Request\FormData.cs" />
     <Compile Include="Request\HttpFile.cs" />
+    <Compile Include="Request\NewUserDto.cs" />
     <Compile Include="Request\TraceExceptionInfo.cs" />
     <Compile Include="Request\TraceMessageBase.cs" />
     <Compile Include="Request\TraceMessageInfo.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Response\ClientReturnModel.cs" />
     <Compile Include="Response\EmployeeReturnModel.cs" />
     <Compile Include="Response\ImageResponse.cs" />
+    <Compile Include="Response\NewUserResponse.cs" />
     <Compile Include="Response\RoleReturnModel.cs" />
     <Compile Include="Response\UserReturnModel.cs" />
     <Compile Include="Response\UsersInRoleModel.cs" />

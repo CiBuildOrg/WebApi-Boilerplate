@@ -14,5 +14,9 @@
 
         public const int SmallAvatarWidth = 640;
         public const int SmallAvatarHeight = 125;
+
+        public const string DefaultMimeType = "image/jpeg";
+        public const string ImagePathTemplate = "~/images/{0}/{1}/{2}{3}";
+        public const string DefaultUserSubDirectory = "users";
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="Implementations\TraceStepUtil.cs" />
     <Compile Include="OwinEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles.cs" />
     <Compile Include="Utils\AsyncHelper.cs" />
     <Compile Include="Utils\AutofacAssemblyStore.cs" />
     <Compile Include="Utils\ConcurrentList.cs" />

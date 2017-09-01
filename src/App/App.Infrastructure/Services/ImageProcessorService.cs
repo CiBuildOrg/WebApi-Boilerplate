@@ -16,10 +16,8 @@ namespace App.Infrastructure.Services
     public class ImageProcessorService : IImageProcessorService
     {
         private readonly IStorageProvider _storageProvider;
-        private const string ImagePathTemplate = "~/images/{0}/{1}/{2}{3}";
-        private const string DefaultUserSubDirectory = "users";
+        
 
-        private const string DefaultMimeType = "image/jpeg";
 
         public ImageProcessorService(IStorageProvider storageProvider)
         {
@@ -48,11 +46,11 @@ namespace App.Infrastructure.Services
         public ImageResponse GetDefaultImage()
         {
             var defaultImagePath =
-                HttpContext.Current.Server.MapPath(string.Format(ImagePathTemplate,
-                    DefaultUserSubDirectory,
+                HttpContext.Current.Server.MapPath(string.Format(ApplicationConstants.ImagePathTemplate,
+                    ApplicationConstants.DefaultUserSubDirectory,
                     ReturnSizeSubdirectory(ImageSize.Small),
                     "default",
-                    GetImageExtension(DefaultMimeType)));
+                    GetImageExtension(ApplicationConstants.DefaultMimeType)));
 
             if (!File.Exists(defaultImagePath))
             {
@@ -64,7 +62,7 @@ namespace App.Infrastructure.Services
 
             return new ImageResponse
             {
-                MimeType = DefaultMimeType,
+                MimeType = ApplicationConstants.DefaultMimeType,
                 ImagePayload = imagePayload,
             };
         }
