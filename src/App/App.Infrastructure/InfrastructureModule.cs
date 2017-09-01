@@ -1,7 +1,6 @@
 ﻿using App.Core.Contracts;
 using App.Infrastructure.Contracts;
 using App.Infrastructure.Security;
-using App.Infrastructure.Services;
 using App.Infrastructure.Tracing;
 using Autofac;
 using Microsoft.Owin.Security;
@@ -23,8 +22,6 @@ namespace App.Infrastructure
             builder.RegisterType<JwtFormat>().As<ISecureDataFormat<AuthenticationTicket>>().InstancePerLifetimeScope();
             builder.RegisterType<OauthProvider>().As<OAuthAuthorizationServerProvider>().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().As<IApplicationUserManager>().InstancePerLifetimeScope();
-            builder.RegisterType<ImageProcessorService>().As<IImageProcessorService>().InstancePerLifetimeScope();
-            builder.RegisterType<StorageProvider>().As<IStorageProvider>().InstancePerLifetimeScope();
         }
     }
 }

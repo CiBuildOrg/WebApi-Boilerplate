@@ -9,10 +9,10 @@ using App.Dto.Request;
 using App.Dto.Response;
 using App.Entities;
 using App.Entities.Security;
-using App.Infrastructure.Contracts;
+using App.Services.Contracts;
 using Microsoft.AspNet.Identity;
 
-namespace App.Infrastructure.Services
+namespace App.Services
 {
     public class UserService : IUserService
     {

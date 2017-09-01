@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using App.Infrastructure.Contracts;
+using App.Services.Contracts;
 
-namespace App.Infrastructure.Services
+namespace App.Services
 {
     public class StorageProvider : IStorageProvider
     {

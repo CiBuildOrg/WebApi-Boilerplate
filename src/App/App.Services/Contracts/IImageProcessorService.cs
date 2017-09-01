@@ -1,7 +1,7 @@
 using System.IO;
 using App.Dto.Response;
 
-namespace App.Infrastructure.Contracts
+namespace App.Services.Contracts
 {
     public interface IImageProcessorService
     {

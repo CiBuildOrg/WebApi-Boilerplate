@@ -6,12 +6,12 @@ using System.Web;
 using App.Core;
 using App.Dto.Response;
 using App.Entities;
-using App.Infrastructure.Contracts;
+using App.Services.Contracts;
 using ImageProcessor;
 using ImageProcessor.Imaging;
 using ImageProcessor.Imaging.Formats;
 
-namespace App.Infrastructure.Services
+namespace App.Services
 {
     public class ImageProcessorService : IImageProcessorService
     {

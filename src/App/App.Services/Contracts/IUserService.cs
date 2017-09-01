@@ -1,7 +1,7 @@
 using App.Dto.Request;
 using App.Dto.Response;
 
-namespace App.Infrastructure.Contracts
+namespace App.Services.Contracts
 {
     public interface IUserService
     {

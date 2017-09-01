@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace App.Infrastructure.Contracts
+namespace App.Services.Contracts
 {
     public interface IStorageProvider
     {
