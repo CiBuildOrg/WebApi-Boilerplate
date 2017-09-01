@@ -128,7 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IApplicationUserManager.cs" />
+    <Compile Include="Contracts\IImageProcessorService.cs" />
     <Compile Include="Contracts\IRefreshTokenManager.cs" />
+    <Compile Include="Contracts\IStorageProvider.cs" />
     <Compile Include="Di\AutofacDependencyScope.cs" />
     <Compile Include="Di\AutofacResolver.cs" />
     <Compile Include="Extensions\HttpApplicationExtensions.cs" />
@@ -147,6 +149,8 @@
     <Compile Include="Security\SecurityKeys.cs" />
     <Compile Include="Security\SecurityToken.cs" />
     <Compile Include="Security\ValidIssuers.cs" />
+    <Compile Include="Services\ImageProcessorService.cs" />
+    <Compile Include="Services\StorageProvider.cs" />
     <Compile Include="Tracing\ApiLogHandler.cs" />
     <Compile Include="Tracing\Dashboard\BootstrapTableHelpers.cs" />
     <Compile Include="Tracing\Dashboard\ColumnOption.cs" />

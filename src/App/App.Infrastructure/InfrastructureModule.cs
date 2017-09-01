@@ -22,6 +22,7 @@ namespace App.Infrastructure
             builder.RegisterType<JwtFormat>().As<ISecureDataFormat<AuthenticationTicket>>().InstancePerLifetimeScope();
             builder.RegisterType<OauthProvider>().As<OAuthAuthorizationServerProvider>().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().As<IApplicationUserManager>().InstancePerLifetimeScope();
+            builder.RegisterType<IImageProcessorService>().As<IImageProcessorService>().InstancePerLifetimeScope();
         }
     }
 }
