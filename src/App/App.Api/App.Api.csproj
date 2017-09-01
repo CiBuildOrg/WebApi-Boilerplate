@@ -331,6 +331,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RolesController.cs" />

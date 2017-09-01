@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using App.Core;
 using App.Database;
+using App.Dto.Response;
 using App.Entities;
 using App.Services.Contracts;
 
@@ -53,13 +54,17 @@ namespace App.Services
             }
         }
 
-        public byte[] GetImage(Guid imageId)
+        public ImageResponse GetImage(Guid imageId)
         {
             var image = _context.Images.SingleOrDefault(x => x.Id == imageId);
 
             if (image == null)
             {
-                return _imageProcessorService.GetDefaultImage().ImagePayload;
+                return new ImageResponse
+                {
+                    MimeType = ApplicationConstants.DefaultMimeType,
+                    ImagePayload = _imageProcessorService.GetDefaultImage().ImagePayload
+                };
             }
 
             var extension = MimeTypeMap.List.MimeTypeMap.GetExtension(image.MimeType).First();
@@ -70,7 +75,11 @@ namespace App.Services
                     ReturnSizeSubdirectory(ImageSize.Small),
                     imageId, extension));
 
-            return _storageProvider.GetFile(imagePath);
+            return new ImageResponse
+            {
+                MimeType = image.MimeType,
+                ImagePayload = _storageProvider.GetFile(imagePath)
+            };
         }
     }
 }

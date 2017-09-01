@@ -24,7 +24,8 @@ namespace App.Api.Controllers
             _userService = userService;
         }
 
-        public HttpResponseMessage Register(NewUserDto user)
+        [HttpPost]
+        public HttpResponseMessage Register([FromBody] NewUserDto user)
         {
             try
             {
