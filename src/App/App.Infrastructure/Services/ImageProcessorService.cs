@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
+using App.Core;
 using App.Dto.Response;
 using App.Entities;
 using App.Infrastructure.Contracts;
+using ImageProcessor;
+using ImageProcessor.Imaging;
+using ImageProcessor.Imaging.Formats;
 
 namespace App.Infrastructure.Services
 {
@@ -23,13 +28,25 @@ namespace App.Infrastructure.Services
 
         public MemoryStream ProcessAvatar(byte[] image)
         {
-            throw new NotImplementedException();
+            using (var inStream = new MemoryStream(image))
+            {
+                var outStream = new MemoryStream();
+                using (var imageFactory = new ImageFactory(true, true))
+                {
+                    // Load, resize, set the format and quality and save an image.
+                    imageFactory.Load(inStream);
+                    imageFactory.Format(new JpegFormat());
+                    imageFactory.Quality(ApplicationConstants.AvatarSmallQualityPercentage);
+                    imageFactory.Resize(new ResizeLayer(new Size(ApplicationConstants.AvatarSmallW, ApplicationConstants.AvatarSmallH)));
+                    imageFactory.Save(outStream);
+
+                    return outStream;
+                }
+            }
         }
 
         public ImageResponse GetDefaultImage()
         {
-
-
             var defaultImagePath =
                 HttpContext.Current.Server.MapPath(string.Format(ImagePathTemplate,
                     DefaultUserSubDirectory,
