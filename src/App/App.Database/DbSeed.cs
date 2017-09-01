@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using App.Core;
 using App.Entities;
 using App.Entities.Security;
 using App.Security.Infrastructure;
@@ -29,30 +30,30 @@ namespace App.Database
 
             // seed the data
 
-            if (!applicationRoleManager.Roles.Any(x => x.Name == "SuperAdmin"))
+            if (!applicationRoleManager.Roles.Any(x => x.Name == Roles.SuperAdmin))
             {
-                applicationRoleManager.Create(new ApplicationRole("SuperAdmin")
+                applicationRoleManager.Create(new ApplicationRole(Roles.SuperAdmin)
                 {
                     Id = Guid.Parse(SuperAdminId),
-                    RoleDescription = "super admin"
+                    RoleDescription = Roles.SuperAdminDescription
                 });
             }
 
-            if (!applicationRoleManager.Roles.Any(x => x.Name == "Admin"))
+            if (!applicationRoleManager.Roles.Any(x => x.Name == Roles.Admin))
             {
-                applicationRoleManager.Create(new ApplicationRole("Admin")
+                applicationRoleManager.Create(new ApplicationRole(Roles.Admin)
                 {
                     Id = Guid.Parse(AdminId),
-                    RoleDescription = "administrator"
+                    RoleDescription = Roles.AdminDescription
                 });
             }
 
-            if (!applicationRoleManager.Roles.Any(x => x.Name == "User"))
+            if (!applicationRoleManager.Roles.Any(x => x.Name == Roles.User))
             {
-                applicationRoleManager.Create(new ApplicationRole("User")
+                applicationRoleManager.Create(new ApplicationRole(Roles.User)
                 {
                     Id = Guid.Parse(UserId),
-                    RoleDescription = "user"
+                    RoleDescription = Roles.UserDescription
                 });
             }
 
@@ -77,7 +78,7 @@ namespace App.Database
 
                 applicationUserManager.Create(toAddUser, Secret);
                 applicationUserManager.SetLockoutEnabled(toAddUser.Id, false);
-                applicationUserManager.AddToRoles(toAddUser.Id, "SuperAdmin", "Admin", "User");
+                applicationUserManager.AddToRoles(toAddUser.Id, Roles.SuperAdmin, Roles.Admin, Roles.User);
             }
 
             var adamUser = applicationUserManager.FindByName("adam");
@@ -99,7 +100,7 @@ namespace App.Database
 
                 applicationUserManager.Create(adamUser, Secret);
                 applicationUserManager.SetLockoutEnabled(adamUser.Id, false);
-                applicationUserManager.AddToRoles(adamUser.Id, "User");
+                applicationUserManager.AddToRoles(adamUser.Id, Roles.User);
             }
 
             // ReSharper disable once InvertIf
