@@ -1,5 +1,11 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.Description;
+using App.Dto.Request;
+using App.Dto.Response;
+using App.Services.Contracts;
 
 namespace App.Api.Controllers
 {
@@ -11,6 +17,30 @@ namespace App.Api.Controllers
     [RoutePrefix("api/registration")]
     public class RegistrationController : BaseApiController
     {
+        private readonly IUserService _userService;
 
+        public RegistrationController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        public HttpResponseMessage Register(NewUserDto user)
+        {
+            try
+            {
+                _userService.Register(user);
+                return Request.CreateResponse(HttpStatusCode.OK,new NewUserResponse
+                {
+                    Error = null,
+                    Success = true
+                });
+            }
+            catch(Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest,
+                    new NewUserResponse {Success = false, Error = ex.Message});
+            }
+
+        }
     }
 }
