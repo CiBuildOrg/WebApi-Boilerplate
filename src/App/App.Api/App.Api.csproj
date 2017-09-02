@@ -82,6 +82,9 @@
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.1.1\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidator.1.0.5\lib\net461\FluentValidator.dll</HintPath>
+    </Reference>
     <Reference Include="ImageProcessor, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ImageProcessor.2.5.4\lib\net45\ImageProcessor.dll</HintPath>
     </Reference>
@@ -415,6 +418,10 @@
     <ProjectReference Include="..\App.Services\App.Services.csproj">
       <Project>{CFD8E610-9C7D-4C39-B6ED-067522A10440}</Project>
       <Name>App.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Validation\App.Validation.csproj">
+      <Project>{18f56630-81b5-4ee5-bb0f-785d7f615014}</Project>
+      <Name>App.Validation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
