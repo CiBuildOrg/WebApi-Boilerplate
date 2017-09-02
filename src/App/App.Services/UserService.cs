@@ -48,13 +48,18 @@ namespace App.Services
                 EmailConfirmed = true,
                 ProfileInfo = new UserProfile
                 {
-                    Id = userId,
                     FullName = request.FullName,
                     Description = request.Description,
                     JoinDate = DateTime.UtcNow,
                     ProfileImages = new List<Image>()
                 }
             };
+
+            _applicationUserManager.Create(user, request.Password);
+            _applicationUserManager.SetLockoutEnabled(userId, false);
+            _applicationUserManager.AddToRoles(userId, Roles.User);
+
+            // add the image to the database
 
             var image = new Image
             {
@@ -69,10 +74,6 @@ namespace App.Services
             };
 
             _context.Save(image);
-
-            _applicationUserManager.Create(user, request.Password);
-            _applicationUserManager.SetLockoutEnabled(userId, false);
-            _applicationUserManager.AddToRoles(userId, Roles.User);
         }
     }
 }

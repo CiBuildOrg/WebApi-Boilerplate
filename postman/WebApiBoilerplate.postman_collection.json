@@ -10,7 +10,7 @@
 		{
 			"name": "AUTH - Receive authentication token",
 			"request": {
-				"url": "http://localhost:49972/auth/token",
+				"url": "http://localhost/App.Api/auth/token",
 				"method": "POST",
 				"header": [
 					{
@@ -51,6 +51,12 @@
 							"value": "Z8rZ73CA3F8fRMqOm5BEJH/VKKdC4/dz0rnvz062HyM=",
 							"description": "",
 							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"description": "",
+							"type": "text"
 						}
 					]
 				},
@@ -61,7 +67,7 @@
 		{
 			"name": "AUTH - Renew authentication token with refresh token",
 			"request": {
-				"url": "http://localhost:49972/auth/token",
+				"url": "http://localhost/App.Api/auth/token",
 				"method": "POST",
 				"header": [
 					{
@@ -106,7 +112,7 @@
 		{
 			"name": "Test API controller",
 			"request": {
-				"url": "http://localhost:49972/api/test/",
+				"url": "http://localhost/App.Api/api/test/user",
 				"method": "GET",
 				"header": [
 					{
@@ -121,7 +127,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiI4OWMxYWI1Yi1jYTUyLTQxMDQtODk3Ny1jYzhjMTMxMmM1NzEiLCJ1bmlxdWVfbmFtZSI6WyJhZGFtIiwiYWRhbSJdLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL2FjY2Vzc2NvbnRyb2xzZXJ2aWNlLzIwMTAvMDcvY2xhaW1zL2lkZW50aXR5cHJvdmlkZXIiOiJBU1AuTkVUIElkZW50aXR5IiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiI5YjA2ZTNjNy0yYzZlLTRlOWQtOWE3Ny0wODQ0NzJlNDU5YTkiLCJyb2xlIjoiVXNlciIsImFzOnVzZXJfaWQiOiI4OWMxYWI1Yi1jYTUyLTQxMDQtODk3Ny1jYzhjMTMxMmM1NzEiLCJzdWIiOiJhZGFtIiwiaXNzIjoic2VsZiIsImF1ZCI6IkYxMTc5QjZCLTE1QTgtNDI1MC05RUQ5LTRDMkQ1RUUwMzc2QiIsImV4cCI6MTUwMjcxMTIwNCwibmJmIjoxNTAyNzA5NDA0fQ.UYETat_AA1eCYaoe2xyUbj0qvCWHlX-1xpMgvvqDU3I",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiI4OWMxYWI1Yi1jYTUyLTQxMDQtODk3Ny1jYzhjMTMxMmM1NzEiLCJ1bmlxdWVfbmFtZSI6WyJhZGFtIiwiYWRhbSJdLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL2FjY2Vzc2NvbnRyb2xzZXJ2aWNlLzIwMTAvMDcvY2xhaW1zL2lkZW50aXR5cHJvdmlkZXIiOiJBU1AuTkVUIElkZW50aXR5IiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiI2ODU3MTgyMS00ZTk4LTQ0YzUtYjE2NS01Mzg1YjMwY2RjNmEiLCJyb2xlIjoiVXNlciIsInVzZXJfaWQiOiI4OWMxYWI1Yi1jYTUyLTQxMDQtODk3Ny1jYzhjMTMxMmM1NzEiLCJzdWIiOiJhZGFtIiwiaXNzIjoic2VsZiIsImF1ZCI6IkYxMTc5QjZCLTE1QTgtNDI1MC05RUQ5LTRDMkQ1RUUwMzc2QiIsImV4cCI6MTUwMjY0MzUzNCwibmJmIjoxNTAyNjQxNzM0fQ.WUewTQydohOjJWmyLcBpTg9yNV2AVmfrSA4KdHaIFDk",
 						"description": ""
 					},
 					{
@@ -131,6 +137,63 @@
 					}
 				],
 				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Register new user",
+			"request": {
+				"url": "http://localhost/App.Api/api/registration",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "fullname",
+							"value": "New User",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "email@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description ",
+							"value": "programmer",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"description": "",
+							"type": "file",
+							"src": "DoruProfile.png"
+						}
+					]
+				},
 				"description": ""
 			},
 			"response": []

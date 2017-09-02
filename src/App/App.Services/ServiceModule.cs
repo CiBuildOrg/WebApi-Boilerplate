@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using App.Core.Extensions;
+using App.Services.Contracts;
 using Autofac;
 using Module = Autofac.Module;
 
@@ -13,8 +14,10 @@ namespace App.Services
         {
             builder.RegisterAssemblyTypes(ThisAssembly)
                 .Where(t => t.IsClass && t.Name.EndsWith(ServicesEnding))
-                .As(t => t.GetInterfaces().Single(i => i.Name.EndsWith(t.Name))).InstancePerLifetimeScope(); 
-            
+                .As(t => t.GetInterfaces().Single(i => i.Name.EndsWith(t.Name))).InstancePerLifetimeScope();
+
+            builder.RegisterType<StorageProvider>().As<IStorageProvider>().InstancePerLifetimeScope();
+
             builder.AutowireAutomapper(typeof(ServiceModule).Assembly);
         }
     }

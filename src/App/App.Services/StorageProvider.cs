@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using App.Services.Contracts;
 
 namespace App.Services
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class StorageProvider : IStorageProvider
     {
         private const int BufferSize = 4096;
@@ -23,6 +25,9 @@ namespace App.Services
             {
                 Directory.CreateDirectory(directoryToWriteTo);
             }
+
+            if(File.Exists(path))
+                File.Delete(path);
 
             try
             {

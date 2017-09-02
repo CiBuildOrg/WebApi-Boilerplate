@@ -41,7 +41,6 @@ namespace App.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest,
                     new NewUserResponse {Success = false, Error = ex.Message});
             }
-
         }
     }
 }
