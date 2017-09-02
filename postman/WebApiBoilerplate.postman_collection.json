@@ -170,7 +170,7 @@
 						},
 						{
 							"key": "password",
-							"value": "secret",
+							"value": "@0#$secret1",
 							"description": "",
 							"type": "text"
 						},
@@ -181,7 +181,7 @@
 							"type": "text"
 						},
 						{
-							"key": "description ",
+							"key": "description",
 							"value": "programmer",
 							"description": "",
 							"type": "text"
