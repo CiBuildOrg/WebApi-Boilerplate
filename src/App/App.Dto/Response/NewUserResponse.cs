@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace App.Dto.Response
 {
@@ -7,7 +8,15 @@ namespace App.Dto.Response
         [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
 
+        [JsonProperty(PropertyName = "errors")]
+        public IEnumerable<Error> Errors { get; set; }
+
+        public static NewUserResponse Ok => new NewUserResponse {Success = true};
+    }
+
+    public class Error
+    {
         [JsonProperty(PropertyName = "error")]
-        public string Error { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

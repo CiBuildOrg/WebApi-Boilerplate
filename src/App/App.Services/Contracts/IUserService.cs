@@ -1,9 +1,10 @@
 using App.Dto.Request;
+using App.Dto.Response;
 
 namespace App.Services.Contracts
 {
     public interface IUserService
     {
-        void Register(NewUserDto request);
+        RegistrationResult Register(NewUserDto request);
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="Response\EmployeeReturnModel.cs" />
     <Compile Include="Response\ImageResponse.cs" />
     <Compile Include="Response\NewUserResponse.cs" />
+    <Compile Include="Response\RegistrationResult.cs" />
     <Compile Include="Response\RoleReturnModel.cs" />
     <Compile Include="Response\UserReturnModel.cs" />
     <Compile Include="Response\UsersInRoleModel.cs" />

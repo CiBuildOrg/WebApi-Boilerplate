@@ -30,7 +30,7 @@ namespace App.Services
             _imageService = imageService;
         }
 
-        public void Register(NewUserDto request)
+        public RegistrationResult Register(NewUserDto request)
         {
             var userId = Guid.NewGuid();
             var imageId = Guid.NewGuid();
@@ -46,26 +46,32 @@ namespace App.Services
                 UserName = request.UserName,
                 Email = request.Email,
                 EmailConfirmed = true,
+                
                 ProfileInfo = new UserProfile
                 {
                     FullName = request.FullName,
                     Description = request.Description,
                     JoinDate = DateTime.UtcNow,
-                    ProfileImages = new List<Image>()
+                    ProfileImages = new List<Image>(),
                 }
             };
 
-            _applicationUserManager.Create(user, request.Password);
+            var result = _applicationUserManager.Create(user, request.Password);
+            if (!result.Succeeded)
+            {
+                return new RegistrationResult{Success = false, Errors = result.Errors};
+            }
+
             _applicationUserManager.SetLockoutEnabled(userId, false);
             _applicationUserManager.AddToRoles(userId, Roles.User);
 
+            _context.SaveChanges();
             // add the image to the database
 
             var image = new Image
             {
                 Id = imageId,
-                UserProfile = user.ProfileInfo,
-                UserProfileId = user.ProfileInfo.Id,
+                UserProfileId = user.Id,
                 DateStoredUtc = _now.UtcNow,
                 FileName = filename,
                 ImageSize = ImageSize.Small,
@@ -74,6 +80,8 @@ namespace App.Services
             };
 
             _context.Save(image);
+
+            return RegistrationResult.Ok;
         }
     }
 }

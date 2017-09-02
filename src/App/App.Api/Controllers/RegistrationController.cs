@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -27,20 +28,14 @@ namespace App.Api.Controllers
         [HttpPost]
         public HttpResponseMessage Register([FromBody] NewUserDto user)
         {
-            try
+            var result = _userService.Register(user);
+            if (result.Success) return Request.CreateResponse(HttpStatusCode.OK, NewUserResponse.Ok);
+
+            return Request.CreateResponse(HttpStatusCode.BadRequest, new NewUserResponse
             {
-                _userService.Register(user);
-                return Request.CreateResponse(HttpStatusCode.OK,new NewUserResponse
-                {
-                    Error = null,
-                    Success = true
-                });
-            }
-            catch(Exception ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest,
-                    new NewUserResponse {Success = false, Error = ex.Message});
-            }
+                Success = false,
+                Errors = result.Errors.Select(x => new Error {ErrorMessage = x})
+            });
         }
     }
 }
