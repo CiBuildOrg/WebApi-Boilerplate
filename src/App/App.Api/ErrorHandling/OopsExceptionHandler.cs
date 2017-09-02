@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using App.Core.Utils;
+using App.Exceptions;
 
 namespace App.Api.ErrorHandling
 {
@@ -16,6 +17,10 @@ namespace App.Api.ErrorHandling
         protected override void HandleCore(ExceptionHandlerContext context)
         {
             Exception exception = null;
+
+            //if(context.ExceptionContext.Exception.GetType().IsSubclassOf(typeof(AbstractRequestException)))
+            //    return;
+
             if (context.ExceptionContext.Exception != null)
             {
                 exception = context.ExceptionContext.Exception;

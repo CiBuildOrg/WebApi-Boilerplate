@@ -8,5 +8,7 @@ namespace App.Services.Contracts
         void StoreFile(string path, Stream payload);
 
         byte[] GetFile(string path);
+
+        void DeleteFile(string path);
     }
 }

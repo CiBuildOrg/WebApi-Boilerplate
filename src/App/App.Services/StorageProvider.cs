@@ -57,6 +57,11 @@ namespace App.Services
             }
         }
 
+        public void DeleteFile(string path)
+        {
+            File.Delete(path);
+        }
+
         private static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024];

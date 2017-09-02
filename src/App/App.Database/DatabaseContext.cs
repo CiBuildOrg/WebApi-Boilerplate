@@ -22,6 +22,7 @@ namespace App.Database
             this.DisableDatabaseInitialization();
         }
 
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 

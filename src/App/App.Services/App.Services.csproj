@@ -71,6 +71,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -122,6 +123,10 @@
     <ProjectReference Include="..\App.Entities\App.Entities.csproj">
       <Project>{1F43C2E5-4D77-4AEE-A9BB-C706EEAD0240}</Project>
       <Name>App.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Exceptions\App.Exceptions.csproj">
+      <Project>{EC5A085B-0B24-4CE1-A70B-7B2DFB826C82}</Project>
+      <Name>App.Exceptions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

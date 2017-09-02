@@ -23,6 +23,22 @@ namespace App.Services
             _imageProcessorService = imageProcessorService;
         }
 
+        public void TryDelete(Guid imageId)
+        {
+            try
+            {
+                var extension = MimeTypeMap.List.MimeTypeMap.GetExtension(ApplicationConstants.DefaultMimeType).First();
+                var imagePath =
+                    HttpContext.Current.Server.MapPath(String.Format(ApplicationConstants.ImagePathTemplate,
+                        ApplicationConstants.DefaultUserSubDirectory,
+                        ReturnSizeSubdirectory(ImageSize.Small),
+                        imageId, extension));
+
+                _storageProvider.DeleteFile(imagePath);
+            }
+            catch { }
+        }
+
         public void StoreImage(MemoryStream image, Guid imageId)
         {
             var extension = MimeTypeMap.List.MimeTypeMap.GetExtension(ApplicationConstants.DefaultMimeType).First();

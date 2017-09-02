@@ -8,5 +8,6 @@ namespace App.Services.Contracts
     {
         void StoreImage(MemoryStream image, Guid imageId);
         ImageResponse GetImage(Guid imageId);
+        void TryDelete(Guid imageId);
     }
 }

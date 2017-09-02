@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Transactions;
 using App.Core;
 using App.Core.Contracts;
 using App.Database;
@@ -7,11 +11,13 @@ using App.Dto.Request;
 using App.Dto.Response;
 using App.Entities;
 using App.Entities.Security;
+using App.Exceptions;
 using App.Services.Contracts;
 using Microsoft.AspNet.Identity;
 
 namespace App.Services
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser, Guid> _applicationUserManager;
@@ -37,49 +43,73 @@ namespace App.Services
 
             var imageMemoryStream = _imageProcessorService.ProcessAvatar(request.Avatar.Buffer);
             var filename = imageId.ToString();
-
             _imageService.StoreImage(imageMemoryStream, imageId);
 
-            var user = new ApplicationUser
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                Id = userId,
-                UserName = request.UserName,
-                Email = request.Email,
-                EmailConfirmed = true,
-                
-                ProfileInfo = new UserProfile
+                try
                 {
-                    FullName = request.FullName,
-                    Description = request.Description,
-                    JoinDate = DateTime.UtcNow,
-                    ProfileImages = new List<Image>(),
+                    var user = new ApplicationUser
+                    {
+                        Id = userId,
+                        UserName = request.UserName,
+                        Email = request.Email,
+                        EmailConfirmed = true,
+
+                        ProfileInfo = new UserProfile
+                        {
+                            FullName = request.FullName,
+                            Description = request.Description,
+                            JoinDate = DateTime.UtcNow,
+                            ProfileImages = new List<Image>(),
+                        }
+                    };
+
+                    var result = _applicationUserManager.Create(user, request.Password);
+                    if (!result.Succeeded)
+                    {
+                        return new RegistrationResult { Success = false, Errors = result.Errors };
+                    }
+
+                    _applicationUserManager.SetLockoutEnabled(userId, false);
+                    _applicationUserManager.AddToRoles(userId, Roles.User);
+
+                    _context.SaveChanges();
+                    // add the image to the database
+
+                    var profile = _context.UserProfiles.SingleOrDefault(x => x.Id == userId);
+
+                    if (profile == null)
+                    {
+                        throw new Exception();
+                    }
+
+                    var image = new Image
+                    {
+                        Id = imageId,
+                        UserProfileId = profile.Id,
+                        UserProfile = profile,
+                        DateStoredUtc = _now.UtcNow,
+                        FileName = filename,
+                        ImageSize = ImageSize.Small,
+                        MimeType = ApplicationConstants.DefaultMimeType,
+                        ImageType = ImageType.Avatar
+                    };
+
+                    _context.Save(image);
+
+                    scope.Complete();
                 }
-            };
+                catch(Exception ex)
+                {
+                    scope.Dispose();
 
-            var result = _applicationUserManager.Create(user, request.Password);
-            if (!result.Succeeded)
-            {
-                return new RegistrationResult{Success = false, Errors = result.Errors};
+                    _imageService.TryDelete(imageId);
+
+                    throw new RegistrationException(100, "User could not be registered");
+                }
             }
-
-            _applicationUserManager.SetLockoutEnabled(userId, false);
-            _applicationUserManager.AddToRoles(userId, Roles.User);
-
-            _context.SaveChanges();
-            // add the image to the database
-
-            var image = new Image
-            {
-                Id = imageId,
-                UserProfileId = user.Id,
-                DateStoredUtc = _now.UtcNow,
-                FileName = filename,
-                ImageSize = ImageSize.Small,
-                MimeType = ApplicationConstants.DefaultMimeType,
-                ImageType = ImageType.Avatar
-            };
-
-            _context.Save(image);
+            
 
             return RegistrationResult.Ok;
         }
