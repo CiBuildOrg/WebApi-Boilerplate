@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core", "App.Core\App.Core.csproj", "{3720884E-16AF-4C75-B5DC-E08E815D9A63}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Api.Tests", "..\..\tests\App.Api.Tests\App.Api.Tests.csproj", "{CEC19CAA-20D1-4309-82F6-139BE939C323}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Entities.Security", "App.Entities.Security\App.Entities.Security.csproj", "{406CE224-1147-46C8-A503-4CDB185C7D48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Validation", "App.Validation\App.Validation.csproj", "{18F56630-81B5-4EE5-BB0F-785D7F615014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,11 +79,18 @@ Global
 		{406CE224-1147-46C8-A503-4CDB185C7D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{406CE224-1147-46C8-A503-4CDB185C7D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{406CE224-1147-46C8-A503-4CDB185C7D48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18F56630-81B5-4EE5-BB0F-785D7F615014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18F56630-81B5-4EE5-BB0F-785D7F615014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18F56630-81B5-4EE5-BB0F-785D7F615014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18F56630-81B5-4EE5-BB0F-785D7F615014}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CEC19CAA-20D1-4309-82F6-139BE939C323} = {5901405C-FB30-4971-8422-3633248BFDE1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76932DCF-7680-4A3D-80D5-ECE6F7DB05BA}
 	EndGlobalSection
 EndGlobal
