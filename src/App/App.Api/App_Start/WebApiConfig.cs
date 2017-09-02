@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using App.Api.ErrorHandling;
 using App.Infrastructure.Utils.Multipart;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -28,6 +30,9 @@ namespace App.Api
 
 
             GlobalConfiguration.Configuration.Formatters.Add(new FormMultipartEncodedMediaTypeFormatter());
+            GlobalConfiguration.Configuration.Filters.Add(new ExceptionFilter());
+            // add this to ensure webapi does not crash on unhandled exceptions. 
+            config.Services.Replace(typeof(IExceptionHandler), new OopsExceptionHandler());
 
             config.EnsureInitialized();
         }

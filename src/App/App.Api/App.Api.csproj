@@ -15,7 +15,7 @@
     <RootNamespace>App.Api</RootNamespace>
     <AssemblyName>App.Api</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -24,7 +24,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -335,6 +336,11 @@
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="ErrorHandling\ExceptionFilter.cs" />
+    <Compile Include="ErrorHandling\ExceptionHandler.cs" />
+    <Compile Include="ErrorHandling\ExceptionMapper.cs" />
+    <Compile Include="ErrorHandling\ExceptionResponse.cs" />
+    <Compile Include="ErrorHandling\OopsExceptionHandler.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Controllers\ProtectedController.cs" />
     <Compile Include="Controllers\RefreshTokenController.cs" />
