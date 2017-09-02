@@ -1,10 +1,12 @@
-﻿using System.Web.Http.Validation;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Web.Http.Validation;
 using Autofac;
 using FluentValidation;
 using FluentValidation.WebApi;
 
 namespace App.Validation
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class ValidationModule : Module
     {
         protected override void Load(ContainerBuilder builder)

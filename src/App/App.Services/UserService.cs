@@ -111,5 +111,15 @@ namespace App.Services
 
             return RegistrationResult.Ok;
         }
+
+        public bool UsernameAlreadyRegistered(string username)
+        {
+            return _context.Users.SingleOrDefault(x => x.UserName == username) != null;
+        }
+
+        public bool EmailAlreadyRegistered(string email)
+        {
+            return _context.Users.SingleOrDefault(x => x.Email == email) != null;
+        }
     }
 }
