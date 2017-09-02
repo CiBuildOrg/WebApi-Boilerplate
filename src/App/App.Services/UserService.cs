@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Transactions;
@@ -100,7 +99,7 @@ namespace App.Services
 
                     scope.Complete();
                 }
-                catch(Exception ex)
+                catch
                 {
                     scope.Dispose();
 
@@ -109,7 +108,6 @@ namespace App.Services
                     throw new RegistrationException(100, "User could not be registered");
                 }
             }
-            
 
             return RegistrationResult.Ok;
         }

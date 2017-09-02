@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
 using App.Entities;
+using App.Exceptions;
 using App.Infrastructure.Security;
 using Microsoft.AspNet.Identity;
 
@@ -36,7 +37,7 @@ namespace App.Api.Controllers
                 var applicationPrincipal = RequestContext.Principal as AppClaimsPrincipal;
 
                 if (applicationPrincipal == null)
-                    throw new Exception("Request Principal is empty");
+                    throw new NotAuthenticatedException("Request Principal is empty");
 
                 return new UserDetails
                 {
