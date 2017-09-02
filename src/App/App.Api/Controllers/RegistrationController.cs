@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using App.Api.Validation;
 using App.Dto.Request;
 using App.Dto.Response;
 using App.Services.Contracts;
@@ -13,6 +14,7 @@ namespace App.Api.Controllers
     /// Client 
     /// </summary>
     [ApiExplorerSettings(IgnoreApi = true)]
+    [ValidateViewModel]
     //[Authorize(Roles = "SuperAdmin")]
     [RoutePrefix("api/registration")]
     public class RegistrationController : BaseApiController
@@ -27,18 +29,6 @@ namespace App.Api.Controllers
         [HttpPost]
         public HttpResponseMessage Register([FromBody] NewUserDto user)
         {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, new NewUserResponse
-                {
-                    Success = false,
-                    Errors = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).Select(x => new Error
-                    {
-                        ErrorMessage = x
-                    })
-                });
-            }
-
             var result = _userService.Register(user);
             if (result.Success) return Request.CreateResponse(HttpStatusCode.OK, NewUserResponse.Ok);
 

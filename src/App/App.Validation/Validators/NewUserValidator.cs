@@ -13,7 +13,7 @@ namespace App.Validation.Validators
             RuleFor(model => model.FullName).NotEmpty();
             RuleFor(model => model.Email).NotEmpty().EmailAddress();
 
-            var message = "The email address is available";
+            var message = "The email address not is available";
             RuleFor(model => model.Email)
                 .NotEmpty()
                 .Must(x => !userService.EmailAlreadyRegistered(x))

@@ -357,6 +357,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CustomAuthenticationMessageHandler.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Validation\ValidationActionFilter.cs" />
     <Compile Include="WebConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
