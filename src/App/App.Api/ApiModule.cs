@@ -1,6 +1,5 @@
 ﻿using System.Web;
 using System.Web.Hosting;
-using System.Web.Http.Routing;
 using System.Web.Routing;
 using App.Core.Contracts;
 using Autofac;
@@ -62,7 +61,7 @@ namespace App.Api
 
             // MVC types
             builder.Register(c => new System.Web.Mvc.UrlHelper(c.Resolve<RequestContext>()))
-                .As<UrlHelper>()
+                .As<System.Web.Mvc.UrlHelper>()
                 .InstancePerLifetimeScope();
         }
     }

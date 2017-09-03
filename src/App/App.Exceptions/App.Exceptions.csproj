@@ -46,6 +46,7 @@
     <Compile Include="ContainerNullException.cs" />
     <Compile Include="ContextException.cs" />
     <Compile Include="ContextUniqueConstraintFailureException.cs" />
+    <Compile Include="EntityNotFoundException.cs" />
     <Compile Include="FileNotFoundException.cs" />
     <Compile Include="LockingException.cs" />
     <Compile Include="NoAutofacContainerFoundException.cs" />

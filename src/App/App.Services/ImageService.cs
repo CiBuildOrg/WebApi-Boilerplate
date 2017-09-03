@@ -70,6 +70,15 @@ namespace App.Services
             }
         }
 
+        public ImageResponse GetDefaultImage()
+        {
+            return new ImageResponse
+            {
+                MimeType = ApplicationConstants.DefaultMimeType,
+                ImagePayload = _imageProcessorService.GetDefaultImage().ImagePayload
+            };
+        }
+
         public ImageResponse GetImage(Guid imageId)
         {
             var image = _context.Images.SingleOrDefault(x => x.Id == imageId);

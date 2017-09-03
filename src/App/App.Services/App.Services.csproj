@@ -97,6 +97,7 @@
     <Compile Include="LogService.cs" />
     <Compile Include="Mappings\Profiles\LogEntryProfile.cs" />
     <Compile Include="Mappings\Profiles\UserProfile.cs" />
+    <Compile Include="Mappings\ValueResolvers\ImageMemberValueResolver.cs" />
     <Compile Include="Mappings\ValueResolvers\LogEntryWorkflowMemberValueResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Embedded.cs" />

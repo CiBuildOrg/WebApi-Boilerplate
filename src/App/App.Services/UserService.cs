@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Transactions;
@@ -12,6 +13,7 @@ using App.Entities;
 using App.Entities.Security;
 using App.Exceptions;
 using App.Services.Contracts;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 
 namespace App.Services
@@ -20,15 +22,17 @@ namespace App.Services
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser, Guid> _applicationUserManager;
+        private readonly IMapper _mapper;
         private readonly IImageProcessorService _imageProcessorService;
         private readonly INow _now;
         private readonly DatabaseContext _context;
         private readonly IImageService _imageService;
 
-        public UserService(UserManager<ApplicationUser, Guid> applicationUserManager, 
+        public UserService(UserManager<ApplicationUser, Guid> applicationUserManager, IMapper mapper,
             IImageProcessorService imageProcessorService, INow now, DatabaseContext context, IImageService imageService)
         {
             _applicationUserManager = applicationUserManager;
+            _mapper = mapper;
             _imageProcessorService = imageProcessorService;
             _now = now;
             _context = context;
@@ -37,7 +41,14 @@ namespace App.Services
 
         public UserDto GetUser(Guid userId)
         {
-            return null;
+            var user = _context.Users.Include(x => x.ProfileInfo)
+                .Include(x => x.ProfileInfo.ProfileImages)
+                .SingleOrDefault(x => x.Id == userId);
+
+            if(user == null)
+                throw new EntityNotFoundException();
+
+            return _mapper.Map<ApplicationUser, UserDto>(user);
         }
 
         public RegistrationResult Register(NewUserDto request)
