@@ -25,7 +25,7 @@ namespace App.Services
         private readonly DatabaseContext _context;
         private readonly IImageService _imageService;
 
-        public UserService(UserManager<ApplicationUser, Guid> applicationUserManager,
+        public UserService(UserManager<ApplicationUser, Guid> applicationUserManager, 
             IImageProcessorService imageProcessorService, INow now, DatabaseContext context, IImageService imageService)
         {
             _applicationUserManager = applicationUserManager;
@@ -33,6 +33,11 @@ namespace App.Services
             _now = now;
             _context = context;
             _imageService = imageService;
+        }
+
+        public UserDto GetUser(Guid userId)
+        {
+            return null;
         }
 
         public RegistrationResult Register(NewUserDto request)
