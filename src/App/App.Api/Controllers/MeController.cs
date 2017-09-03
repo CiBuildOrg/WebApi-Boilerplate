@@ -12,7 +12,6 @@ namespace App.Api.Controllers
     /// </summary>
     [ApiExplorerSettings(IgnoreApi = true)]
     [ValidateViewModel]
-    //[Authorize(Roles = "SuperAdmin")]
     [RoutePrefix("api/me")]
     public class MeController : BaseApiController
     {
@@ -26,10 +25,7 @@ namespace App.Api.Controllers
         [HttpGet]
         public HttpResponseMessage Get()
         {
-            var user = CurrentUser;
-            var id = user.User.Id;
-
-            return Request.CreateResponse(HttpStatusCode.OK, _userService.GetUser(id));
+            return Request.CreateResponse(HttpStatusCode.OK, _userService.GetUser(CurrentUser.User.Id));
         }
     }
 }
