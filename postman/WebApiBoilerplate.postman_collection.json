@@ -81,7 +81,7 @@
 					"urlencoded": [
 						{
 							"key": "refresh_token",
-							"value": "08517f2d66db4eb0b20f405445184fb2",
+							"value": "ee2fc80d1fd84080a3f164e894fb6b15",
 							"description": "",
 							"type": "text"
 						},
@@ -164,7 +164,7 @@
 						},
 						{
 							"key": "fullname",
-							"value": "New User",
+							"value": "New user",
 							"description": "",
 							"type": "text"
 						},
@@ -194,6 +194,28 @@
 						}
 					]
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get user details",
+			"request": {
+				"url": "http://localhost/App.Api/api/me",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiJmZDAzMjcxOC04YTJhLTQ3ZTktOWI5MC01ODliY2QyM2RjZWYiLCJ1bmlxdWVfbmFtZSI6WyJuZXd1c2VyIiwibmV3dXNlciJdLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL2FjY2Vzc2NvbnRyb2xzZXJ2aWNlLzIwMTAvMDcvY2xhaW1zL2lkZW50aXR5cHJvdmlkZXIiOiJBU1AuTkVUIElkZW50aXR5IiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiJlNDkzOGJkOS00ZTE3LTRjYjYtOThjNS01MGQwN2IzZWVhNjgiLCJyb2xlIjoiVXNlciIsImFzOnVzZXJfaWQiOiJmZDAzMjcxOC04YTJhLTQ3ZTktOWI5MC01ODliY2QyM2RjZWYiLCJzdWIiOiJuZXd1c2VyIiwiaXNzIjoic2VsZiIsImF1ZCI6IjNDRkJDODBDLTkxMDQtNDRFOC05RTY3LTQzNjYzRjI1QUM0NyIsImV4cCI6MTUwNDQ1NzA0MiwibmJmIjoxNTA0NDU1MjQyfQ.RIydC2YUvoNJTGY6SgiOUS6MKVjs_xzGF_3mf5ttmGk",
+						"description": ""
+					}
+				],
+				"body": {},
 				"description": ""
 			},
 			"response": []
