@@ -1,7 +1,3 @@
-using System;
-using System.Data;
-using System.Linq;
-using System.Security.Claims;
 using System.Web.Http;
 
 namespace App.Api.Controllers

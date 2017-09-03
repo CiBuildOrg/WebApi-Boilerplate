@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace App.Validation
+namespace App.Validation.Infrastructure
 {
     public class NullReferenceAbstractValidator<T> : AbstractValidator<T>
     {

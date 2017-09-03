@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using App.Dto.Request;
 using App.Services.Contracts;
+using App.Validation.Infrastructure;
 using FluentValidation;
 
 namespace App.Validation.Validators

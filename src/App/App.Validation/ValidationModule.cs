@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Web.Http.Validation;
+using App.Validation.Infrastructure;
 using Autofac;
 using FluentValidation;
 using FluentValidation.WebApi;

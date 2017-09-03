@@ -3,10 +3,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using App.Api.Validation;
 using App.Dto.Request;
 using App.Dto.Response;
 using App.Services.Contracts;
+using App.Validation.Infrastructure;
 
 namespace App.Api.Controllers
 {

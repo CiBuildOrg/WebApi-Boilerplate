@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Data.Entity.Migrations.Model;
 using System.Data.Entity.Migrations.Sql;
-using System.Data.Entity.Migrations.Utilities;
 using System.Data.Entity.SqlServer;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace App.Database

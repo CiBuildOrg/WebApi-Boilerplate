@@ -1,8 +1,5 @@
 ﻿using System.Data.Entity;
-using App.Entities.Security;
-using App.Security.Infrastructure;
 using Autofac;
-using Microsoft.AspNet.Identity;
 
 namespace App.Database
 {

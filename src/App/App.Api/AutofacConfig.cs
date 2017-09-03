@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -11,7 +10,6 @@ using App.Infrastructure.Di;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Microsoft.Owin;
 
 namespace App.Api
 {

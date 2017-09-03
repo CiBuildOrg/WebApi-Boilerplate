@@ -1,8 +1,8 @@
 ﻿using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using App.Api.ErrorHandling;
-using App.Api.Validation;
 using App.Infrastructure.Utils.Multipart;
+using App.Validation.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 

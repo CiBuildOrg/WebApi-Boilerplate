@@ -61,8 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacValidationFactory.cs" />
-    <Compile Include="NullReferenceAbstractValidator.cs" />
+    <Compile Include="Infrastructure\AutofacValidationFactory.cs" />
+    <Compile Include="Infrastructure\NullReferenceAbstractValidator.cs" />
+    <Compile Include="Infrastructure\ValidateViewModelAttribute.cs" />
+    <Compile Include="Infrastructure\ValidationActionFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationModule.cs" />
     <Compile Include="Validators\NewUserValidator.cs" />

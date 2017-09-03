@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace App.Api.Validation
+namespace App.Validation.Infrastructure
 {
     public class ValidateViewModelAttribute : ActionFilterAttribute
     {

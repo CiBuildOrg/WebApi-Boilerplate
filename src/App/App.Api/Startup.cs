@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 using System.Web.Http;
 using App.Api;
 using App.Api.Security;
@@ -18,6 +16,7 @@ namespace App.Api
 {
     public class Startup
     {
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public void Configuration(IAppBuilder app)
         {
             var container = AutofacConfig.ConfigureContainer();

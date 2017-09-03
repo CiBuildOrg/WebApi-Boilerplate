@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ using ClaimTypes = System.IdentityModel.Claims.ClaimTypes;
 
 namespace App.Api.Security
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class CustomAuthenticationMessageHandler : DelegatingHandler
     {
         private readonly DatabaseContext _context;
@@ -22,22 +24,27 @@ namespace App.Api.Security
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            ClaimsPrincipal incomingPrincipal = request.GetRequestContext().Principal as ClaimsPrincipal;
-            if (incomingPrincipal == null) return await base.SendAsync(request, cancellationToken);
+            var incomingPrincipal = request.GetRequestContext().Principal as ClaimsPrincipal;
+            if (incomingPrincipal == null)
+            {
+                return await base.SendAsync(request, cancellationToken);
+            }
+
             var nameIdentifierClaim = incomingPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
 
             var userIdValue = nameIdentifierClaim?.Value;
-            if (userIdValue != null)
+            if (userIdValue == null)
             {
-                var userId = Guid.Parse(userIdValue);
-                var userProfile = _context.Users.Include(x => x.ProfileInfo)
-                    .SingleOrDefault(x => x.Id == userId);
+                return await base.SendAsync(request, cancellationToken);
+            }
 
-                if (userProfile != null)
-                {
-                    request.GetRequestContext().Principal =
-                        new AppClaimsPrincipal(incomingPrincipal, userProfile.ProfileInfo);
-                }
+            var userId = Guid.Parse(userIdValue);
+            var userProfile = _context.Users.Include(x => x.ProfileInfo).SingleOrDefault(x => x.Id == userId);
+
+            if (userProfile != null)
+            {
+                request.GetRequestContext().Principal =
+                    new AppClaimsPrincipal(incomingPrincipal, userProfile.ProfileInfo);
             }
 
             return await base.SendAsync(request, cancellationToken);

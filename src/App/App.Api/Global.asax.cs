@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Http;
 using System.Web.Optimization;
-using App.Api.Security;
 using App.Infrastructure.Extensions;
 using App.Infrastructure.Tracing;
 

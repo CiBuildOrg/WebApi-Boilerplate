@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using App.Core.Utils;
-using App.Exceptions;
 
 namespace App.Api.ErrorHandling
 {

@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Autofac;
 using FluentValidation;
 
-namespace App.Validation
+namespace App.Validation.Infrastructure
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class AutofacValidatorFactory : ValidatorFactoryBase
