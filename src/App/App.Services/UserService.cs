@@ -83,6 +83,7 @@ namespace App.Services
                     var result = _applicationUserManager.Create(user, request.Password);
                     if (!result.Succeeded)
                     {
+                        _imageService.TryDelete(imageId);
                         return new RegistrationResult { Success = false, Errors = result.Errors };
                     }
 
