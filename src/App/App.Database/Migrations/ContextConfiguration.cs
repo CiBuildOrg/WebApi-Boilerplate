@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Migrations;
 
-namespace App.Database
+namespace App.Database.Migrations
 {
     public class ContextConfiguration : DbMigrationsConfiguration<DatabaseContext>
     {
@@ -11,6 +11,7 @@ namespace App.Database
         {
             // disable automatic migrations
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Migrations";
             //SetSqlGenerator("System.Data.SqlClient", new MigrationScriptBuilder()); 
         }
 

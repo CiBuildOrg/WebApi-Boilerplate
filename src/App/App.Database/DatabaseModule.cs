@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Autofac;
+using App.Database.LogsMigrations;
 
 namespace App.Database
 {

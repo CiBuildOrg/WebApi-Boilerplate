@@ -12,5 +12,6 @@ namespace App.Entities.Security
         public DateTime ExpiresUtc { get; set; }
         public string ProtectedTicket { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public Guid UserId { get; set; }
     }
 }

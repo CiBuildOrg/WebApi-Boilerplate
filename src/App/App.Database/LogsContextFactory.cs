@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Infrastructure;
+﻿using App.Database.LogsMigrations;
+using System.Data.Entity.Infrastructure;
 
 namespace App.Database
 {

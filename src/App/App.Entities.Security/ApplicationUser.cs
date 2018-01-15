@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace App.Entities.Security
 {
@@ -13,7 +14,7 @@ namespace App.Entities.Security
     {
         public UserProfile ProfileInfo { get; set; }
 
-        public virtual RefreshToken RefreshToken { get; set; }
+        public virtual ICollection<RefreshToken> RefreshToken { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager, string authenticationType)
         {

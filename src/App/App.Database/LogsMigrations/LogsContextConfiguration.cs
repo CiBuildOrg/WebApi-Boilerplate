@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity.Migrations;
 
-namespace App.Database
+namespace App.Database.LogsMigrations
 {
-    public class LogsContextConfiguration : DbMigrationsConfiguration<DatabaseContext>
+    public class LogsContextConfiguration : DbMigrationsConfiguration<LogsDatabaseContext>
     {
         /// <summary>
         /// this basically tells no to entity framework running migrations automatically by itself
@@ -11,6 +11,12 @@ namespace App.Database
         {
             // disable automatic migrations
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"LogsMigrations";
+        }
+
+        protected override void Seed(LogsDatabaseContext context)
+        {
+            // nothing here
         }
     }
 }

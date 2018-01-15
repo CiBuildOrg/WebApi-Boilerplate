@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
@@ -7,54 +8,59 @@ using App.Core;
 using App.Core.Contracts;
 using App.Core.Utils;
 using App.Entities.Contracts;
+using App.Entities.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App.Database.Implementations
 {
-    public abstract class DbContextBase : DbContext
+    public abstract class IdentityDbBase : IdentityDbContext<ApplicationUser, ApplicationRole, Guid,
+        ApplicationIdentityUserLogin, 
+        ApplicationIdentityUserRole, 
+        ApplicationIdentityUserClaim>
     {
         private readonly IConfigurationModule[] _modules;
 
-        protected DbContextBase(IConfiguration configuration, params IConfigurationModule[] modules)
+        protected IdentityDbBase(IConfiguration configuration, params IConfigurationModule[] modules)
             : base(configuration.GetString(ConfigurationKeys.DatabaseConnectionString))
         {
             _modules = modules;
         }
 
-        protected DbContextBase(string connectionStringName, IConfiguration configuration, params IConfigurationModule[] modules)
+        protected IdentityDbBase(string connectionStringName, IConfiguration configuration, params IConfigurationModule[] modules)
             : base(connectionStringName)
         {
             _modules = modules;
         }
 
 
-        protected DbContextBase()
+        protected IdentityDbBase()
         {
 
         }
 
-        protected DbContextBase(EntityConnection connection, params IConfigurationModule[] modules)
+        protected IdentityDbBase(EntityConnection connection, params IConfigurationModule[] modules)
             : base(connection, true)
         {
             _modules = modules;
         }
 
-        protected DbContextBase(DbConnection connection, params IConfigurationModule[] modules)
+        protected IdentityDbBase(DbConnection connection, params IConfigurationModule[] modules)
             : base(connection, true)
         {
             _modules = modules;
         }
 
-        protected DbContextBase(EntityConnection connection)
+        protected IdentityDbBase(EntityConnection connection)
             : base(connection, true)
         {
         }
 
-        protected DbContextBase(DbConnection connection)
+        protected IdentityDbBase(DbConnection connection)
             : base(connection, true)
         {
         }
 
-        protected DbContextBase(string connectionString, params IConfigurationModule[] modules)
+        protected IdentityDbBase(string connectionString, params IConfigurationModule[] modules)
             : base(connectionString)
         {
             _modules = modules;

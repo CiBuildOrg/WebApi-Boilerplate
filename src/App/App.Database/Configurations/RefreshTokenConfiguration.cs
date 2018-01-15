@@ -29,7 +29,7 @@ namespace App.Database.Configurations
             Property(x => x.ExpiresUtc).HasColumnName("ExpiresUtc").HasColumnType("datetime")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            HasRequired(x => x.User).WithOptional(x => x.RefreshToken);
+            HasRequired(x => x.User).WithMany(x => x.RefreshToken).HasForeignKey(x => x.UserId);
         }
     }
 }
