@@ -2,21 +2,15 @@
 
 namespace App.Database
 {
-    public class ContextConfiguration : DbMigrationsConfiguration<DatabaseContext>
+    public class LogsContextConfiguration : DbMigrationsConfiguration<DatabaseContext>
     {
         /// <summary>
         /// this basically tells no to entity framework running migrations automatically by itself
         /// </summary>
-        public ContextConfiguration()
+        public LogsContextConfiguration()
         {
             // disable automatic migrations
             AutomaticMigrationsEnabled = false;
-            //SetSqlGenerator("System.Data.SqlClient", new MigrationScriptBuilder()); 
-        }
-
-        protected override void Seed(DatabaseContext context)
-        {
-            DbSeed.PopulateDatabase(context);
         }
     }
 }

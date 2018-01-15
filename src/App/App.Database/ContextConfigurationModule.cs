@@ -7,8 +7,6 @@ namespace App.Database
 {
     public class ContextConfigurationModule : IConfigurationModule
     {
-        private const string schema = "dbo";
-
         public void Register(DbModelBuilder modelBuilder)
         {
             // add entities configurations here
@@ -19,12 +17,11 @@ namespace App.Database
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasRequired(au => au.ProfileInfo).WithRequiredPrincipal();
-
-            modelBuilder.Entity<ApplicationIdentityUserClaim>().ToTable(Tables.ApplicationIdentityUserClaimsTable, schema);
-            modelBuilder.Entity<ApplicationIdentityUserLogin>().ToTable(Tables.ApplicationIdentityUserLoginsTable, schema);
-            modelBuilder.Entity<ApplicationIdentityUserRole>().ToTable(Tables.ApplicationIdentityUserRolesTable, schema);
-            modelBuilder.Entity<ApplicationRole>().ToTable(Tables.ApplicationRolesTable, schema);
-            modelBuilder.Entity<ApplicationUser>().ToTable(Tables.ApplicationUsersTable, schema);
+            modelBuilder.Entity<ApplicationIdentityUserClaim>().ToTable(Tables.ApplicationIdentityUserClaimsTable, Tables.Schema);
+            modelBuilder.Entity<ApplicationIdentityUserLogin>().ToTable(Tables.ApplicationIdentityUserLoginsTable, Tables.Schema);
+            modelBuilder.Entity<ApplicationIdentityUserRole>().ToTable(Tables.ApplicationIdentityUserRolesTable, Tables.Schema);
+            modelBuilder.Entity<ApplicationRole>().ToTable(Tables.ApplicationRolesTable, Tables.Schema);
+            modelBuilder.Entity<ApplicationUser>().ToTable(Tables.ApplicationUsersTable, Tables.Schema);
         }
     }
 }

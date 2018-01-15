@@ -3,7 +3,6 @@
 namespace App.Database
 {
 #if DEBUG
-
     public class ContextFactory : IDbContextFactory<DatabaseContext>
     {
         private const string DbConnection = "Data Source=.;Initial Catalog=GenericDb;Integrated Security=True;";
@@ -13,7 +12,5 @@ namespace App.Database
             return new DatabaseContext(DbConnection);
         }
     }
-
 #endif
-
 }

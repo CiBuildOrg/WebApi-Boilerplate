@@ -7,6 +7,7 @@ using App.Entities.Security;
 
 namespace App.Database
 {
+
     public class DatabaseContext : DbContextBase
     {   
         public DatabaseContext(IConfiguration configuration)

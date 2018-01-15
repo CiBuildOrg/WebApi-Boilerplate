@@ -9,7 +9,7 @@ namespace App.Database
         {
             builder.RegisterType<DatabaseContext>()
                 .AsSelf().As<DbContext>().InstancePerLifetimeScope();
-
+            builder.RegisterType<LogsDatabaseContext>().AsSelf().InstancePerLifetimeScope();
         }
     }
 }

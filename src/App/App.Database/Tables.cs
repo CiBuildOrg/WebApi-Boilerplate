@@ -2,6 +2,7 @@
 {
     internal class Tables
     {
+        internal const string Schema = "dbo";
         internal const string DummyTable = "Dummy";
         internal const string TracesTable = "Traces";
         internal const string UserProfileTable = "UserProfiles";
