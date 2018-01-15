@@ -17,7 +17,11 @@ You need Visual Studio 2017 to compile this. ```NuGet``` will take care of the r
 
 Pull the repo, open it in Visual Studio and enable NuGet package restore. I assume you gave your database the name ```GenericDb```. If this is not the case, please change it accordingly in web.config and also in the ```ContextFactory``` class.
 
-Generate your sql migration script like so:
+Similarly, the logs database is currently configured under the name ```GenericDbLogs```. If this is not the case, please change it accordingly in the web.config and also in the ```LogsContextFactory``` class. 
+
+Generate your sql migration script be like:
+
+``` For database context ```
 
 ```
 Update-Database -ConfigurationTypeName ContextConfiguration -Script -Verbose -ConnectionString "Data Source=.;Initial Catalog=GenericDb;Integrated Security=True;" -ConnectionProviderName "System.Data.SqlClient" -StartupProjectName App.Api -ProjectName App.Database
@@ -27,6 +31,18 @@ In case you modify the database entities you can always add a migration like so:
 
 ```
 Add-Migration -Verbose -ConfigurationTypeName ContextConfiguration -ConnectionString "Data Source=.;Initial Catalog=GenericDb;Integrated Security=True;" -ConnectionProviderName "System.Data.SqlClient" MigrationNameHere -StartupProjectName App.Api -ProjectName App.Database
+```
+
+``` For the database logs context ```
+
+```
+Update-Database -ConfigurationTypeName LogsContextConfiguration -Script -Verbose -ConnectionString "Data Source=.;Initial Catalog=GenericDbLogs;Integrated Security=True;" -ConnectionProviderName "System.Data.SqlClient" -StartupProjectName App.Api -ProjectName App.Database
+```
+This will generate a SQL script that you can then run against your database. 
+In case you modify the database entities you can always add a migration like so: 
+
+```
+Add-Migration -Verbose -ConfigurationTypeName LogsContextConfiguration -ConnectionString "Data Source=.;Initial Catalog=GenericDbLogs;Integrated Security=True;" -ConnectionProviderName "System.Data.SqlClient" MigrationNameHere -StartupProjectName App.Api -ProjectName App.Database
 ```
 
 ## Running the tests
