@@ -352,7 +352,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\CustomAuthenticationMessageHandler.cs" />
+    <Compile Include="Security\ClaimsTransformationMiddleware.cs" />
+    <Compile Include="Security\ClaimsTransformationMiddlewareOptions.cs" />
+    <Compile Include="Security\CorsMiddleware.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebConfiguration.cs" />
   </ItemGroup>

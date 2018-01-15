@@ -38,10 +38,7 @@ namespace App.Api
         private static void AutowireProperties(ContainerBuilder builder)
         {
             builder.RegisterApiControllers(typeof(Inner).Assembly).PropertiesAutowired();
-
             builder.RegisterType<Global>().PropertiesAutowired();
-
-            builder.RegisterType<CustomAuthenticationMessageHandler>().AsSelf().InstancePerLifetimeScope();
         }
 
         private static void RegisterAllModules(ContainerBuilder builder)
@@ -50,6 +47,5 @@ namespace App.Api
             // register modules from assemblies
             builder.RegisterAssemblyModules(assemblies);
         }
-
     }
 }

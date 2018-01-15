@@ -135,8 +135,6 @@ namespace App.Api
             ConfigureOAuth(app, container);
             ConfigureOAuthTokenConsumption(app, container);
             app.UseCommonLogging();
-
-            GlobalConfiguration.Configuration.MessageHandlers.Add(container.Resolve<CustomAuthenticationMessageHandler>());
         }
 
         private static void ConfigureOAuth(IAppBuilder app, ILifetimeScope componentContext)
