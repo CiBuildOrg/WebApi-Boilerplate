@@ -153,7 +153,6 @@ namespace App.Api
             RegisterClaimsTransform(builder);
             RegisterPathsProtection(builder);
 
-
             var container = builder.Build();
             var dependencyResolver = new AutofacWebApiDependencyResolver(container);
             httpConfiguration.DependencyResolver = dependencyResolver;

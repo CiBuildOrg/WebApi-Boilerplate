@@ -103,8 +103,6 @@
     </Compile>
     <Compile Include="Configurations\ClientConfiguration.cs" />
     <Compile Include="Configurations\DummyConfiguration.cs" />
-    <Compile Include="Configurations\LogEntryConfiguration.cs" />
-    <Compile Include="Configurations\LogStepConfiguration.cs" />
     <Compile Include="Configurations\RefreshTokenConfiguration.cs" />
     <Compile Include="Configurations\UserProfileConfiguration.cs" />
     <Compile Include="ContextConfiguration.cs" />
