@@ -355,6 +355,9 @@
     <Compile Include="Security\ClaimsTransformationMiddleware.cs" />
     <Compile Include="Security\ClaimsTransformationMiddlewareOptions.cs" />
     <Compile Include="Security\CorsMiddleware.cs" />
+    <Compile Include="Security\ProtectionConfig.cs" />
+    <Compile Include="Security\ProtectionMiddleware.cs" />
+    <Compile Include="Security\ProtectionMiddlewareOptions.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebConfiguration.cs" />
   </ItemGroup>

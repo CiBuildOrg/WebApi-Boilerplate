@@ -27,6 +27,7 @@ using App.Infrastructure.Security;
 using App.Entities.Security;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using App.Database;
 
 [assembly: OwinStartup("ProductionConfiguration", typeof(Startup))]
 namespace App.Api
@@ -140,6 +141,19 @@ namespace App.Api
             var container = AutofacConfig.ConfigureContainer();
             app.UseAutofacMiddleware(container);
             app.UseCommonLogging();
+        }
+
+
+        private void RegisterClaimsTransform(ContainerBuilder builder)
+        {
+            builder.Register(x => new ClaimsTransformationMiddlewareOptions
+            {
+                Context = x.Resolve<DatabaseContext>(),
+                GetClaim = y => y.Authentication.User,
+                NameIdentifier = ClaimTypes.NameIdentifier
+            }).AsSelf().InstancePerLifetimeScope();
+
+            builder.RegisterType<ClaimsTransformationMiddleware>().AsSelf().InstancePerLifetimeScope();
         }
 
         private void RegisterOauthConcepts(ContainerBuilder builder)
