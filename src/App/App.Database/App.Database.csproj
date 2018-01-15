@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ImageConfiguration.cs" />
+    <Compile Include="Configurations\TraceConfiguration.cs" />
     <Compile Include="DbSeed.cs" />
     <Compile Include="MigrationScriptBuilder.cs" />
     <Compile Include="Migrations\201708072228136_InitialMigration.cs" />
