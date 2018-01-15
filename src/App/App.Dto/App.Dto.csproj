@@ -71,8 +71,6 @@
     <Compile Include="Response\RoleReturnModel.cs" />
     <Compile Include="Response\UserReturnModel.cs" />
     <Compile Include="Response\UsersInRoleModel.cs" />
-    <Compile Include="Traces\ApiLogEntry.cs" />
-    <Compile Include="Traces\TraceStep.cs" />
     <Compile Include="Response\TraceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

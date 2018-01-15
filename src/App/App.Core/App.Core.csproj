@@ -74,6 +74,7 @@
     <Compile Include="Contracts\IConfiguration.cs" />
     <Compile Include="Contracts\IConfigurationModule.cs" />
     <Compile Include="Contracts\IDatabaseContext.cs" />
+    <Compile Include="Contracts\ILogBookAnonymizer.cs" />
     <Compile Include="Contracts\INow.cs" />
     <Compile Include="CoreModule.cs" />
     <Compile Include="Extensions\AutofacExtensions.cs" />
@@ -106,6 +107,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\App.Api.Enum\App.Api.Enum.csproj">
+      <Project>{353B7501-88DD-4389-A8C1-DF8AAF9A2CD0}</Project>
+      <Name>App.Api.Enum</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Dto\App.Dto.csproj">
       <Project>{5db82d4e-aa87-405b-8750-053f2ec057ff}</Project>
       <Name>App.Dto</Name>

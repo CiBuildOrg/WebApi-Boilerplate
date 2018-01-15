@@ -1,6 +1,5 @@
 namespace App.Database.LogsMigrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class AddTraces : DbMigration

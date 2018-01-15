@@ -100,6 +100,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -173,6 +174,14 @@
     <Compile Include="Tracing\Dashboard\TableOption.cs" />
     <Compile Include="Tracing\Dashboard\TablePaginationOption.cs" />
     <Compile Include="Tracing\Dashboard\ValueFieldAttribute.cs" />
+    <Compile Include="Tracing\Middleware\ContentStream.cs" />
+    <Compile Include="Tracing\Middleware\HttpEntry.cs" />
+    <Compile Include="Tracing\Middleware\HttpTrackingMiddleware.cs" />
+    <Compile Include="Tracing\Middleware\HttpTrackingOptions.cs" />
+    <Compile Include="Tracing\Middleware\IdentityCaptureMiddleware.cs" />
+    <Compile Include="Tracing\Middleware\IdentityCaptureOptions.cs" />
+    <Compile Include="Tracing\Middleware\StreamHelper.cs" />
+    <Compile Include="Tracing\Middleware\TracingOptionsBase.cs" />
     <Compile Include="Tracing\StackTraceParser.cs" />
     <Compile Include="Utils\Multipart\Converters\FormDataToObjectConverter.cs" />
     <Compile Include="Utils\Multipart\Converters\HttpContentToFormDataConverter.cs" />
@@ -189,6 +198,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Api.Enum\App.Api.Enum.csproj">
+      <Project>{353B7501-88DD-4389-A8C1-DF8AAF9A2CD0}</Project>
+      <Name>App.Api.Enum</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Core\App.Core.csproj">
       <Project>{3720884E-16AF-4C75-B5DC-E08E815D9A63}</Project>
       <Name>App.Core</Name>

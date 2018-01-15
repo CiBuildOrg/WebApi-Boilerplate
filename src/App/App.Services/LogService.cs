@@ -10,11 +10,8 @@ using App.Core.Utils;
 using App.Database;
 using App.Dto.Request;
 using App.Dto.Response;
-using App.Dto.Traces;
-using App.Entities;
 using App.Services.Contracts;
 using AutoMapper;
-using LinqKit;
 
 namespace App.Services
 {
@@ -89,41 +86,6 @@ namespace App.Services
             //return _mapper.Map<List<TraceViewModel>>(pagedTracesList);
 
             return null;
-        }
-
-        public void SaveTrace(ApiLogEntry entry, List<TraceStep> traceSteps)
-        {
-            //if (!ShouldLog) return;
-
-            //var logEntry = new LogEntry
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Timestamp = _now.UtcNow,
-            //    RequestTimestamp = entry.RequestTimestamp,
-            //    ResponseTimestamp = entry.ResponseTimestamp,
-            //    RequestUri = entry.RequestUri,
-            //    Steps = new List<LogStep>()
-            //};
-
-            //foreach (var logStep in traceSteps.OrderBy(x => x.Index).ToList().Select(step => new LogStep
-            //{
-            //    Id = Guid.NewGuid(),
-            //    LogEntry = logEntry,
-            //    LogEntryId = logEntry.Id,
-            //    Index = step.Index,
-            //    Metadata = step.Metadata,
-            //    StepTimestamp = step.StepTimestamp,
-            //    Type = step.Type,
-            //    Frame = step.Frame,
-            //    Name = step.Name,
-            //    Message = step.Message,
-            //    Source = step.Source,
-            //}))
-            //{
-            //    logEntry.Steps.Add(logStep);
-            //}
-
-            //_context.Save(logEntry);
         }
     }
 }
