@@ -28,6 +28,14 @@ using App.Entities.Security;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using App.Database;
+using Autofac.Integration.WebApi;
+using System.Reflection;
+using Autofac.Integration.Mvc;
+using System.Web.Compilation;
+using System.Linq;
+using App.Infrastructure.Di;
+using System.Collections.Generic;
+using App.Core;
 
 [assembly: OwinStartup("ProductionConfiguration", typeof(Startup))]
 namespace App.Api
@@ -137,12 +145,46 @@ namespace App.Api
 
             var httpConfiguration = GlobalConfiguration.Configuration;
             var builder = new ContainerBuilder();
+            ConfigureContainer(builder, httpConfiguration);
 
-            var container = AutofacConfig.ConfigureContainer();
-            app.UseAutofacMiddleware(container);
+            builder.RegisterInstance(app).As<IAppBuilder>();
+            RegisterCors(builder);
+            RegisterOauthConcepts(builder);
+            RegisterClaimsTransform(builder);
+            RegisterPathsProtection(builder);
+
+
+            var container = builder.Build();
+            var dependencyResolver = new AutofacWebApiDependencyResolver(container);
+            httpConfiguration.DependencyResolver = dependencyResolver;
+            DependencyResolver.SetResolver(new AutofacResolver(container));
+
+            app.UseAutofacLifetimeScopeInjector(container);
+            app.UseMiddlewareFromContainer<CorsMiddleware>();
+            
+
+
+            app.UseMiddlewareFromContainer<OAuthAuthorizationServerMiddleware>();
+            app.UseMiddlewareFromContainer<CookieAuthenticationMiddleware>();
+            app.UseMiddlewareFromContainer<OAuthBearerAuthenticationMiddleware>();
+            app.UseMiddlewareFromContainer<ClaimsTransformationMiddleware>();
+            app.UseMiddlewareFromContainer<ProtectionMiddleware>();
+            app.UseCommonLogging();
+
             app.UseCommonLogging();
         }
 
+        public static void ConfigureContainer(ContainerBuilder builder, HttpConfiguration configuration)
+        {
+            var assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray();
+            // register modules from assemblies
+            builder.RegisterAssemblyModules(assemblies);
+            builder.RegisterApiControllers(typeof(Startup).Assembly);
+            builder.RegisterApiControllers(typeof(Startup).Assembly).PropertiesAutowired();
+            builder.RegisterType<Global>().PropertiesAutowired();
+            builder.RegisterInstance(configuration);
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+        }
 
         private void RegisterClaimsTransform(ContainerBuilder builder)
         {
@@ -154,6 +196,34 @@ namespace App.Api
             }).AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterType<ClaimsTransformationMiddleware>().AsSelf().InstancePerLifetimeScope();
+        }
+
+        private void RegisterCors(ContainerBuilder builder)
+        {
+            builder.RegisterType<CorsMiddleware>().AsSelf().InstancePerLifetimeScope();
+        }
+
+        /// <summary>
+        /// Protect swagger pages
+        /// </summary>
+        /// <param name="builder"></param>
+        private void RegisterPathsProtection(ContainerBuilder builder)
+        {
+            // register swagger protection middleware options
+            builder.Register(x => new ProtectionMiddlewareOptions
+            {
+                Configs = new List<ProtectionConfig>
+                {
+                    new ProtectionConfig
+                    {
+                        AllowedRoles = new List<string> { Roles.SuperAdmin },
+                        ProtectPath = Logs.LogsRelativePath,
+                        RedirectUrl = IdentityAuthentication.LoginRelativePath
+                    },
+                }
+            }).AsSelf().InstancePerLifetimeScope();
+
+            builder.RegisterType<ProtectionMiddleware>().AsSelf().InstancePerLifetimeScope();
         }
 
         private void RegisterOauthConcepts(ContainerBuilder builder)

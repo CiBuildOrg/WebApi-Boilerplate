@@ -79,7 +79,9 @@
     <Compile Include="Extensions\AutofacExtensions.cs" />
     <Compile Include="Extensions\HashType.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="IdentityAuthentication.cs" />
     <Compile Include="Implementations\NowImplementation.cs" />
+    <Compile Include="Logs.cs" />
     <Compile Include="OwinEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles.cs" />
