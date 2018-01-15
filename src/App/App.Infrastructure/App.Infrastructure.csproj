@@ -154,7 +154,6 @@
     <Compile Include="Security\SecurityKeys.cs" />
     <Compile Include="Security\SecurityToken.cs" />
     <Compile Include="Security\ValidIssuers.cs" />
-    <Compile Include="Tracing\ApiLogHandler.cs" />
     <Compile Include="Tracing\Dashboard\BootstrapTableHelpers.cs" />
     <Compile Include="Tracing\Dashboard\ColumnOption.cs" />
     <Compile Include="Tracing\Dashboard\Controls\IColumnApply.cs" />
@@ -174,9 +173,7 @@
     <Compile Include="Tracing\Dashboard\TableOption.cs" />
     <Compile Include="Tracing\Dashboard\TablePaginationOption.cs" />
     <Compile Include="Tracing\Dashboard\ValueFieldAttribute.cs" />
-    <Compile Include="Tracing\SimpleTraceTerminal.cs" />
     <Compile Include="Tracing\StackTraceParser.cs" />
-    <Compile Include="Tracing\TraceProvider.cs" />
     <Compile Include="Utils\Multipart\Converters\FormDataToObjectConverter.cs" />
     <Compile Include="Utils\Multipart\Converters\HttpContentToFormDataConverter.cs" />
     <Compile Include="Utils\Multipart\Converters\ObjectToMultipartDataByteArrayConverter.cs" />

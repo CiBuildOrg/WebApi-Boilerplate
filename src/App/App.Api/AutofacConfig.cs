@@ -28,7 +28,6 @@ namespace App.Api
             AutowireProperties(builder);
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
-            RegisterDependencies(builder);
             Container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacResolver(Container));
@@ -52,9 +51,5 @@ namespace App.Api
             builder.RegisterAssemblyModules(assemblies);
         }
 
-        private static void RegisterDependencies(ContainerBuilder builder)
-        {
-            builder.Register<IResolver>(x => new Resolver(Container));
-        }
     }
 }

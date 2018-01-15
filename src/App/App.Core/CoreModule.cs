@@ -9,8 +9,6 @@ namespace App.Core
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<NowImplementation>().As<INow>().InstancePerLifetimeScope();
-            builder.RegisterType<TraceStepUtil>().As<ITraceStepUtil>().InstancePerLifetimeScope();
-
         }
     }
 }

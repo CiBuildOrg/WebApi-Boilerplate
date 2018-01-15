@@ -75,17 +75,11 @@
     <Compile Include="Contracts\IConfigurationModule.cs" />
     <Compile Include="Contracts\IDatabaseContext.cs" />
     <Compile Include="Contracts\INow.cs" />
-    <Compile Include="Contracts\IResolver.cs" />
-    <Compile Include="Contracts\ITraceTerminal.cs" />
-    <Compile Include="Contracts\ITraceProvider.cs" />
-    <Compile Include="Contracts\ITraceStepUtil.cs" />
     <Compile Include="CoreModule.cs" />
     <Compile Include="Extensions\AutofacExtensions.cs" />
     <Compile Include="Extensions\HashType.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Implementations\NowImplementation.cs" />
-    <Compile Include="Implementations\Resolver.cs" />
-    <Compile Include="Implementations\TraceStepUtil.cs" />
     <Compile Include="OwinEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles.cs" />

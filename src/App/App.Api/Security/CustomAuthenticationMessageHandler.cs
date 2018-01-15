@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using App.Database;
 using App.Infrastructure.Security;
 using ClaimTypes = System.IdentityModel.Claims.ClaimTypes;
+using System.Data.Entity;
 
 namespace App.Api.Security
 {
