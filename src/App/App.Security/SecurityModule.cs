@@ -4,6 +4,8 @@ using App.Security.Infrastructure;
 using App.Security.Validation;
 using Autofac;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace App.Security
 {
@@ -11,7 +13,6 @@ namespace App.Security
     {
         protected override void Load(ContainerBuilder builder)
         {
-            base.Load(builder);
             builder.Register<PasswordValidator>(x => new CustomPasswordValidator
             {
                 RequiredLength = 6,
@@ -27,6 +28,11 @@ namespace App.Security
             builder.RegisterType<ApplicationRoleManager>().As<RoleManager<ApplicationRole, Guid>>()
                 .InstancePerLifetimeScope();
 
+            builder.Register(x =>
+                new IdentityFactoryOptions<ApplicationUserManager>
+                {
+                    DataProtectionProvider = new DpapiDataProtectionProvider("App.Api")
+                }).InstancePerLifetimeScope();
         }
     }
 }

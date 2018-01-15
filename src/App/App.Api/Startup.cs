@@ -20,6 +20,13 @@ using App.Api.ErrorHandling;
 using App.Validation.Infrastructure;
 using System.Web.Optimization;
 using System.Web.Http.ExceptionHandling;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using App.Infrastructure.Security;
+using App.Entities.Security;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 [assembly: OwinStartup("ProductionConfiguration", typeof(Startup))]
 namespace App.Api
@@ -132,49 +139,72 @@ namespace App.Api
 
             var container = AutofacConfig.ConfigureContainer();
             app.UseAutofacMiddleware(container);
-            ConfigureOAuth(app, container);
-            ConfigureOAuthTokenConsumption(app, container);
             app.UseCommonLogging();
         }
 
-        private static void ConfigureOAuth(IAppBuilder app, ILifetimeScope componentContext)
+        private void RegisterOauthConcepts(ContainerBuilder builder)
         {
-            var serverOptions = new OAuthAuthorizationServerOptions
+            builder.Register(x =>
+
+                    new OAuthAuthorizationServerOptions
+                    {
+                        AllowInsecureHttp = true,
+                        TokenEndpointPath = new PathString("/auth/token"),
+                        AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                        Provider = x.Resolve<IOAuthAuthorizationServerProvider>(),
+                        AccessTokenFormat = x.Resolve<ISecureDataFormat<AuthenticationTicket>>(),
+                        RefreshTokenProvider = x.Resolve<IAuthenticationTokenProvider>(),
+                        AccessTokenProvider = new AuthenticationTokenProvider()
+                    }
+
+                ).AsSelf().InstancePerLifetimeScope();
+
+            builder.Register(x =>
+
+                new CookieAuthenticationOptions
+                {
+                    AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                    Provider = new CookieAuthenticationProvider
+                    {
+                        // Enables the application to validate the security stamp when the user logs in.
+                        // This is a security feature which is used when you change a password or add an external login to your account.  
+                        OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<App.Security.Infrastructure.ApplicationUserManager, ApplicationUser, Guid>(
+                                                    validateInterval: TimeSpan.FromMinutes(30),
+                                                    regenerateIdentityCallback: RegenerateIdentityCallback,
+                                                    getUserIdCallback: GetUserIdCallback
+                        ),
+
+                    }
+
+                }).AsSelf().InstancePerLifetimeScope();
+
+            builder.Register(x => new OAuthBearerAuthenticationOptions
             {
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/auth/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                
-                Provider = componentContext.Resolve<OAuthAuthorizationServerProvider>(),
-                AccessTokenFormat = componentContext.Resolve<ISecureDataFormat<AuthenticationTicket>>(),
-                RefreshTokenProvider = componentContext.Resolve<IAuthenticationTokenProvider>(),
-                AccessTokenProvider = new AuthenticationTokenProvider()
-            };
+                AccessTokenFormat = x.Resolve<ISecureDataFormat<AuthenticationTicket>>()
+            }).AsSelf().InstancePerLifetimeScope();
 
-            app.UseOAuthAuthorizationServer(serverOptions);
+            builder
+                .RegisterType<OAuthAuthorizationServerMiddleware>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
 
-            //var audience = ConfigurationManager.AppSettings["resourceApiClientId"];
-            //var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["resourceApiClientSecret"]);
+            builder.RegisterType<CookieAuthenticationMiddleware>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
 
-            //app.UseJwtBearerAuthentication(
-            //    new JwtBearerAuthenticationOptions
-            //    {
-            //        AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
-            //        AllowedAudiences = new[] { audience },
-            //        IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
-            //        {
-            //            new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
-            //        }
-            //    });
+            builder.RegisterType<OAuthBearerAuthenticationMiddleware>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
         }
 
-        private static void ConfigureOAuthTokenConsumption(IAppBuilder app, IComponentContext componentContext)
+        private Guid GetUserIdCallback(ClaimsIdentity id)
         {
-            app.UseOAuthBearerAuthentication(
-                new OAuthBearerAuthenticationOptions
-                {
-                    AccessTokenFormat = componentContext.Resolve<ISecureDataFormat<AuthenticationTicket>>()
-                });
+            return Guid.Parse(id.GetUserId());
+        }
+
+        private async Task<ClaimsIdentity> RegenerateIdentityCallback(App.Security.Infrastructure.ApplicationUserManager manager, ApplicationUser user)
+        {
+            return await user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie);
         }
     }
 }

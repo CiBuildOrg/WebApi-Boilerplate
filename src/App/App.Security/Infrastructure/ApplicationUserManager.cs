@@ -1,13 +1,14 @@
 using System;
 using App.Entities.Security;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace App.Security.Infrastructure
 {
     public class ApplicationUserManager : UserManager<ApplicationUser, Guid>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser, Guid> store, 
-            PasswordValidator passwordValidator) 
+            PasswordValidator passwordValidator, IdentityFactoryOptions<ApplicationUserManager> factory) 
             : base(store)
         {
             
@@ -17,6 +18,7 @@ namespace App.Security.Infrastructure
                 RequireUniqueEmail = true
             };
             PasswordValidator = passwordValidator;
+            UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, Guid>(factory.DataProtectionProvider.Create("ASP NET Identity"));
         }
     }
 }
