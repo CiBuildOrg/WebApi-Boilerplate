@@ -36,6 +36,8 @@ using System.Linq;
 using App.Infrastructure.Di;
 using System.Collections.Generic;
 using App.Core;
+using App.Infrastructure.Tracing.Middleware;
+using App.Core.Contracts;
 
 [assembly: OwinStartup("ProductionConfiguration", typeof(Startup))]
 namespace App.Api
@@ -160,16 +162,13 @@ namespace App.Api
 
             app.UseAutofacLifetimeScopeInjector(container);
             app.UseMiddlewareFromContainer<CorsMiddleware>();
-            
-
-
+            app.UseMiddlewareFromContainer<BookKeeperMiddleware>();
             app.UseMiddlewareFromContainer<OAuthAuthorizationServerMiddleware>();
             app.UseMiddlewareFromContainer<CookieAuthenticationMiddleware>();
             app.UseMiddlewareFromContainer<OAuthBearerAuthenticationMiddleware>();
+            app.UseMiddlewareFromContainer<IdentityCaptureMiddleware>();
             app.UseMiddlewareFromContainer<ClaimsTransformationMiddleware>();
             app.UseMiddlewareFromContainer<ProtectionMiddleware>();
-            app.UseCommonLogging();
-
             app.UseCommonLogging();
         }
 
@@ -183,6 +182,39 @@ namespace App.Api
             builder.RegisterType<Global>().PropertiesAutowired();
             builder.RegisterInstance(configuration);
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
+        }
+
+        private void RegisterHttpTracking(ContainerBuilder builder)
+        {
+            builder.Register(x => new HttpEntry()).AsSelf().InstancePerLifetimeScope();
+            builder.Register(x => new IdentityCaptureOptions
+            {
+                HttpTrackingEntry = x.Resolve<HttpEntry>(),
+                CaptureCallerIdentity = x.Resolve<IConfiguration>().GetBool(ConfigurationKeys.CaptureIdentity),
+                Trace = x.Resolve<IConfiguration>().GetBool(ConfigurationKeys.ShouldTrace)
+            }).AsSelf().InstancePerLifetimeScope();
+
+            builder.Register(x => new BookKeeperOptions
+            {
+                HttpTrackingEntry = x.Resolve<HttpEntry>(),
+                MaximumRecordedRequestLength = ApplicationConstants.MaximumRecordedRequestLength,
+                MaximumRecordedResponseLength = ApplicationConstants.MaximumRecordedResponseLength,
+                Trace = x.Resolve<IConfiguration>().GetBool(ConfigurationKeys.ShouldTrace),
+                Anonymizer = x.Resolve<ILogBookAnonymizer>(),
+                RequestHeaderCaptureExceptions = new List<string>
+                {
+                    "Authorization" // don't ever capture the authorization header
+                },
+                Context = x.Resolve<LogsDatabaseContext>(),
+                UrlPrefixes = new List<string>
+                {
+                    "/api/",
+                    "/auth/"
+                }
+            }).AsSelf().InstancePerLifetimeScope();
+
+            builder.RegisterType<IdentityCaptureMiddleware>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<BookKeeperMiddleware>().AsSelf().InstancePerLifetimeScope();
         }
 
         private void RegisterClaimsTransform(ContainerBuilder builder)

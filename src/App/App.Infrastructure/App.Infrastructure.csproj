@@ -174,10 +174,10 @@
     <Compile Include="Tracing\Dashboard\TableOption.cs" />
     <Compile Include="Tracing\Dashboard\TablePaginationOption.cs" />
     <Compile Include="Tracing\Dashboard\ValueFieldAttribute.cs" />
+    <Compile Include="Tracing\Middleware\BookKeeperMiddleware.cs" />
+    <Compile Include="Tracing\Middleware\BookKeeperOptions.cs" />
     <Compile Include="Tracing\Middleware\ContentStream.cs" />
     <Compile Include="Tracing\Middleware\HttpEntry.cs" />
-    <Compile Include="Tracing\Middleware\HttpTrackingMiddleware.cs" />
-    <Compile Include="Tracing\Middleware\HttpTrackingOptions.cs" />
     <Compile Include="Tracing\Middleware\IdentityCaptureMiddleware.cs" />
     <Compile Include="Tracing\Middleware\IdentityCaptureOptions.cs" />
     <Compile Include="Tracing\Middleware\StreamHelper.cs" />

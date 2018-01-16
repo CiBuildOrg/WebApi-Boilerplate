@@ -6,5 +6,6 @@
         public const string LogsDatabaseConnectionString = "LogsDbConnection";
         public const string ShouldTrace = "should-trace";
         public const string ApiPath = "api";
+        public const string CaptureIdentity = "capture-identity";
     }
 }
