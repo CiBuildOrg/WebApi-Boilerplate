@@ -26,9 +26,9 @@ namespace App.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            return Ok(_refreshTokenManager.GetAllRefreshTokens());
+            return Ok(await _refreshTokenManager.GetAllRefreshTokensAsync());
         }
 
         /// <summary>

@@ -18,5 +18,6 @@ namespace App.Infrastructure.Contracts
         Task<bool> RemoveRefreshToken(string refreshTokenId);
         Task<RefreshToken> FindRefreshToken(string refreshTokenId);
         List<RefreshToken> GetAllRefreshTokens();
+        Task<List<RefreshToken>> GetAllRefreshTokensAsync();
     }
 }

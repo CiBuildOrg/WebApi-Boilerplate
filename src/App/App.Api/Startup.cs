@@ -151,6 +151,7 @@ namespace App.Api
 
             builder.RegisterInstance(app).As<IAppBuilder>();
             RegisterCors(builder);
+            RegisterHttpTracking(builder);
             RegisterOauthConcepts(builder);
             RegisterClaimsTransform(builder);
             RegisterPathsProtection(builder);

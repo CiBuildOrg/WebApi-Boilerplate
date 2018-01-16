@@ -108,6 +108,11 @@ namespace App.Infrastructure.Security
             return refreshToken;
         }
 
+        public async Task<List<RefreshToken>> GetAllRefreshTokensAsync()
+        {
+            return await _context.RefreshTokens.ToListAsync();
+        }
+
         public List<RefreshToken> GetAllRefreshTokens()
         {
             return _context.RefreshTokens.ToList();
