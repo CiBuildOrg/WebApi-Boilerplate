@@ -12,6 +12,8 @@ using App.Dto.Request;
 using App.Dto.Response;
 using App.Services.Contracts;
 using AutoMapper;
+using App.Entities;
+using LinqKit;
 
 namespace App.Services
 {
@@ -22,12 +24,12 @@ namespace App.Services
 
         private const int LogLimit = 2 * 24; // 2 days
 
-        private readonly DatabaseContext _context;
+        private readonly LogsDatabaseContext _context;
         private readonly INow _now;
         private readonly IConfiguration _helper;
         private readonly IMapper _mapper;
 
-        public LogService(DatabaseContext context, INow now, IConfiguration helper, IMapper mapper)
+        public LogService(LogsDatabaseContext context, INow now, IConfiguration helper, IMapper mapper)
         {
             _context = context;
             _now = now;
@@ -37,55 +39,46 @@ namespace App.Services
 
         private bool ShouldLog => _helper.GetBool(ConfigurationKeys.ShouldTrace);
 
-        public List<TraceViewModel> GetTraces(TraceSearchRequest request)
+        public Tuple<int, List<TraceViewModel>> GetTraces(TraceSearchRequest request)
         {
-            //// get logs newer than 7 days
-            //var nowUtc = _now.UtcNow;
+            // get logs newer than 7 days
+            var nowUtc = _now.UtcNow;
 
-            //var traces =
-            //    _context.AsQueryable<LogEntry>().Include(x => x.Steps)
-            //        .Where(x => DbFunctions.AddHours(x.Timestamp, LogLimit) > nowUtc)
-            //        .AsQueryable();
+            var traces =
+                _context.AsQueryable<Trace>()
+                    .Where(x => DbFunctions.AddHours(x.RequestTimestamp, LogLimit) > nowUtc)
+                    .AsQueryable();
 
-            //IOrderedQueryable<LogEntry> pagedTraces;
+            IOrderedQueryable<Trace> pagedTraces;
 
-            //switch (request.Order)
-            //{
-            //    case LogsSortAscendingKey:
-            //        pagedTraces = traces.OrderAscending(request.Sort);
-            //        break;
-            //    case LogsSortDescendingKey:
-            //        pagedTraces = traces.OrderDescending(request.Sort);
-            //        break;
-            //    default:
-            //        pagedTraces = traces.OrderDescending(request.Sort);
-            //        break;
-            //}
+            if (!string.IsNullOrEmpty(request.Search))
+            {
+                var searchLikeExpression = $"%{request.Search}%";
+                Expression<Func<Trace, bool>> searchExpression =
+                    entry => SqlFunctions.PatIndex(searchLikeExpression, entry.Url) > 0 ||
+                             SqlFunctions.PatIndex(searchLikeExpression, entry.RequestPayload) > 0 ||
+                             SqlFunctions.PatIndex(searchLikeExpression, entry.ResponsePayload) > 0;
+                traces = traces.Where(searchExpression).AsQueryable();
+            }
 
-            //List<LogEntry> pagedTracesList;
+            switch (request.Order)
+            {
+                case LogsSortAscendingKey:
+                    pagedTraces = traces.OrderAscending(request.Sort);
+                    break;
+                case LogsSortDescendingKey:
+                    pagedTraces = traces.OrderDescending(request.Sort);
+                    break;
+                default:
+                    pagedTraces = traces.OrderDescending(request.Sort);
+                    break;
+            }
 
-            //if (string.IsNullOrEmpty(request.Search))
-            //{
-            //    pagedTracesList = pagedTraces
-            //        .Skip(request.Offset / request.Limit * request.Limit).Take(request.Limit).ToList();
-            //}
-            //else
-            //{
-            //    var searchLikeExpression = $"%{request.Search}%";
-            //    Expression<Func<LogEntry, bool>> searchExpression =
-            //        entry => SqlFunctions.PatIndex(searchLikeExpression, entry.RequestUri) > 0 ||
-            //                 entry.Steps.Any(x => SqlFunctions.PatIndex(searchLikeExpression, x.Frame) > 0 ||
-            //                                      SqlFunctions.PatIndex(searchLikeExpression, x.Message) > 0 ||
-            //                                      SqlFunctions.PatIndex(searchLikeExpression, x.Name) > 0 ||
-            //                                      SqlFunctions.PatIndex(searchLikeExpression, x.Metadata) > 0);
+            var totalTraces = pagedTraces.Count();
+            var pagedTracesList = pagedTraces
+                .Skip(request.Offset / request.Limit * request.Limit).Take(request.Limit).ToList();
 
-            //    pagedTracesList = pagedTraces.AsExpandable().Where(searchExpression)
-            //        .Skip(request.Offset / request.Limit * request.Limit).Take(request.Limit).ToList();
-            //}
-
-            //return _mapper.Map<List<TraceViewModel>>(pagedTracesList);
-
-            return null;
+            return new Tuple<int, List<TraceViewModel>>(totalTraces, _mapper.Map<List<TraceViewModel>>(pagedTracesList));
         }
     }
 }

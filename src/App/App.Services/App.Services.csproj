@@ -95,7 +95,7 @@
     <Compile Include="ImageProcessorService.cs" />
     <Compile Include="ImageService.cs" />
     <Compile Include="LogService.cs" />
-    <Compile Include="Mappings\Profiles\LogEntryProfile.cs" />
+    <Compile Include="Mappings\Profiles\TraceProfile.cs" />
     <Compile Include="Mappings\Profiles\UserProfile.cs" />
     <Compile Include="Mappings\ValueResolvers\ImageMemberValueResolver.cs" />
     <Compile Include="Mappings\ValueResolvers\LogEntryWorkflowMemberValueResolver.cs" />

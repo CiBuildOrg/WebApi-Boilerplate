@@ -1,9 +1,11 @@
 ﻿using System.Web.Mvc;
 using App.Dto.Request;
 using App.Services.Contracts;
+using App.Core;
 
 namespace App.Api.Controllers
 {
+    [Authorize(Roles = Roles.SuperAdmin)]
     public class LogsController : Controller
     {
         private readonly ILogService _logService;
@@ -31,8 +33,8 @@ namespace App.Api.Controllers
 
             return Json(new
             {
-                total = traces.Count,
-                rows = traces
+                total = traces.Item1,
+                rows = traces.Item2
             }, JsonRequestBehavior.AllowGet);
         }
     }
