@@ -37,6 +37,8 @@ namespace App.Infrastructure.Tracing.Middleware
             _maxRecordedResponseLength = options.MaximumRecordedResponseLength;
         }
 
+        private bool IsOptionsRequest(IOwinContext context) => context.Request.Method.ToLowerInvariant().Equals("options");
+
         /// <summary>
         /// Processes the incoming HTTP call and capture details about
         /// the request, the response, the identity of the caller and the
@@ -46,8 +48,11 @@ namespace App.Infrastructure.Tracing.Middleware
         /// <returns />
         public override async Task Invoke(IOwinContext context)
         {
-            // if tracing is not enabled, don't do anything
-            if (!_options.Trace || !_options.UrlPrefixes.Any(context.Request.Uri.AbsolutePath.StartsWith))
+            var request = context.Request;
+            var response = context.Response;
+
+            // if it's an options call or tracing is not enabled, don't do anything
+            if (IsOptionsRequest(context) || !_options.Trace || !_options.UrlPrefixes.Any(context.Request.Uri.AbsolutePath.StartsWith) )
             {
                 await Next.Invoke(context);
                 return;
@@ -60,8 +65,7 @@ namespace App.Infrastructure.Tracing.Middleware
             // record call time
             _options.HttpTrackingEntry.CallDateTime = DateTime.UtcNow;
 
-            var request = context.Request;
-            var response = context.Response;
+            
             // replace the request stream in order to intercept downstream reads
 
             // Buffering mvc reponse

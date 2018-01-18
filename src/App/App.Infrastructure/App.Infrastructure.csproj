@@ -180,6 +180,7 @@
     <Compile Include="Tracing\Middleware\HttpEntry.cs" />
     <Compile Include="Tracing\Middleware\IdentityCaptureMiddleware.cs" />
     <Compile Include="Tracing\Middleware\IdentityCaptureOptions.cs" />
+    <Compile Include="Tracing\Middleware\LogBookAnonymizer.cs" />
     <Compile Include="Tracing\Middleware\StreamHelper.cs" />
     <Compile Include="Tracing\Middleware\TracingOptionsBase.cs" />
     <Compile Include="Tracing\StackTraceParser.cs" />
@@ -227,8 +228,6 @@
       <Name>App.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
