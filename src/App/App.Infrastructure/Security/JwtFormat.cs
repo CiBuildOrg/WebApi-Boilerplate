@@ -7,7 +7,6 @@ using App.Core;
 using App.Core.Contracts;
 using App.Entities.Security;
 using App.Infrastructure.Contracts;
-using System.IdentityModel.Tokens;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Thinktecture.IdentityModel.Tokens;
