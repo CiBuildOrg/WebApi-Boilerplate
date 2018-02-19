@@ -103,7 +103,9 @@ namespace App.Infrastructure.Tracing.Middleware
             {
                 return Encoding.GetEncoding(charset);
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (ArgumentException e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 return Encoding.UTF8;
             }
