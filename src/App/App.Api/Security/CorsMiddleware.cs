@@ -25,17 +25,41 @@ namespace App.Api.Security
         {
             if (context.Request.Method == "OPTIONS")
             {
-                context.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "GET, POST, OPTIONS, PUT, DELETE" });
-                context.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type", "version", "apporigin", "x-ms-request-id", "x-ms-request-root-id" });
-                context.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+                //poor mans cors.
+                if(!context.Response.Headers.ContainsKey("Access-Control-Allow-Methods"))
+                {
+                    context.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "GET, POST, OPTIONS, PUT, DELETE" });
+                }
+
+                if(!context.Response.Headers.ContainsKey("Access-Control-Allow-Headers"))
+                {
+                    context.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type", "version", "apporigin", "x-ms-request-id", "x-ms-request-root-id" });
+                }
+
+                if (!context.Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+                {
+                    context.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+                }
+
                 context.Response.StatusCode = 200;
                 await Task.FromResult(0);
                 return;
             }
 
-            context.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "GET, POST, OPTIONS, PUT, DELETE" });
-            context.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type", "version", "apporigin", "x-ms-request-id", "x-ms-request-root-id" });
-            context.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            if (!context.Response.Headers.ContainsKey("Access-Control-Allow-Methods"))
+            {
+                context.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "GET, POST, OPTIONS, PUT, DELETE" });
+            }
+
+            if(!context.Response.Headers.ContainsKey("Access-Control-Allow-Headers"))
+            {
+                context.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type", "version", "apporigin", "x-ms-request-id", "x-ms-request-root-id" });
+            }
+
+            if(!context.Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+            {
+                context.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            }
 
             await Next.Invoke(context);
         }

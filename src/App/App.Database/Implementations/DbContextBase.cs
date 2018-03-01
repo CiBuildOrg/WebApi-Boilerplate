@@ -14,14 +14,8 @@ namespace App.Database.Implementations
     {
         private readonly IConfigurationModule[] _modules;
 
-        protected DbContextBase(IConfiguration configuration, params IConfigurationModule[] modules)
-            : base(configuration.GetString(ConfigurationKeys.DatabaseConnectionString))
-        {
-            _modules = modules;
-        }
-
         protected DbContextBase(string connectionStringName, IConfiguration configuration, params IConfigurationModule[] modules)
-            : base(connectionStringName)
+            : base(configuration.GetString(connectionStringName))
         {
             _modules = modules;
         }

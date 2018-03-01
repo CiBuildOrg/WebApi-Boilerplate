@@ -1,8 +1,9 @@
 namespace App.Database.LogsMigrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddTraces : DbMigration
+    public partial class BaseMigration : DbMigration
     {
         public override void Up()
         {

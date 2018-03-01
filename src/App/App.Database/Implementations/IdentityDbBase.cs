@@ -20,18 +20,11 @@ namespace App.Database.Implementations
     {
         private readonly IConfigurationModule[] _modules;
 
-        protected IdentityDbBase(IConfiguration configuration, params IConfigurationModule[] modules)
-            : base(configuration.GetString(ConfigurationKeys.DatabaseConnectionString))
-        {
-            _modules = modules;
-        }
-
         protected IdentityDbBase(string connectionStringName, IConfiguration configuration, params IConfigurationModule[] modules)
-            : base(connectionStringName)
+            : base(configuration.GetString(connectionStringName))
         {
             _modules = modules;
         }
-
 
         protected IdentityDbBase()
         {

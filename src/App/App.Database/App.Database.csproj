@@ -86,42 +86,22 @@
     <Compile Include="Configurations\TraceConfiguration.cs" />
     <Compile Include="DbSeed.cs" />
     <Compile Include="Implementations\IdentityDbBase.cs" />
-    <Compile Include="LogsMigrations\201801151636468_AddTraces.cs" />
-    <Compile Include="LogsMigrations\201801151636468_AddTraces.Designer.cs">
-      <DependentUpon>201801151636468_AddTraces.cs</DependentUpon>
+    <Compile Include="LogsMigrations\201803011637204_BaseMigration.cs" />
+    <Compile Include="LogsMigrations\201803011637204_BaseMigration.Designer.cs">
+      <DependentUpon>201803011637204_BaseMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="LogsMigrations\LogsContextConfiguration.cs" />
     <Compile Include="LogsContextConfigurationModule.cs" />
     <Compile Include="LogsContextFactory.cs" />
     <Compile Include="LogsDatabaseContext.cs" />
     <Compile Include="MigrationScriptBuilder.cs" />
-    <Compile Include="Migrations\201708072228136_InitialMigration.cs" />
-    <Compile Include="Migrations\201708072228136_InitialMigration.Designer.cs">
-      <DependentUpon>201708072228136_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708072247211_AddRoleDescription.cs" />
-    <Compile Include="Migrations\201708072247211_AddRoleDescription.Designer.cs">
-      <DependentUpon>201708072247211_AddRoleDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708080013595_RenameAspTables.cs" />
-    <Compile Include="Migrations\201708080013595_RenameAspTables.Designer.cs">
-      <DependentUpon>201708080013595_RenameAspTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708092106290_RevertRefreshTokenId.cs" />
-    <Compile Include="Migrations\201708092106290_RevertRefreshTokenId.Designer.cs">
-      <DependentUpon>201708092106290_RevertRefreshTokenId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708101514505_LinkRefreshTokenToClients.cs" />
-    <Compile Include="Migrations\201708101514505_LinkRefreshTokenToClients.Designer.cs">
-      <DependentUpon>201708101514505_LinkRefreshTokenToClients.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configurations\ClientConfiguration.cs" />
     <Compile Include="Configurations\DummyConfiguration.cs" />
     <Compile Include="Configurations\RefreshTokenConfiguration.cs" />
     <Compile Include="Configurations\UserProfileConfiguration.cs" />
-    <Compile Include="Migrations\201802191109490_Empty_Migration.cs" />
-    <Compile Include="Migrations\201802191109490_Empty_Migration.Designer.cs">
-      <DependentUpon>201802191109490_Empty_Migration.cs</DependentUpon>
+    <Compile Include="Migrations\201803011517460_BaseMigration.cs" />
+    <Compile Include="Migrations\201803011517460_BaseMigration.Designer.cs">
+      <DependentUpon>201803011517460_BaseMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextConfiguration.cs" />
     <Compile Include="ContextConfigurationModule.cs" />
@@ -130,22 +110,6 @@
     <Compile Include="DatabaseModule.cs" />
     <Compile Include="Extensions\DbContextExtensions.cs" />
     <Compile Include="Implementations\DbContextBase.cs" />
-    <Compile Include="Migrations\201708101558543_LinkRefreshTokenToApplicationUser.cs" />
-    <Compile Include="Migrations\201708101558543_LinkRefreshTokenToApplicationUser.Designer.cs">
-      <DependentUpon>201708101558543_LinkRefreshTokenToApplicationUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708291459222_AddProfileImages.cs" />
-    <Compile Include="Migrations\201708291459222_AddProfileImages.Designer.cs">
-      <DependentUpon>201708291459222_AddProfileImages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801151430359_RemoveLogs.cs" />
-    <Compile Include="Migrations\201801151430359_RemoveLogs.Designer.cs">
-      <DependentUpon>201801151430359_RemoveLogs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801151530032_AdjustRefreshTokenRelation.cs" />
-    <Compile Include="Migrations\201801151530032_AdjustRefreshTokenRelation.Designer.cs">
-      <DependentUpon>201801151530032_AdjustRefreshTokenRelation.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables.cs" />
   </ItemGroup>
@@ -177,40 +141,11 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="LogsMigrations\201801151636468_AddTraces.resx">
-      <DependentUpon>201801151636468_AddTraces.cs</DependentUpon>
+    <EmbeddedResource Include="LogsMigrations\201803011637204_BaseMigration.resx">
+      <DependentUpon>201803011637204_BaseMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708072228136_InitialMigration.resx">
-      <DependentUpon>201708072228136_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708072247211_AddRoleDescription.resx">
-      <DependentUpon>201708072247211_AddRoleDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708080013595_RenameAspTables.resx">
-      <DependentUpon>201708080013595_RenameAspTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708092106290_RevertRefreshTokenId.resx">
-      <DependentUpon>201708092106290_RevertRefreshTokenId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101514505_LinkRefreshTokenToClients.resx">
-      <DependentUpon>201708101514505_LinkRefreshTokenToClients.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101558543_LinkRefreshTokenToApplicationUser.resx">
-      <DependentUpon>201708101558543_LinkRefreshTokenToApplicationUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708291459222_AddProfileImages.resx">
-      <DependentUpon>201708291459222_AddProfileImages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801151430359_RemoveLogs.resx">
-      <DependentUpon>201801151430359_RemoveLogs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801151530032_AdjustRefreshTokenRelation.resx">
-      <DependentUpon>201801151530032_AdjustRefreshTokenRelation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802191109490_Empty_Migration.resx">
-      <DependentUpon>201802191109490_Empty_Migration.cs</DependentUpon>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>201802191109490_Empty_Migration1.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Migrations\201803011517460_BaseMigration.resx">
+      <DependentUpon>201803011517460_BaseMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
