@@ -93,7 +93,10 @@ namespace App.Infrastructure.Security
                 allowedOrigin = "*"; 
             }
 
-            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+            if (!context.OwinContext.Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+            }
 
             var user = await _applicationUserManager.FindAsync(context.UserName, context.Password);
 

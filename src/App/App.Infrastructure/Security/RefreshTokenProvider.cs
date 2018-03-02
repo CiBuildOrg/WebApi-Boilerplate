@@ -71,7 +71,10 @@ namespace App.Infrastructure.Security
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
             var allowedOrigin = context.OwinContext.Get<string>(OwinEnvironment.ClientAllowedOriginPropertyName);
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+            if (!context.OwinContext.Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+            }
 
             var hashedTokenId = context.Token.GetHash();
             var refreshToken = await _refreshTokenManager.FindRefreshToken(hashedTokenId);

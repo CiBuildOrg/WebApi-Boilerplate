@@ -74,11 +74,12 @@ namespace App.Infrastructure.Security
 
         public async Task<bool> AddRefreshToken(RefreshToken token)
         {
-            var existingToken = _context.RefreshTokens.SingleOrDefault(r => r.Subject == token.Subject && r.ClientId == token.ClientId);
-            if (existingToken != null)
+            var existingTokens = await _context.RefreshTokens.Where(r => r.Subject == token.Subject && r.ClientId == token.ClientId).ToListAsync();
+            foreach (var existingToken in existingTokens)
             {
                 await RemoveRefreshToken(existingToken);
             }
+
 
             _context.RefreshTokens.Add(token);
             return await _context.SaveChangesAsync() > 0;
