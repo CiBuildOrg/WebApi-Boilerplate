@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using App.Core;
 using App.Core.Contracts;
 using App.Entities.Security;
 using App.Infrastructure.Contracts;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
-using Thinktecture.IdentityModel.Tokens;
 
 namespace App.Infrastructure.Security
 {
     public class JwtFormat : ISecureDataFormat<AuthenticationTicket>
     {
+        private const string SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH"; // todo: get this from somewhere secure
+        private readonly SymmetricSecurityKey _signingKey = 
+            new InMemorySymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
         private readonly IRefreshTokenManager _refreshTokenManager;
         
         private readonly string _issuer;
@@ -39,7 +42,7 @@ namespace App.Infrastructure.Security
             var symmetricKeyBase64 = client.Secret;
 
             var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyBase64);
-            var signingCredentials = new HmacSigningCredentials(keyByteArray);
+            //var signingCredentials = new HmacSigningCredentials(keyByteArray);
 
             var issued = data.Properties.IssuedUtc;
 
@@ -50,6 +53,10 @@ namespace App.Infrastructure.Security
 
             if (expires == null)
                 throw new Exception("Expires is null");
+
+            
+            var signingCredentials = new SigningCredentials(_signingKey, 
+                SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
 
             var token = new JwtSecurityToken(_issuer, audienceId, data.Identity.Claims, 
                 issued.Value.UtcDateTime, expires.Value.UtcDateTime, signingCredentials);
@@ -84,22 +91,36 @@ namespace App.Infrastructure.Security
             var issuerSigningTokens = new SecurityTokensTokens(_issuer) {Audiences = AllowedAudience};
             var validationParams = new TokenValidationParameters
             {
-                AudienceValidator =  ValidateAudience,
+                AudienceValidator = ValidateAudience,
                 ValidIssuer = _issuer,
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningTokens = issuerSigningTokens,
+                IssuerSigningKey = _signingKey,
+                IssuerSigningKeyValidator = ValidateIssuerSigningKey,
+                IssuerSigningKeyResolver = IssuerSigningKeyResolver,
                 ClockSkew = TimeSpan.Zero // default value of this property is 5, it adds 5 mins to expiration time.
             };
 
             var result = handler.ValidateToken(protectedText, validationParams, out SecurityToken _);
             var claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
-
-          
             var ticket = new AuthenticationTicket(claimsIdentity, null);
             return ticket;
+        }
+
+        private SecurityKey IssuerSigningKeyResolver(string token, SecurityToken securityToken, 
+            SecurityKeyIdentifier keyIdentifier, TokenValidationParameters validationParameters)
+        {
+
+            // get the audience to get the security key.
+            return _signingKey;
+        }
+
+        private void ValidateIssuerSigningKey(SecurityKey securityKey)
+        {
+            
         }
     }
 }

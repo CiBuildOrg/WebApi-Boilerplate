@@ -296,7 +296,7 @@ namespace App.Api
 
             builder.Register(x => new OAuthBearerAuthenticationOptions
             {
-                AccessTokenFormat = x.Resolve<ISecureDataFormat<AuthenticationTicket>>()
+                AccessTokenFormat = x.Resolve<ISecureDataFormat<AuthenticationTicket>>(),
             }).AsSelf().InstancePerLifetimeScope();
 
             builder
